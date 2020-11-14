@@ -2,7 +2,7 @@
 <%@ page isELIgnored="false"%>
 <html>
 <head>
-    <title>Title</title>
+    <title>Xui</title>
 </head>
 <body>
 Request from ${pageContext.errorData.requestURI} is failed
