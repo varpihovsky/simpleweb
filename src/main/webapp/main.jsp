@@ -8,7 +8,7 @@
     <div>
         <h4>Welcome!!!</h4>
         <p>This is the first project.</p>
-        <div><%= request.getAttribute("date")%></div>
+        <div>Current time is ${date}</div>
     </div>
 </body>
 </html>
