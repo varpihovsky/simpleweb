@@ -33,8 +33,15 @@ public class Controller extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             dispatcher.forward(request, response);
         }
-        else{
-            response.sendRedirect("error.jsp");
+        else if(page.equals("/main.jsp") && send.equals("signUp")){
+            request.setAttribute("username", request.getParameter("username"));
+            request.setAttribute("password", request.getParameter("password"));
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+            dispatcher.forward(request, response);
+        }
+        else {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error.jsp");
+            dispatcher.forward(request, response);
         }
     }
 }
