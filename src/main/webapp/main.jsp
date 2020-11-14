@@ -17,7 +17,7 @@
         <p>This is the first project.</p>
         <div>Current time is ${date}</div>
     </div>
-
+<!--add registration form-->
     <form>
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -64,6 +64,8 @@
         </div>
         <button type="submit" class="btn btn-primary">Sign in</button>
     </form>
+<!---->
+
 
 </body>
 </html>
