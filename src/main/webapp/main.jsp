@@ -15,11 +15,9 @@
     <div>
         <h4>Welcome!!!</h4>
         <p>This is the first project.</p>
-        <div>
-            Current time is ${date}.
+
             Your username: ${username}
             Your password: ${password}
-        </div>
     </div>
 <!--add registration form-->
     <form method="post" action="/controller">

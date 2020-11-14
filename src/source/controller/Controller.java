@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
@@ -27,13 +26,14 @@ public class Controller extends HttpServlet {
         String page = request.getParameter("page");
         String send = request.getParameter("send");
 
-        if(page.equals("/main.jsp") && send.equals("date")){
-            Date date = new Date();
-            request.setAttribute("date", date);
+        if(page.equals("/main.jsp") && send.equals("none")){
+            request.setAttribute("username", request.getParameter("username"));
+            request.setAttribute("password", request.getParameter("password"));
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             dispatcher.forward(request, response);
         }
         else if(page.equals("/main.jsp") && send.equals("signUp")){
+            //TODO: registration
             request.setAttribute("username", request.getParameter("username"));
             request.setAttribute("password", request.getParameter("password"));
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
