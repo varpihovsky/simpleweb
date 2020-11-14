@@ -5,9 +5,12 @@ import java.util.ArrayList;
 
 public class UserLister {
     private static ArrayList<User> userList;
+    DataBaseFactory dataBase;
 
     public UserLister() {
+
         try {
+            dataBase = new DataBaseFactory();
             userList = DataBaseFactory.sync();
         } catch (SQLException e) {
             System.out.println("Exception: " + e.getErrorCode() + "\nCause: " + e.getCause());
