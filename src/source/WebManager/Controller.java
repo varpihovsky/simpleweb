@@ -31,6 +31,8 @@ public class Controller extends HttpServlet {
             RequestManager.redirect(request, response, page, this);
         } else if (page.equals("/register.jsp") && send.equals("redirect")) {
             RequestManager.redirect(request, response, page, this);
+        } else if (page.equals("/admin.jsp") && send.equals("redirect")) {
+            RequestManager.showUserData(request, response, this);
         } else if (page.equals("/main.jsp") && send.equals("signIn")) {
             RequestManager.redirect(request, response, page, this);
         } else if (page.equals("/register.jsp") && send.equals("signUp")) {

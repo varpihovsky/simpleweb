@@ -25,8 +25,8 @@ public class UserLister {
         }
     }
 
-    public static void deleteUser(String username, String password, String email){
-        for(int i = 0; i < userList.size(); i++) {
+    public static void deleteUser(String username, String password, String email) {
+        for (int i = 0; i < userList.size(); i++) {
             if (userList.get(i).getPassword().equals(password) &&
                     userList.get(i).getUsername().equals(username)) {
                 userList.remove(i);
@@ -42,18 +42,33 @@ public class UserLister {
 
     public static boolean findUser(String value) {
         boolean email = false;
-        if(value.contains("@"))
+        if (value.contains("@"))
             email = true;
         for (User user : userList) {
             if (email) {
-                if(value.equals(user.getEmail()))
+                if (value.equals(user.getEmail()))
                     return true;
-            }
-            else {
-                if(value.equals(user.getUsername()))
+            } else {
+                if (value.equals(user.getUsername()))
                     return true;
             }
         }
         return false;
+    }
+
+    public static ArrayList<ArrayList<String>> getUsers(){
+        try {
+            userList = DataBaseFactory.sync();
+        } catch (SQLException e) {
+            System.out.println("Exception: " + e.getErrorCode() + "\nCause: " + e.getCause());
+        }
+        ArrayList<ArrayList<String>> users = new ArrayList<>();
+        for(int i = 0; i < userList.size(); i++){
+            users.add(new ArrayList<>());
+            users.get(users.size() - 1).add(userList.get(i).getUsername());
+            users.get(users.size() - 1).add(userList.get(i).getEmail());
+            users.get(users.size() - 1).add(userList.get(i).getPassword());
+        }
+        return users;
     }
 }
