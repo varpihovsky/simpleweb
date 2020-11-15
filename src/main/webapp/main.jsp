@@ -14,13 +14,9 @@
 <body>
     <div>
         <h4>Welcome!!!</h4>
-        <p>This is the first project.</p>
-
-            Your username: ${username}
-            Your password: ${password}
+        <p>Main page. Login please!</p>
     </div>
-<!--add registration form-->
-    <form method="post" action="/controller">
+    <form method="post" action="${pageContext.request.contextPath}/controller">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <!--TODO: change email input field to username-->
@@ -32,12 +28,12 @@
                 <input type="password" class="form-control" id="inputPassword4" name="password">
             </div>
         </div>
-        <input type="hidden" name="send" value="signUp"/>
+        <input type="hidden" name="send" value="signIn"/>
         <input type="hidden" name="page" value="/main.jsp"/>
         <button type="submit" class="btn btn-primary">Sign in</button>
     </form>
-<!---->
-
-
+    <p>
+        If you are not registered <a href="${pageContext.request.contextPath}/controller?page=/register.jsp&send=redirect">register</a>
+    </p>
 </body>
 </html>
