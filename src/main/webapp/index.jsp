@@ -1,7 +1,7 @@
 <%@ page isELIgnored="false"%>
 <html>
 <body>
-<jsp:forward page="controller">
+<jsp:forward page="/controller">
     <jsp:param name="page" value="/main.jsp"/>
     <jsp:param name="send" value="redirect"/>
     <jsp:param name="username" value="none"/>
