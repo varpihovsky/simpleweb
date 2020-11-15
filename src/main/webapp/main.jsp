@@ -24,8 +24,8 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <!--TODO: change email input field to username-->
-                <label for="inputUsername4">Username</label>
-                <input type="email" class="form-control" id="inputUsername4" name="username">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" name="email">
             </div>
             <div class="form-group col-md-6">
                 <label for="inputPassword4">Password</label>
