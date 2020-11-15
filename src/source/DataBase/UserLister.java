@@ -5,12 +5,11 @@ import java.util.ArrayList;
 
 public class UserLister {
     private static ArrayList<User> userList;
-    DataBaseFactory dataBase;
 
-    public UserLister() {
+    public static void init() {
 
         try {
-            dataBase = new DataBaseFactory();
+            DataBaseFactory.init();
             userList = DataBaseFactory.sync();
         } catch (SQLException e) {
             System.out.println("Exception: " + e.getErrorCode() + "\nCause: " + e.getCause());
@@ -20,7 +19,7 @@ public class UserLister {
     public static void addUser(String username, String password, String email) {
         userList.add(new User(username, password, email));
         try {
-            DataBaseFactory.addUser(username, password, email);
+            DataBaseFactory.addUser(username, email, password);
         } catch (SQLException e) {
             System.out.println("Exception: " + e.getErrorCode() + "\nCause: " + e.getCause());
         }

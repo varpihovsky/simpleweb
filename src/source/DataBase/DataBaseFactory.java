@@ -16,19 +16,16 @@ class DataBaseFactory {
         statement = connection.createStatement();
     }
 
-    public static boolean addUser(String username, String password, String email)
+    public static void addUser(String username, String password, String email)
             throws SQLException {
-        if (username.length() > 20 || password.length() > 20)
-            return false;
-        resultSet = statement.executeQuery("INSERT INTO simpleweb.user_data(USERNAME, PASS, EMAIL) VALUES (\'" + username +
+        statement.executeUpdate("INSERT INTO simpleweb.user_data(USERNAME, PASS, EMAIL) VALUES (\'" + username +
                 "\', \'" + password + "\', \'" + email + "\');");
-        return true;
     }
 
     public static void deleteUser(String username, String password, String email)
             throws SQLException {
-        resultSet = statement.executeQuery("DELETE FROM user_data WHERE" +
-                "USERNAME=\'" + username + "\' AND PASSWORD=\'" + password + "\' AND EMAIL=\'" + email + "\'");
+        statement.executeUpdate("DELETE FROM user_data WHERE USERNAME=\'"
+                + username + "\' AND PASSWORD=\'" + password + "\' AND EMAIL=\'" + email + "\'");
     }
 
     public static ArrayList<User> sync() throws SQLException {
