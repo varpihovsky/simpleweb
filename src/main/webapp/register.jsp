@@ -17,7 +17,7 @@
         <button type="submit">Submit</button>
     </form>
 
-${message}
+    ${registerMessage}
 
 <a href="${pageContext.request.contextPath}/controller?page=/main.jsp&send=redirect">Go back</a>
 </body>
