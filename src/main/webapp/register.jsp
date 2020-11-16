@@ -13,7 +13,7 @@
         <label for="passwordInput">Password:</label>
         <input type="password" name="password" value="" id="passwordInput">
         <input type="hidden" name="page" value="/register.jsp">
-        <input type="hidden" name="send" value="signUp">
+        <input type="hidden" name="send" value="register">
         <button type="submit">Submit</button>
     </form>
 

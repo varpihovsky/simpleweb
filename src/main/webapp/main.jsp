@@ -28,7 +28,7 @@
                 <input type="password" class="form-control" id="inputPassword4" name="password">
             </div>
         </div>
-        <input type="hidden" name="send" value="signIn"/>
+        <input type="hidden" name="send" value="signin"/>
         <input type="hidden" name="page" value="/main.jsp"/>
         <button type="submit" class="btn btn-primary">Sign in</button>
     </form>
