@@ -1,6 +1,7 @@
 package WebManager;
 
-import DataBase.UserLister;
+import WebManager.send.InterfaceSend;
+import WebManager.send.SendController;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,21 +25,11 @@ public class Controller extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        String page = request.getParameter("page");
-        String send = request.getParameter("send");
+        SendController controller = new SendController();
+        InterfaceSend currentSend = controller.defineSend(request);
+        String page = currentSend.executeSend(request);
 
-        if (page.equals("/main.jsp") && send.equals("redirect")) {
-            RequestManager.redirect(request, response, page, this);
-        } else if (page.equals("/register.jsp") && send.equals("redirect")) {
-            RequestManager.redirect(request, response, page, this);
-        } else if (page.equals("/admin.jsp") && send.equals("redirect")) {
-            RequestManager.showUserData(request, response, this);
-        } else if (page.equals("/main.jsp") && send.equals("signIn")) {
-            RequestManager.redirect(request, response, page, this);
-        } else if (page.equals("/register.jsp") && send.equals("signUp")) {
-            RequestManager.register(request, response, page, this);
-        } else {
-            RequestManager.redirect(request, response, page, this);
-        }
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+        dispatcher.forward(request, response);
     }
 }
