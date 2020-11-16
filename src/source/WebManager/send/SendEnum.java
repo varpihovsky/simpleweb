@@ -10,6 +10,11 @@ public enum SendEnum {
         {
             this.send = new RegisterSend();
         }
+    },
+    LOGIN {
+        {
+            this.send = new LoginSend();
+        }
     };
 
     InterfaceSend send;
