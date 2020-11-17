@@ -31,6 +31,8 @@ public class LoginSend implements InterfaceSend {
             }
         }
         request.setAttribute("loginMessage", message);
+        page = page.replace("/", "");
+        page = page.replace(".jsp", "");
         return page;
     }
 }

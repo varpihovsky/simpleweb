@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Form</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="css/style.css">
 
 
 

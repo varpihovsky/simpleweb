@@ -37,6 +37,8 @@ public class RegisterSend implements InterfaceSend {
             }
             request.setAttribute("message", "Registered");
         }
+        page = page.replace("/", "");
+        page = page.replace(".jsp", "");
         return page;
     }
 }
