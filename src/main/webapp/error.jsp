@@ -10,5 +10,7 @@ Request from ${pageContext.errorData.requestURI} is failed
 Error №${pageContext.errorData.statusCode}
 <br/>
 Exception: ${pageContext.errorData.throwable}
+<br/>
+<a href="/controller?page=/main.jsp&send=redirect">Go back</a>
 </body>
 </html>
