@@ -10,8 +10,12 @@ public class SendController {
         if (send == null || send.equals("")) {
             return currentSend;
         }
-        SendEnum sendEnum = SendEnum.valueOf(send.toUpperCase());
-        currentSend = sendEnum.getCurrentSend();
-        return currentSend;
+        try {
+            SendEnum sendEnum = SendEnum.valueOf(send.toUpperCase());
+            currentSend = sendEnum.getCurrentSend();
+            return currentSend;
+        } catch (IllegalArgumentException e) {
+            return currentSend;
+        }
     }
 }
