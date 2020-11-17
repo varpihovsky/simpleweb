@@ -1,5 +1,7 @@
 package WebManager;
 
+import WebManager.renderer.InterfaceRenderer;
+import WebManager.renderer.RendererController;
 import WebManager.send.InterfaceSend;
 import WebManager.send.SendController;
 
@@ -26,8 +28,15 @@ public class Controller extends HttpServlet {
     private void process(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         SendController controller = new SendController();
+        RendererController rendererController = new RendererController();
+
         InterfaceSend currentSend = controller.defineSend(request);
+        InterfaceRenderer currentRenderer = rendererController.defineRenderer(request);
+
         String page = currentSend.executeSend(request);
+        currentRenderer.render(request);
+
+        page = "/" + page + ".jsp";
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
         dispatcher.forward(request, response);
