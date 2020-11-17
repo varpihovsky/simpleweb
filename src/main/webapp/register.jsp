@@ -19,6 +19,6 @@
 
     ${registerMessage}
 
-<a href="${pageContext.request.contextPath}/controller?page=/main.jsp&send=redirect">Go back</a>
+    <a href="${pageContext.request.contextPath}/controller?page=main&send=redirect">Go back</a>
 </body>
 </html>
