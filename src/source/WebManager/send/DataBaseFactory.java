@@ -39,4 +39,18 @@ public class DataBaseFactory {
         }
         return userList;
     }
+
+    public boolean findUser(String username, String password) throws SQLException {
+        resultSet = statement.executeQuery("SELECT EXISTS(SELECT * FROM user_data WHERE USERNAME=\'" + username +
+                "\' AND PASS=\'" + password + "\')");
+        resultSet.next();
+        return resultSet.getBoolean(1);
+    }
+
+    public boolean findAdmin(String username, String password) throws SQLException {
+        resultSet = statement.executeQuery("SELECT EXISTS(SELECT * FROM user_data WHERE USERNAME=\'" + username +
+                "\' AND PASS=\'" + password + "\' AND ISADMIN=\'yes\')");
+        resultSet.next();
+        return resultSet.getBoolean(1);
+    }
 }
