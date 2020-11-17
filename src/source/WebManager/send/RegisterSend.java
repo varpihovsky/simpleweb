@@ -27,15 +27,15 @@ public class RegisterSend implements InterfaceSend {
         }
 
         if (isWrong) {
-            request.setAttribute("message", message);
+            request.setAttribute("registerMessage", message);
         } else {
             try {
                 DataBaseFactory dataBaseFactory = new DataBaseFactory();
                 dataBaseFactory.addUser(username, email, password);
+                request.setAttribute("registerMessage", "Registered");
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-            request.setAttribute("message", "Registered");
         }
         page = page.replace("/", "");
         page = page.replace(".jsp", "");

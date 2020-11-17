@@ -16,7 +16,7 @@ public class DataBaseFactory {
         statement = connection.createStatement();
     }
 
-    public void addUser(String username, String password, String email)
+    public void addUser(String username, String email, String password)
             throws SQLException {
         statement.executeUpdate("INSERT INTO simpleweb.user_data(USERNAME, PASS, EMAIL) VALUES (\'" + username +
                 "\', \'" + password + "\', \'" + email + "\');");
