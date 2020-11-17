@@ -17,13 +17,13 @@
 
 
 <div class="form">
-    <form action="/controller">
+    <form action="/controller" method="post">
         <h1>Вход</h1>
         <div class="input-form">
             <input type="text" placeholder="Логин" name="username" value="">
         </div>
         <div class="input-form">
-            <input type="password" placeholder="Пароль">
+            <input type="password" placeholder="Пароль" name="password" value="">
         </div>
         <div class="input-form">
             <input type="submit" value="Войти">

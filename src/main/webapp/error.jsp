@@ -11,6 +11,6 @@ Error №${pageContext.errorData.statusCode}
 <br/>
 Exception: ${pageContext.errorData.throwable}
 <br/>
-<a href="/controller?page=/main.jsp&send=redirect">Go back</a>
+<a href="/controller?page=main&send=redirect">Go back</a>
 </body>
 </html>
