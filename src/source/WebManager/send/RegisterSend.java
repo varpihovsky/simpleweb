@@ -27,7 +27,7 @@ public class RegisterSend implements InterfaceSend {
         }
 
         if (isWrong) {
-            request.setAttribute("registerMessage", message);
+            request.setAttribute("message", message);
         } else {
             try {
                 DataBaseFactory dataBaseFactory = new DataBaseFactory();
@@ -35,7 +35,7 @@ public class RegisterSend implements InterfaceSend {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-            request.setAttribute("registerMessage", "Registered");
+            request.setAttribute("message", "Registered");
         }
         return page;
     }
