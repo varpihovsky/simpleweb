@@ -28,9 +28,9 @@
         <div class="input-form">
             <input type="submit" value="Войти">
         </div>
-        <a href="#" class="forget">Забыли пароль?</a>
+        <a href="#" class="forget">Забыли пароль?</a> ${loginMessage}
         <input type="hidden" name="send" value="login">
-        <input type="hidden" name="page" value="main">
+        <input type="hidden" name="page" value="login">
     </form>
 </div>
 

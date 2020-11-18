@@ -12,5 +12,7 @@ Max inactive interval: ${pageContext.session.maxInactiveInterval}
 Username: ${username}
 <br/>
 Password: ${password}
+<br/>
+<a href="/controller?page=main&send=logout">Logout</a>
 </body>
 </html>

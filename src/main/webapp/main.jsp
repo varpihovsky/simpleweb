@@ -15,7 +15,6 @@
     <div>
         <h4>Welcome!!!</h4>
         <p>This is the first project.</p>
-        <div>Current time is ${date}</div>
     </div>
     ${render}
 </body>
