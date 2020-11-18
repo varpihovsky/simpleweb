@@ -15,6 +15,11 @@ public enum SendEnum {
         {
             this.send = new LoginSend();
         }
+    },
+    LOGOUT {
+        {
+            this.send = new LogoutSend();
+        }
     };
 
     InterfaceSend send;
