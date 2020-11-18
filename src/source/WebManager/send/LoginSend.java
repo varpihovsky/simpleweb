@@ -1,5 +1,8 @@
 package WebManager.send;
 
+import WebManager.SessionManager;
+import WebManager.security.Checker;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
@@ -10,29 +13,26 @@ public class LoginSend implements InterfaceSend {
         String page = request.getParameter("page");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+
         String message = "";
-        boolean isWrong = false;
-        if (username.contains("\'") || password.contains("\'")) {
-            isWrong = true;
-            message += "Wrong username or email symbols typed";
-        }
-        if (!isWrong) {
+        if (Checker.isContainsWrong(username) || Checker.isContainsWrong(password) || !Checker.checkLength(username, 4, 20) ||
+                !Checker.checkLength(password, 8, 20)) {
+            message += "Wrong username or password";
+        } else {
             try {
                 DataBaseFactory dataBaseFactory = new DataBaseFactory();
-                isWrong = !dataBaseFactory.findUser(username, password);
-                if (!isWrong) {
+                if (dataBaseFactory.findUser(username, password)) {
                     HttpSession session = request.getSession();
                     session.setAttribute("username", username);
                     session.setAttribute("password", password);
-                    page = "/profile.jsp";
-                }
+                    page = "profile";
+                } else message += "User is not exist's";
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
         }
+
         request.setAttribute("loginMessage", message);
-        page = page.replace("/", "");
-        page = page.replace(".jsp", "");
-        return page;
+        return Checker.pageReplace(page);
     }
 }

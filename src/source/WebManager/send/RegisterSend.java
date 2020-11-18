@@ -1,5 +1,7 @@
 package WebManager.send;
 
+import WebManager.security.Checker;
+
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
@@ -11,34 +13,21 @@ public class RegisterSend implements InterfaceSend {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String message = "User is not registered. ";
-        boolean isWrong = false;
 
-        if (password.contains("\'")) {
-            isWrong = true;
-            message = message + "Your email is wrong. ";
-        }
-        if (username.length() < 4 || username.contains("\'")) {
-            isWrong = true;
-            message = message + "Your username has length less than 4 or contains wrong characters";
-        }
-        if (password.length() < 8 || password.length() > 20 || password.contains("\'")) {
-            isWrong = true;
-            message = message + "Wrong password length.";
-        }
-
-        if (isWrong) {
-            request.setAttribute("registerMessage", message);
+        if (Checker.isContainsWrong(username) || Checker.isContainsWrong(email) || Checker.isContainsWrong(password) ||
+                !Checker.checkLength(username, 4, 20) || !Checker.checkLength(password, 8, 20) ||
+                !Checker.checkLength(email, 0, 40)) {
+            message += "Contains wrong symbols or has wrong length";
         } else {
             try {
                 DataBaseFactory dataBaseFactory = new DataBaseFactory();
                 dataBaseFactory.addUser(username, email, password);
-                request.setAttribute("registerMessage", "Registered");
+                message = "User registered";
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
         }
-        page = page.replace("/", "");
-        page = page.replace(".jsp", "");
-        return page;
+        request.setAttribute("registerMessage", message);
+        return Checker.pageReplace(page);
     }
 }

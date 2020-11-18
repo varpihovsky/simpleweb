@@ -1,5 +1,6 @@
 package WebManager;
 
+import WebManager.security.Checker;
 import WebManager.send.DataBaseFactory;
 
 import javax.servlet.http.HttpSession;
@@ -9,18 +10,16 @@ public class SessionManager {
     public static boolean checkUserSession(HttpSession session) {
         String username = (String) session.getAttribute("username");
         String password = (String) session.getAttribute("password");
-        boolean isWrong = false;
-        if (username == null || password == null || username.contains("\'") || password.contains("\'")) {
-            isWrong = true;
-        }
-        if (!isWrong) {
+        if (Checker.isContainsWrong(username) || Checker.isContainsWrong(password))
+            return false;
+        else {
             try {
                 DataBaseFactory dataBaseFactory = new DataBaseFactory();
-                isWrong = dataBaseFactory.findUser(username, password);
+                return dataBaseFactory.findUser(username, password);
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
         }
-        return !isWrong;
+        return false;
     }
 }
