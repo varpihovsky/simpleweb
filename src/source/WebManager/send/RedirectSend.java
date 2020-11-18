@@ -1,14 +1,19 @@
 package WebManager.send;
 
+import WebManager.SessionManager;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class RedirectSend implements InterfaceSend {
     @Override
     public String executeSend(HttpServletRequest request) {
-        if (request.getParameter("page") == null || request.getParameter("page").equals(""))
-            return "/main.jsp";
+        String page = request.getParameter("page");
+        if (page == null || page.equals(""))
+            return "main";
+        else if (page.equals("login") && SessionManager.checkUserSession(request.getSession()))
+            return "profile";
         else {
-            return request.getParameter("page");
+            return page;
         }
     }
 }
