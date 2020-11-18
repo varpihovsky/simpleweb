@@ -25,7 +25,7 @@ public class DataBaseFactory {
     public void deleteUser(String username, String password, String email)
             throws SQLException {
         statement.executeUpdate("DELETE FROM user_data WHERE USERNAME=\'"
-                + username + "\' AND PASSWORD=\'" + password + "\' AND EMAIL=\'" + email + "\'");
+                + username + "\' AND PASS=\'" + password + "\' AND EMAIL=\'" + email + "\'");
     }
 
     public ArrayList<ArrayList<String>> getUserList() throws SQLException {
