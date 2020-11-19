@@ -1,4 +1,4 @@
-package WebManager;
+package test.implementations;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

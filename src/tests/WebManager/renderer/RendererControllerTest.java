@@ -1,6 +1,6 @@
 package WebManager.renderer;
 
-import WebManager.HttpServletRequestImplemented;
+import test.implementations.HttpServletRequestImplemented;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

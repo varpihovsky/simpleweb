@@ -1,6 +1,6 @@
 package WebManager.send;
 
-import WebManager.HttpServletRequestImplemented;
+import test.implementations.HttpServletRequestImplemented;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -13,7 +13,7 @@ public class SendControllerTest {
     private static SendController controller;
 
     @Mock
-    HttpServletRequestImplemented request;
+    private static HttpServletRequestImplemented request;
 
     @Before
     public void before() {
