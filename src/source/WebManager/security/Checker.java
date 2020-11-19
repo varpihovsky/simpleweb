@@ -15,7 +15,7 @@ public class Checker {
             from = to;
             to = temp;
         }
-        if (str.length() >= from || str.length() <= to)
+        if (str.length() >= from && str.length() <= to)
             return true;
         return false;
     }
