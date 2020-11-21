@@ -1,15 +1,23 @@
 package WebManager.send;
 
+import WebManager.CookieManager;
 import WebManager.SessionManager;
 import WebManager.security.Checker;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
 public class LoginSend implements InterfaceSend {
     @Override
     public String executeSend(HttpServletRequest request) {
+        return null;
+    }
+
+    @Override
+    public String executeSend(HttpServletRequest request, HttpServletResponse response) {
+        CookieManager manager = new CookieManager();
         String page = request.getParameter("page");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -25,6 +33,9 @@ public class LoginSend implements InterfaceSend {
                     HttpSession session = request.getSession();
                     session.setAttribute("username", username);
                     session.setAttribute("password", password);
+                    if (!Checker.isContainsWrong(request.getParameter("cookie")) &&
+                            request.getParameter("cookie").equals("true"))
+                        manager.setCookiesToResponse(response, username, password);
                     page = "profile";
                 } else message += "User is not exist's";
             } catch (SQLException e) {

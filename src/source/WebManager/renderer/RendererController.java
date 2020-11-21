@@ -1,11 +1,8 @@
 package WebManager.renderer;
 
-import javax.servlet.http.HttpServletRequest;
-
 public class RendererController {
-    public InterfaceRenderer defineRenderer(HttpServletRequest request) {
+    public InterfaceRenderer defineRenderer(String page) {
         InterfaceRenderer currentRenderer = new NullRenderer();
-        String page = request.getParameter("page");
 
         if (page == null || page.equals("")) {
             return currentRenderer;

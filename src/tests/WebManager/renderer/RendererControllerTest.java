@@ -26,16 +26,11 @@ public class RendererControllerTest {
 
     @Test
     public void defineRendererTestFirst() {
-
-        Mockito.when(request.getParameter(eq("page"))).thenReturn(null);
-
-        assertSame(controller.defineRenderer(request).getClass(), NullRenderer.class);
+        assertSame(controller.defineRenderer(null).getClass(), NullRenderer.class);
     }
 
     @Test
     public void defineRendererTestSecond() {
-        Mockito.when(request.getParameter(eq("page"))).thenReturn("main");
-
-        assertSame(controller.defineRenderer(request).getClass(), MainPageRenderer.class);
+        assertSame(controller.defineRenderer("main").getClass(), MainPageRenderer.class);
     }
 }

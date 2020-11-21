@@ -10,16 +10,13 @@
     <form action="${pageContext.request.contextPath}/controller" method="post">
         <h1>Регистрация</h1>
         <div class="input-form">
-            <p style="color:#FFFFFF"><big>Придумайте логин</big> <br>
                 <input type="text" placeholder="Логин" name="username" value="">
         </div>
         <div class="input-form">
-            <p style="color:#FFFFFF"><big>Придумайте пароль</big> <br>
                 <input type="password" placeholder="Пароль" name="password" value="">
         </div>
 
         <div class="input-form">
-            <p style="color:#FFFFFF"><big>Введите почту</big> <br>
                 <input type="text" placeholder="Почта" name="email" value="">
         </div>
         <div class="input-form">

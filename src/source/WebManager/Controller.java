@@ -4,6 +4,7 @@ import WebManager.renderer.InterfaceRenderer;
 import WebManager.renderer.RendererController;
 import WebManager.send.InterfaceSend;
 import WebManager.send.SendController;
+import WebManager.send.SendExecutor;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,9 +32,9 @@ public class Controller extends HttpServlet {
         RendererController rendererController = new RendererController();
 
         InterfaceSend currentSend = controller.defineSend(request);
-        InterfaceRenderer currentRenderer = rendererController.defineRenderer(request);
 
-        String page = currentSend.executeSend(request);
+        String page = SendExecutor.execute(currentSend, request, response);
+        InterfaceRenderer currentRenderer = rendererController.defineRenderer(page);
         currentRenderer.render(request);
 
         page = "/" + page + ".jsp";
