@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/form.css">
@@ -19,7 +20,7 @@
         crossorigin="anonymous"></script>
 
 
-<div class="form">
+<div class="form login">
     <form action="${pageContext.request.contextPath}/controller" method="post">
         <a href="${pageContext.request.contextPath}/controller?page=main&send=redirect" class="back">Back</a>
         <h1>Вход</h1>
@@ -38,7 +39,7 @@
         <div class="input-form">
             <input type="submit" value="Войти">
         </div>
-        <a href="#" class="forget">Забыли пароль?</a>
+        <a href="/controller?page=forget&send=redirect" class="forget">Забыли пароль?</a>
         <input type="hidden" name="send" value="login">
         <input type="hidden" name="page" value="login">
     </form>

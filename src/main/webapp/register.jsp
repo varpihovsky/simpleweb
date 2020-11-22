@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Register</title>
     <link rel="stylesheet" href="css/register.css">
     <link rel="stylesheet" href="css/form.css">
@@ -29,9 +30,6 @@
         <input type="hidden" name="page" value="register">
     </form>
 </div>
-
     ${registerMessage}
-
-    <a href="${pageContext.request.contextPath}/controller?page=main&send=redirect">Go back</a>
 </body>
 </html>
