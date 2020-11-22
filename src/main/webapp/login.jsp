@@ -21,6 +21,7 @@
 
 <div class="form">
     <form action="${pageContext.request.contextPath}/controller" method="post">
+        <a href="${pageContext.request.contextPath}/controller?page=main&send=redirect" class="back">Back</a>
         <h1>Вход</h1>
         <div class="input-form">
             <input type="text" placeholder="Логин" name="username" value="">
@@ -30,8 +31,8 @@
         </div>
 
         <div class="checkbox">
-            <input type="checkbox" id="check" name="cookie" value="true"><label for="check" style="color:#808080">Запомнить
-            меня</label>
+            <input type="checkbox" id="check" name="cookie" value="true">
+            <label for="check" class="checkbox-text">Запомнить меня</label>
         </div>
 
         <div class="input-form">
@@ -42,6 +43,5 @@
         <input type="hidden" name="page" value="login">
     </form>
 </div>
-<a href="${pageContext.request.contextPath}/controller?page=main&send=redirect">Go back</a>
 </body>
 </html>

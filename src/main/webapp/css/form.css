@@ -43,15 +43,29 @@ body {
     background: #4442db;
 }
 
-.form a {
+.forget {
     display: block;
     padding: 0 0 30px;
     text-align: center;
     color: #fff;
     text-decoration: none;
+}
+
+.form a {
+    color: #fff;
     transition: .3s;
 }
 
 .form a:hover {
     color: #0fc3f5;
+}
+
+.back {
+    text-align: left;
+    float: left;
+    text-decoration: none;
+    font-size: 20px;
+    position: relative;
+    top: 4px;
+    left: 40px;
 }

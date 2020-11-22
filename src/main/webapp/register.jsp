@@ -9,16 +9,17 @@
 <body>
 <div class="form">
     <form action="${pageContext.request.contextPath}/controller" method="post">
+        <a href="${pageContext.request.contextPath}/controller?page=main&send=redirect" class="back">Back</a>
         <h1>Регистрация</h1>
         <div class="input-form">
-                <input type="text" placeholder="Логин" name="username" value="">
+            <input type="text" placeholder="Логин" name="username" value="">
         </div>
         <div class="input-form">
-                <input type="password" placeholder="Пароль" name="password" value="">
+            <input type="password" placeholder="Пароль" name="password" value="">
         </div>
 
         <div class="input-form">
-                <input type="text" placeholder="Почта" name="email" value="">
+            <input type="text" placeholder="Почта" name="email" value="">
         </div>
         <div class="input-form">
             <input type="submit" value="Регистрация">
