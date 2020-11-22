@@ -13,15 +13,20 @@ public class CookieManager {
     Cookie password;
 
     public boolean getCookiesFromRequest(HttpServletRequest request) {
-        for (Cookie c : request.getCookies()) {
-            if (c.getName().equals("username"))
-                username = c;
-            if (c.getName().equals("password"))
-                password = c;
+        try {
+            for (Cookie c : request.getCookies()) {
+                if (c.getName().equals("username"))
+                    username = c;
+                if (c.getName().equals("password"))
+                    password = c;
+            }
+            if (username == null || password == null)
+                return false;
+            else return true;
         }
-        if (username == null || password == null)
+        catch (NullPointerException e) {
             return false;
-        else return true;
+        }
     }
 
     public void setCookiesToResponse(HttpServletResponse response, String username, String password) {
