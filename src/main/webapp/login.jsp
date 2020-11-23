@@ -8,7 +8,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/form.css">
-
+    <link rel="stylesheet" href="css/basic.css">
 </head>
 <body>
 

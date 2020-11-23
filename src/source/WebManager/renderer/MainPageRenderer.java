@@ -9,11 +9,10 @@ public class MainPageRenderer implements InterfaceRenderer {
         String username = (String) request.getSession().getAttribute("username");
         String password = (String) request.getSession().getAttribute("password");
         if (username == null || password == null || username.equals("") || password.equals("")) {
-            rendered = "Not registered? <a href=\"/controller?page=register&send=redirect\">Register</a><br/>\n" +
-                    "    Registered? <a href=\"/controller?page=login&send=redirect\">Login</a>";
-        } else rendered = "Your username: " + username + "\n<br/>" +
-                "    Your password: " + password + "\n<br/>" +
-                "    <a href=\"/controller?page=profile&send=redirect\">Go to profile</a><br/>";
+            rendered = "<a href=\"/controller?page=login&send=redirect\">Вход</a>\n" +
+                    "        <a href=\"/controller?page=register&send=redirect\">Регистрация</a>";
+        } else rendered = "<a href=\"/controller?page=profile&send=redirect\">Профиль</a>\n" +
+                "        <a href=\"/controller?page=main&send=logout\">Выход</a>";
         request.setAttribute("render", rendered);
     }
 }

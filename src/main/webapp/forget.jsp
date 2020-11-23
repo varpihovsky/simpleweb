@@ -6,6 +6,7 @@
     <title>Forget</title>
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/basic.css">
 </head>
 <body>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

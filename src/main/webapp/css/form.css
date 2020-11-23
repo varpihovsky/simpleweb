@@ -14,14 +14,6 @@
     text-transform: uppercase;
 }
 
-body {
-    background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), #808080;
-    -webkit-background-size: cover;
-    background-size: cover;
-    background-attachment: fixed;
-    font-family: sans-serif;
-}
-
 .form {
     position: absolute;
     top: 50%;
