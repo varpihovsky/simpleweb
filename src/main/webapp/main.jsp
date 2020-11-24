@@ -1,3 +1,5 @@
+<%@ page isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -10,11 +12,7 @@
     <div class="navbar">
         <div class="logo-text">echat</div>
         <nav>
-            <a href="#">Users</a>
-            <a href="/controller?page=register&send=redirect">Register</a>
-            <a href="#">News</a>
-            <a href="#">Rooms</a>
-            <a href="/controller?page=login&send=redirect">Login</a>
+            ${render}
         </nav>
     </div>
     <div class="container">
