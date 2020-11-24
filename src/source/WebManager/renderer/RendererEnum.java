@@ -5,6 +5,11 @@ public enum RendererEnum {
         {
             this.renderer = new MainPageRenderer();
         }
+    },
+    PROFILE {
+        {
+            this.renderer = new ProfilePageRenderer();
+        }
     };
     InterfaceRenderer renderer;
 

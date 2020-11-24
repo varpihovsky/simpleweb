@@ -9,10 +9,16 @@ public class MainPageRenderer implements InterfaceRenderer {
         String username = (String) request.getSession().getAttribute("username");
         String password = (String) request.getSession().getAttribute("password");
         if (username == null || password == null || username.equals("") || password.equals("")) {
-            rendered = "<a href=\"/controller?page=login&send=redirect\">Вход</a>\n" +
-                    "        <a href=\"/controller?page=register&send=redirect\">Регистрация</a>";
-        } else rendered = "<a href=\"/controller?page=profile&send=redirect\">Профиль</a>\n" +
-                "        <a href=\"/controller?page=main&send=logout\">Выход</a>";
+            rendered = "<a href=\"#\">Users</a>\n" +
+                    "            <a href=\"/controller?page=register&send=redirect\">Register</a>\n" +
+                    "            <a href=\"#\">News</a>\n" +
+                    "            <a href=\"#\">Rooms</a>\n" +
+                    "            <a href=\"/controller?page=login&send=redirect\">Login</a>";
+        } else rendered = "<a href=\"#\">Users</a>\n" +
+                "            <a href=\"/controller?page=profile&send=redirect\">Profile</a>\n" +
+                "            <a href=\"#\">News</a>\n" +
+                "            <a href=\"#\">Rooms</a>\n" +
+                "            <a href=\"/controller?page=main&send=logout\">Logout</a>";
         request.setAttribute("render", rendered);
     }
 }
