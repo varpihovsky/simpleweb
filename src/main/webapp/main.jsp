@@ -11,7 +11,7 @@
         <div class="logo-text">echat</div>
         <nav>
             <a href="#">Users</a>
-            <a href="/controller?page=login&send=redirect">Register</a>
+            <a href="/controller?page=register&send=redirect">Register</a>
             <a href="#">News</a>
             <a href="#">Rooms</a>
             <a href="/controller?page=login&send=redirect">Login</a>
