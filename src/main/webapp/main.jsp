@@ -1,5 +1,3 @@
-<%@ page isELIgnored="false" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -8,30 +6,32 @@
     <link rel="stylesheet" href="css/basic.css">
 </head>
 <body>
-<div class="navbar">
-    <div class="logo">echat</div>
-
-    <nav>
-        ${render}
-    </nav>
-</div>
-<div class="container">
-    <div class="grid">
-        <div class="item">
-            <h3> Some text.</h3>
-            <div> Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text.
-                Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some
-                text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text.
-                Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some
-                text. Some text.
+<div class="page-container">
+    <div class="navbar">
+        <div class="logo-text">echat</div>
+        <nav>
+            <a href="#">Users</a>
+            <a href="/controller?page=login&send=redirect">Register</a>
+            <a href="#">News</a>
+            <a href="#">Rooms</a>
+            <a href="/controller?page=login&send=redirect">Login</a>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="grid">
+            <div class="about">
+                <h1>Echat</h1>
+                <p>Echat - free opensource platform where you can communicate with other users freely.
+                    Create public rooms where user can find your room and join to it freely, private rooms where user
+                    can join to it only with invite code and protected rooms where user can see your room in room list
+                    but can join only with a password. You can add a rooles to your room or have full anarchy in it.</p>
             </div>
-        </div>
-        <div class="item">
-            <h3> Some text.</h3>
-            <div>Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some
-                text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text.
-                Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some text. Some
-                text. Some text. Some text. Some text.
+            <div class="about">
+                <h1>Open and free</h1>
+                <p>As was told before, echat is opensource project, so if you have skills you can help project to
+                    develop. Just do pull request and contributors will think about it. No analytics or information
+                    about users collected.
+                </p>
             </div>
         </div>
     </div>

@@ -1,9 +1,22 @@
+h1, h2, h3, h4, h5, h6, p {
+    color: white;
+    opacity: .9;
+}
+
 body {
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+    background: #333;
     -webkit-background-size: cover;
     background-size: cover;
     background-attachment: fixed;
     font-family: sans-serif;
+}
+
+.page-container {
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 /* Navbar */
@@ -18,18 +31,31 @@ body {
     justify-content: space-between;
     align-items: center;
 
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    position: relative;
 
     width: 100%;
-    max-width: 1080px;
-    background-color: #383838;
+    min-width: 100%;
+
+    background-color: #444;
     margin: 0 auto;
 }
 
+.logo-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    text-align: center;
+}
+
 .logo {
+    display: block;
+    margin: auto;
+
+    width: 70px;
+    height: 70px;
+}
+
+.logo-text {
     margin-left: 20px;
 
     font-size: 30px;
@@ -40,6 +66,7 @@ body {
 nav {
     font-size: 14px;
     text-transform: uppercase;
+    align-content: center;
 }
 
 nav a {
@@ -65,17 +92,16 @@ nav a:hover {
     display: block;
 
     width: 100%;
-    max-width: 1080px;
-
-    position: absolute;
-    top: 34px;
     left: 50%;
     transform: translate(-50%, 0);
+    max-width: 1080px;
+
+    position: relative;
 
     margin: 0;
-    background-color: #383838;
 }
 
+/* Grid */
 .grid {
     width: 100%;
     height: 100%;
@@ -83,7 +109,6 @@ nav a:hover {
     display: grid;
     justify-content: space-between;
     align-content: stretch;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
     max-width: 1080px;
 }
@@ -109,4 +134,70 @@ nav a:hover {
 
 .item div {
     margin-top: 5px;
+}
+
+/* About */
+.about {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    width: 100%;
+    height: 100vw;
+}
+
+.about h1 {
+    font-size: 15vw;
+    font-family: serif;
+    width: 100%;
+    height: 50vw;
+    align-self: stretch;
+}
+
+.about p {
+    font-size: 3vw;
+    height: 50vw;
+}
+
+@media screen and (max-width: 20cm) {
+    .navbar {
+        position: relative;
+        display: grid;
+        grid-gap: 1em;
+
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+    }
+
+    .logo-text {
+        display: subgrid;
+
+    }
+
+    nav {
+        width: 100%;
+        align-items: center;
+        display: grid;
+        grid-gap: 1em;
+        margin-bottom: 5px;
+    }
+
+    nav a {
+        width: 100%;
+    }
+
+    .about {
+        height: auto;
+    }
+
+    .about h1 {
+        height: auto;
+        font-size: 32px;
+    }
+
+    .about p {
+        height: auto;
+        font-size: 16px;
+    }
 }
