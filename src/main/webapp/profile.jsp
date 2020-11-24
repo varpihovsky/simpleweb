@@ -27,9 +27,9 @@
                 <img src="img/avatar.jpg" alt="avatar"/>
             </div>
             <div class="username">
-                Username
+                ${username}
                 <div class="profile-settings">
-                    <a href="#">
+                    <a href="/controller?page=profileSettings&send=redirect">
                         <img src="img/settings.svg" alt="settings"/>
                     </a>
                 </div>
