@@ -5,9 +5,10 @@
 }
 
 h3 {
+    font-family: Serif;
     text-align: center;
     font-size: 36px;
-    margin: 20px auto;
+    margin: 35px auto;
     text-transform: uppercase;
 }
 
@@ -64,11 +65,16 @@ a {
 .room-grid {
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: repeat(auto-fill, minmax(23vw, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(23vw, 1fr));
+
     justify-items: center;
 }
 
 .room {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
     background-color: #444;
     width: 23vw;
 }
@@ -120,6 +126,7 @@ a {
     }
 
     .room-grid {
+        display: block;
         grid-template-columns: 1fr;
     }
 

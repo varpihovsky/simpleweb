@@ -10,7 +10,7 @@
 <body>
 <div class="page-container">
     <div class="navbar">
-        <div class="logo-text">echat</div>
+        <div class="logo-text"><a href="/controller?page=main&send=redirect">echat</a></div>
         <nav>
             ${render}
         </nav>

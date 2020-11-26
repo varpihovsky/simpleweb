@@ -11,20 +11,16 @@
 <body>
 <div class="page-container">
     <div class="navbar">
-        <div class="logo-text">echat</div>
+        <div class="logo-text"><a href="/controller?page=main&send=redirect">echat</a></div>
         <nav>
-            <a href="#">Users</a>
-            <a href="/controller?page=login&send=redirect">Register</a>
-            <a href="#">News</a>
-            <a href="#">Rooms</a>
-            <a href="/controller?page=login&send=redirect">Login</a>
+            ${navbar}
         </nav>
     </div>
     <!-- Profile container -->
     <div class="container">
         <div class="profile-container">
             <div class="profile-avatar">
-                <img src="img/avatar.jpg" alt="avatar"/>
+                ${avatar}
             </div>
             <div class="username">
                 ${username}

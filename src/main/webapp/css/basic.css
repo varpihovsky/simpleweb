@@ -84,7 +84,7 @@ nav a {
 }
 
 nav a:hover {
-    color: antiquewhite;
+    color: #0fc3f5;
 }
 
 /* container */
@@ -170,11 +170,6 @@ nav a:hover {
         text-align: center;
     }
 
-    .logo-text {
-        display: subgrid;
-
-    }
-
     nav {
         width: 100%;
         align-items: center;
@@ -192,12 +187,30 @@ nav a:hover {
     }
 
     .about h1 {
-        height: auto;
-        font-size: 32px;
+        position: relative;
+        top: 25%;
+        height: 150vw;
     }
 
     .about p {
-        height: auto;
-        font-size: 16px;
+        height: 100vw;
+        font-size: 24px;
+        position: relative;
+        top: 25%;
     }
+}
+
+.logo-text a {
+    text-decoration: none;
+    color: white;
+    transition: .2s;
+}
+
+.logo-text a:-webkit-any-link {
+    text-decoration: none;
+    color: white;
+}
+
+.logo-text a:hover {
+    color: #0fc3f5;
 }
