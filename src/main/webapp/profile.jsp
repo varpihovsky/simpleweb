@@ -37,46 +37,7 @@
         </div>
         <h3>Rooms</h3>
         <div class="room-grid">
-            <a href="#">
-                <div class="room">
-                    <h4>Room 1</h4>
-                    <img src="img/roomlogo.jpg" alt="room logo"/>
-                    <div>
-                        Sometext. Sometext. Sometext. Sometext. Sometext. Sometext. Sometext. Sometext. Sometext.
-                        Sometext. Sometext. Sometext. Sometext.
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="room">
-                    <h4>Room 2</h4>
-                    <img src="img/roomlogo1.webp" alt="room logo"/>
-                    <div>
-                        Sometext. Sometext. Sometext. Sometext. Sometext. Sometext. Sometext. Sometext. Sometext.
-                        Sometext. Sometext. Sometext. Sometext.
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="room">
-                    <h4>Room 3</h4>
-                    <img src="img/roomlogo2.jpg" alt="room logo"/>
-                    <div>
-                        Sometext. Sometext. Sometext. Sometext. Sometext. Sometext. Sometext. Sometext. Sometext.
-                        Sometext. Sometext. Sometext. Sometext.
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="room">
-                    <h4>Room 4</h4>
-                    <img src="img/roomlogo4.jpg" alt="room logo"/>
-                    <div>
-                        Sometext. Sometext. Sometext. Sometext. Sometext. Sometext. Sometext. Sometext. Sometext.
-                        Sometext. Sometext. Sometext. Sometext.
-                    </div>
-                </div>
-            </a>
+            ${roomlist}
         </div>
     </div>
 </div>
