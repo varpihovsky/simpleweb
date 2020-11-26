@@ -55,10 +55,11 @@ public class CookieManager {
     }
 
     public void deleteCookies(HttpServletResponse response) {
-        username.setValue("");
-        password.setValue("");
-
-        response.addCookie(username);
-        response.addCookie(password);
+        if (username != null || password != null) {
+            username.setValue("");
+            password.setValue("");
+        }
+        response.addCookie(new Cookie("username", ""));
+        response.addCookie(new Cookie("password", ""));
     }
 }
