@@ -11,26 +11,45 @@ public class ProfilePageRenderer implements InterfaceRenderer {
     @Override
     public void render(HttpServletRequest request) {
         String username = (String) request.getSession().getAttribute("username");
+        String password = (String) request.getSession().getAttribute("password");
+
         String roomList = "";
+        String avatar = "";
+        String navbar = "";
 
         try {
             DataBaseFactory factory = new DataBaseFactory();
             ArrayList<Room> rooms = factory.getRoomList(username);
+
+            avatar = "<img src=\"useravatars/" + username + ".jpg\" alt=\"avatar\"/>";
 
             for (Room room : rooms) {
                 roomList += "<a href=\"#\">\n" +
                         "                <div class=\"room\">\n" +
                         "                    <h4>" + room.getName() + "</h4>" +
                         "                    <img src=\"roomlogos/" + room.getName() + ".jpg\" alt=\"room logo\"/>\n" +
-                        "                    <div>\n" +
-                        room.getDescription() +
+                        "                    <div>\n" + room.getDescription() +
                         "                    </div>\n" +
                         "                </div>\n" +
                         "            </a>";
             }
+
+            if (username == null || password == null || username.equals("") || password.equals(""))
+                navbar = "<a href=\"#\">Users</a>\n" +
+                        "            <a href=\"/controller?page=register&send=redirect\">Register</a>\n" +
+                        "            <a href=\"#\">News</a>\n" +
+                        "            <a href=\"#\">Rooms</a>\n" +
+                        "            <a href=\"/controller?page=login&send=redirect\">Login</a>";
+            else navbar = "<a href=\"#\">Users</a>\n" +
+                    "            <a href=\"/controller?page=profile&send=redirect\">Profile</a>\n" +
+                    "            <a href=\"#\">News</a>\n" +
+                    "            <a href=\"#\">Rooms</a>\n" +
+                    "            <a href=\"/controller?page=main&send=logout\">Logout</a>";
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        request.setAttribute("navbar", navbar);
+        request.setAttribute("avatar", avatar);
         request.setAttribute("roomlist", roomList);
         request.setAttribute("username", username);
     }
