@@ -1,3 +1,4 @@
+
 .container {
     margin-top: 25px;
     max-width: none;
@@ -39,13 +40,20 @@ a {
 }
 
 .profile-settings img {
+    -webkit-transition-timing-function: cubic-bezier(.1, .9, .9, 1);
+    -o-transition-timing-function: cubic-bezier(.1, .9, .9, 1);
     transition-timing-function: cubic-bezier(.1, .9, .9, 1);
     cursor: pointer;
+    -webkit-transition: 1s;
+    -o-transition: 1s;
     transition: 1s;
 }
 
 .profile-settings img:hover {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
     transform: rotate(90deg);
+    -webkit-filter: invert(53%) sepia(83%) saturate(1392%) hue-rotate(158deg) brightness(107%) contrast(92%);
     filter: invert(53%) sepia(83%) saturate(1392%) hue-rotate(158deg) brightness(107%) contrast(92%);
 }
 
@@ -63,6 +71,7 @@ a {
 
 /* Room list */
 .room-grid {
+    display: -ms-grid;
     display: grid;
     grid-gap: 10px;
     grid-template-columns: repeat(auto-fit, minmax(23vw, 1fr));
@@ -72,8 +81,15 @@ a {
 
 .room {
     height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     background-color: #444;
     width: 23vw;
@@ -127,6 +143,7 @@ a {
 
     .room-grid {
         display: block;
+        -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
     }
 

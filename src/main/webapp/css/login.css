@@ -9,7 +9,11 @@
     position: relative;
     padding-left: 35px;
     color: #808080;
+    -webkit-transition: .3s;
+    -o-transition: .3s;
     transition: .3s;
+    -webkit-transition-delay: .1s;
+    -o-transition-delay: .1s;
     transition-delay: .1s;
 }
 

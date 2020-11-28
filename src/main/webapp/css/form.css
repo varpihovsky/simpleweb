@@ -1,3 +1,4 @@
+
 .form h1 {
     margin: 30px 100px;
     padding: 0;
@@ -11,6 +12,8 @@
     position: absolute;
     top: 50%;
     left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, .7);
 }
@@ -27,10 +30,11 @@
     background: none;
     outline: none;
     border: 1px solid #fff;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
 
-.input-form input[type="text"]:focus, .input-form input[type="password"]:focus {
+.input-form input:focus {
     border: 1px solid #0fc3f5;
 }
 
@@ -41,6 +45,8 @@
     text-transform: uppercase;
     border: none;
     background: #0fc3f5;
+    -webkit-transition: .3s;
+    -o-transition: .3s;
     transition: .3s;
 }
 
@@ -58,6 +64,8 @@
 
 .form a {
     color: #fff;
+    -webkit-transition: .3s;
+    -o-transition: .3s;
     transition: .3s;
 }
 
