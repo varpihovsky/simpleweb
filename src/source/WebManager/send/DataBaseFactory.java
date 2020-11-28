@@ -2,6 +2,7 @@ package WebManager.send;
 
 
 import WebManager.send.dbabstractions.Room;
+import WebManager.send.dbabstractions.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -42,6 +43,13 @@ public class DataBaseFactory {
             userList.get(i).add(resultSet.getString(2));
         }
         return userList;
+    }
+
+    public User getUserData(String username) throws SQLException {
+        resultSet = statement.executeQuery("SELECT * FROM user_data WHERE USERNAME=\'" + username + "\'");
+        resultSet.next();
+        return new User(resultSet.getString(1), resultSet.getString(3),
+                resultSet.getString(2));
     }
 
     public boolean findUser(String username, String password) throws SQLException {
