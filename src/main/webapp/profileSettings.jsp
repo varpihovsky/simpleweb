@@ -24,10 +24,10 @@
     </div>
     <div class="container">
         <h1>Profile settings</h1>
-        <form class="form">
+        <form class="form" action="/controller">
             <div class="input-form">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" placeholder="${username}" value="">
+                <input type="text" id="username" name="newusername" placeholder="${username}" value="">
             </div>
             <div class="input-form">
                 <label for="email">Email: </label>
@@ -44,6 +44,8 @@
             <div class="input-form">
                 <input type="submit" value="Confirm">
             </div>
+            <input type="hidden" name="page" value="profileSettings">
+            <input type="hidden" name="send" value="change">
         </form>
     </div>
 </div>

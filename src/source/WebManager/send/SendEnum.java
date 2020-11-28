@@ -20,6 +20,11 @@ public enum SendEnum {
         {
             this.send = new LogoutSend();
         }
+    },
+    CHANGE {
+        {
+            this.send = new ChangeSend();
+        }
     };
 
     InterfaceSend send;

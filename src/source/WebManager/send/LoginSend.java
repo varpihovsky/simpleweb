@@ -34,8 +34,10 @@ public class LoginSend implements InterfaceSend {
                     session.setAttribute("username", username);
                     session.setAttribute("password", password);
                     if (!Checker.isContainsWrong(request.getParameter("cookie")) &&
-                            request.getParameter("cookie").equals("true"))
+                            request.getParameter("cookie").equals("true")) {
                         manager.setCookiesToResponse(response, username, password);
+                        session.setAttribute("cookie", request.getParameter("cookie"));
+                    }
                     page = "profile";
                 } else message += "User is not exist's";
             } catch (SQLException e) {

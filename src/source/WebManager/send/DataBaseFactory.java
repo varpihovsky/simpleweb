@@ -89,6 +89,18 @@ public class DataBaseFactory {
         return roomList;
     }
 
+    public void changeEmail(String username, String email) throws SQLException {
+        statement.executeUpdate("UPDATE user_data SET EMAIL=\'" + email + "\' WHERE USERNAME=\'" + username + "\'");
+    }
+
+    public void changePassword(String username, String password) throws SQLException {
+        statement.executeUpdate("UPDATE user_data SET PASS=\'" + password + "\' WHERE USERNAME=\'" + username + "\'");
+    }
+
+    public void changeUsername(String oldUsername, String newUsername) throws SQLException {
+        statement.executeUpdate("UPDATE user_data SET USERNAME=\'" + newUsername + "\' WHERE USERNAME=\'" + oldUsername + "\'");
+    }
+
     public Room getRoom(String name) throws SQLException {
         resultSet = statement.executeQuery("SELECT * FROM room_data WHERE name=\'" + name + "\'");
         return new Room(resultSet.getString(1), resultSet.getString(2));

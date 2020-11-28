@@ -62,4 +62,14 @@ public class CookieManager {
         response.addCookie(new Cookie("username", ""));
         response.addCookie(new Cookie("password", ""));
     }
+
+    public void changeUsername(String username, HttpServletResponse response) {
+        this.username = new Cookie("username", username);
+        response.addCookie(this.username);
+    }
+
+    public void changePassword(String password, HttpServletResponse response) {
+        this.password = new Cookie("password", password);
+        response.addCookie(this.password);
+    }
 }
