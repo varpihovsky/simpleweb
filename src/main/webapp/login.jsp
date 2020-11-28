@@ -20,7 +20,7 @@
         crossorigin="anonymous"></script>
 
 
-<div class="form login">
+<div class="form">
     <form action="${pageContext.request.contextPath}/controller" method="post">
         <a href="${pageContext.request.contextPath}/controller?page=main&send=redirect" class="back">Back</a>
         <h1>Вход</h1>
