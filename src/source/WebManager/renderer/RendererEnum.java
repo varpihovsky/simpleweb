@@ -10,6 +10,11 @@ public enum RendererEnum {
         {
             this.renderer = new ProfilePageRenderer();
         }
+    },
+    PROFILESETTINGS {
+        {
+            this.renderer = new ProfileSettingsPageRenderer();
+        }
     };
     InterfaceRenderer renderer;
 
