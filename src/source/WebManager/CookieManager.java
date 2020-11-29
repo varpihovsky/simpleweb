@@ -1,5 +1,6 @@
 package WebManager;
 
+import WebManager.security.Checker;
 import WebManager.send.DataBaseFactory;
 
 import javax.servlet.http.Cookie;
@@ -30,8 +31,10 @@ public class CookieManager {
     }
 
     public void setCookiesToResponse(HttpServletResponse response, String username, String password) {
-        response.addCookie(new Cookie("username", username));
-        response.addCookie(new Cookie("password", password));
+        if (!Checker.isContainsWrong(username) && !Checker.isContainsWrong(password)) {
+            response.addCookie(new Cookie("username", username));
+            response.addCookie(new Cookie("password", password));
+        }
     }
 
     public boolean checkUser() throws SQLException {
