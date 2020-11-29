@@ -33,4 +33,14 @@ public class RendererControllerTest {
     public void defineRendererTestSecond() {
         assertSame(controller.defineRenderer("main").getClass(), MainPageRenderer.class);
     }
+
+    @Test
+    public void defineRendererTestThird() {
+        assertSame(controller.defineRenderer("profile").getClass(), ProfilePageRenderer.class);
+    }
+
+    @Test
+    public void defineRendererTestFourth() {
+        assertSame(controller.defineRenderer("profileSettings").getClass(), ProfileSettingsPageRenderer.class);
+    }
 }

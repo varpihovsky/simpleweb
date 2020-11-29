@@ -1,33 +1,34 @@
 package WebManager.renderer;
 
-
-import test.implementations.HttpServletRequestImplemented;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import test.implementations.HttpServletRequestImplemented;
+import test.implementations.HttpSessionImplemented;
 
-import javax.servlet.http.*;
-import java.util.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 
-public class MainPageRendererTest {
-    private static MainPageRenderer renderer;
+public class ProfilePageRendererTest {
+    private static ProfilePageRenderer renderer;
 
     @Mock
     private static HttpServletRequestImplemented requestMock;
 
     @Mock
-    private static HttpSession sessionMock;
+    private static HttpSessionImplemented sessionMock;
 
     @Before
-    public void before() {
-        renderer = new MainPageRenderer();
+    public void before() throws SQLException {
+        renderer = new ProfilePageRenderer();
+
         requestMock = mock(HttpServletRequestImplemented.class);
-        sessionMock = mock(HttpSession.class);
+        sessionMock = mock(HttpSessionImplemented.class);
 
         requestMock.names = new ArrayList<>();
         requestMock.objects = new ArrayList<>();
@@ -49,12 +50,16 @@ public class MainPageRendererTest {
                         "            <a href=\"#\">News</a>\n" +
                         "            <a href=\"#\">Rooms</a>\n" +
                         "            <a href=\"/controller?page=login&send=redirect\">Login</a>",
-                requestMock.getAttribute("render"));
+                requestMock.getAttribute("navbar"));
+
+        assertEquals("<img src=\"useravatars/.jpg\" alt=\"avatar\"/>", requestMock.getAttribute("avatar"));
+
+        assertEquals("", requestMock.getAttribute("username"));
     }
 
     @Test
     public void renderTestSecond() {
-        Mockito.when(sessionMock.getAttribute(eq("username"))).thenReturn("username");
+        Mockito.when(sessionMock.getAttribute(eq("username"))).thenReturn("user");
         Mockito.when(sessionMock.getAttribute(eq("password"))).thenReturn("password");
 
         renderer.render(requestMock);
@@ -64,6 +69,10 @@ public class MainPageRendererTest {
                         "            <a href=\"#\">News</a>\n" +
                         "            <a href=\"#\">Rooms</a>\n" +
                         "            <a href=\"/controller?page=main&send=logout\">Logout</a>",
-                requestMock.getAttribute("render"));
+                requestMock.getAttribute("navbar"));
+
+        assertEquals("<img src=\"useravatars/user.jpg\" alt=\"avatar\"/>", requestMock.getAttribute("avatar"));
+
+        assertEquals("user", requestMock.getAttribute("username"));
     }
 }
