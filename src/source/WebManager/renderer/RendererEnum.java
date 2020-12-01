@@ -22,6 +22,11 @@ public enum RendererEnum {
         {
             this.renderer = new NullRenderer();
         }
+    },
+    USERS {
+        {
+            this.renderer = new UsersPageRenderer();
+        }
     };
     InterfaceRenderer renderer;
 
