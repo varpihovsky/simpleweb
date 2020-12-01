@@ -26,7 +26,7 @@ public class ProfilePageRenderer implements InterfaceRenderer {
                 roomList += "<a href=\"#\">\n" +
                         "                <div class=\"room\">\n" +
                         "                    <h4>" + room.getName() + "</h4>" +
-                        "                    <img src=\"roomlogos/" + room.getName() + ".jpg\" alt=\"room logo\"/>\n" +
+                        "                    <img src=\"img/roomlogos/" + room.getName() + ".jpg\" alt=\"room logo\"/>\n" +
                         "                    <div>\n" + room.getDescription() +
                         "                    </div>\n" +
                         "                </div>\n" +
@@ -37,7 +37,7 @@ public class ProfilePageRenderer implements InterfaceRenderer {
             System.out.println(e.getMessage());
         }
 
-        avatar = "<img src=\"useravatars/" + username + ".jpg\" alt=\"avatar\"/>";
+        avatar = "<img src=\"img/useravatars/" + username + ".jpg\" alt=\"avatar\"/>";
 
         if (Checker.isContainsWrong(username) || Checker.isContainsWrong(password))
             navbar = "<a href=\"#\">Users</a>\n" +
