@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import test.implementations.HttpServletResponseImplemented;
 import test.implementations.HttpSessionImplemented;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,11 +25,15 @@ public class LoginSendTest {
     @Mock
     private static HttpSession session;
 
+    @Mock
+    private static HttpServletResponseImplemented responseMock;
+
     @Before
     public void before() {
         send = new LoginSend();
 
         request = mock(HttpServletRequestImplemented.class);
+        responseMock = mock(HttpServletResponseImplemented.class);
     }
 
     @Test
@@ -37,7 +42,7 @@ public class LoginSendTest {
         Mockito.when(request.getParameter("username")).thenReturn(null);
         Mockito.when(request.getParameter("password")).thenReturn(null);
 
-        assertEquals("login", send.executeSend(request));
+        assertEquals("login", send.executeSend(request, responseMock));
     }
 
     @Test
@@ -46,7 +51,7 @@ public class LoginSendTest {
         Mockito.when(request.getParameter("username")).thenReturn("asdasdasd");
         Mockito.when(request.getParameter("password")).thenReturn("999999999");
 
-        assertEquals("login", send.executeSend(request));
+        assertEquals("login", send.executeSend(request, responseMock));
     }
 
     @Test
@@ -64,7 +69,7 @@ public class LoginSendTest {
         Mockito.when(session.getAttribute(Mockito.any())).thenCallRealMethod();
         Mockito.doCallRealMethod().when(session).setAttribute(Mockito.any(), Mockito.any());
 
-        assertEquals("profile", send.executeSend(request));
+        assertEquals("profile", send.executeSend(request, responseMock));
         assertEquals(request.getParameter("username"), session.getAttribute("username"));
         assertEquals(request.getParameter("password"), session.getAttribute("password"));
     }
