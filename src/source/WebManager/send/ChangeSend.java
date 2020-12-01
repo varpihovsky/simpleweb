@@ -1,14 +1,17 @@
 package WebManager.send;
 
 import WebManager.CookieManager;
+import WebManager.file.FileManager;
 import WebManager.security.Checker;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
-public class ChangeSend implements InterfaceSend {
+public class ChangeSend extends Changer implements InterfaceSend {
     @Override
     public String executeSend(HttpServletRequest request) {
         return null;
@@ -47,12 +50,18 @@ public class ChangeSend implements InterfaceSend {
                             cookieParam.equals("true"))
                         manager.changeUsername(newUsername, response);
 
-                    //TODO: change avatar name
+                    FileManager fileManager = new FileManager();
+                    fileManager.setContext(super.getServletContext());
+                    fileManager.changeAvatarName(oldUsername, newUsername);
                 }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return page;
+    }
+
+    public void setContext(ServletContext context) {
+        super.setServletContext(context);
     }
 }
