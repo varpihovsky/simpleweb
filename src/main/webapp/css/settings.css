@@ -1,9 +1,3 @@
-
-h1 {
-    text-align: center;
-    font-family: Serif;
-}
-
 .input-form {
     margin: 25px 20px;
     display: -webkit-box;
@@ -26,7 +20,7 @@ label {
     padding: 25px;
     background-color: #444;
     position: relative;
-    top: unset;
+    top: 50px;
     left: unset;
     -webkit-transform: none;
     -ms-transform: none;
