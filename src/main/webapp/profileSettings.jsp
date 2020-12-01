@@ -23,8 +23,9 @@
         </nav>
     </div>
     <div class="container">
-        <h1>Profile settings</h1>
         <form class="form" action="/controller">
+            <a href="${pageContext.request.contextPath}/controller?page=profile&send=redirect" class="back">Back</a>
+            <h1>Profile settings</h1>
             <div class="input-form">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="newusername" placeholder="${username}" value="">

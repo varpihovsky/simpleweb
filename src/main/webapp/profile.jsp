@@ -26,7 +26,7 @@
                 ${username}
                 <div class="profile-settings">
                     <a href="/controller?page=profileSettings&send=redirect">
-                        <img src="img/settings.svg" alt="settings"/>
+                        <img src="img/interface/settings.svg" alt="settings"/>
                     </a>
                 </div>
             </div>
