@@ -19,6 +19,7 @@ public class RedirectSend implements InterfaceSend {
         HttpSession session = request.getSession();
         CookieManager manager = new CookieManager();
         String page = request.getParameter("page");
+
         try {
             if (!SessionManager.checkUserSession(session) && (manager.getCookiesFromRequest(request) &&
                     manager.checkUser()))
@@ -26,12 +27,17 @@ public class RedirectSend implements InterfaceSend {
 
             if (page == null || page.equals(""))
                 return "main";
+
             else if (page.equals("login") && (SessionManager.checkUserSession(session) ||
-                    (manager.getCookiesFromRequest(request) && manager.checkUser()))) {
+                    (manager.getCookiesFromRequest(request) && manager.checkUser())))
                 return "profile";
-            } else {
+
+            else if (page.equals("profileSettings") && (!SessionManager.checkUserSession(session) ||
+                    !(manager.getCookiesFromRequest(request) && manager.checkUser())))
+                return "main";
+
+            else
                 return page;
-            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return "main";

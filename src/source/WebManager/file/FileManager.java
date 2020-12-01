@@ -1,7 +1,6 @@
 package WebManager.file;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServlet;
 import java.io.File;
 
 public class FileManager {

@@ -12,7 +12,7 @@
     <div class="navbar">
         <div class="logo-text"><a href="/controller?page=main&send=redirect">echat</a></div>
         <nav>
-            ${render}
+            ${navbar}
         </nav>
     </div>
     <div class="container">

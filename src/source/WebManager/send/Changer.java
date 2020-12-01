@@ -1,7 +1,6 @@
 package WebManager.send;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServlet;
 
 abstract class Changer {
     private ServletContext context;
