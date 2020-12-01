@@ -16,6 +16,7 @@ import java.io.IOException;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
+
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         process(request, response);
@@ -30,10 +31,11 @@ public class Controller extends HttpServlet {
             throws IOException, ServletException {
         SendController controller = new SendController();
         RendererController rendererController = new RendererController();
+        SendExecutor executor = new SendExecutor();
 
         InterfaceSend currentSend = controller.defineSend(request);
 
-        String page = SendExecutor.execute(currentSend, request, response);
+        String page = executor.execute(currentSend, request, response, this.getServletContext());
         InterfaceRenderer currentRenderer = rendererController.defineRenderer(page);
         currentRenderer.render(request);
 
