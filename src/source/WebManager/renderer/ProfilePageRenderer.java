@@ -39,21 +39,11 @@ public class ProfilePageRenderer implements InterfaceRenderer {
 
         avatar = "<img src=\"img/useravatars/" + username + ".jpg\" alt=\"avatar\"/>";
 
-        if (Checker.isContainsWrong(username) || Checker.isContainsWrong(password))
-            navbar = "<a href=\"#\">Users</a>\n" +
-                    "            <a href=\"/controller?page=register&send=redirect\">Register</a>\n" +
-                    "            <a href=\"#\">News</a>\n" +
-                    "            <a href=\"#\">Rooms</a>\n" +
-                    "            <a href=\"/controller?page=login&send=redirect\">Login</a>";
-        else navbar = "<a href=\"#\">Users</a>\n" +
-                "            <a href=\"/controller?page=profile&send=redirect\">Profile</a>\n" +
-                "            <a href=\"#\">News</a>\n" +
-                "            <a href=\"#\">Rooms</a>\n" +
-                "            <a href=\"/controller?page=main&send=logout\">Logout</a>";
-
-        request.setAttribute("navbar", navbar);
         request.setAttribute("avatar", avatar);
         request.setAttribute("roomlist", roomList);
         request.setAttribute("username", username);
+        request.setAttribute("navbar", RendererTemplates.renderNavbar(
+                (String) request.getSession().getAttribute("username"),
+                (String) request.getSession().getAttribute("password")));
     }
 }
