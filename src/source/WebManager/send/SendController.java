@@ -7,11 +7,8 @@ public class SendController {
         InterfaceSend currentSend = new RedirectSend();
 
         String send = request.getParameter("send");
-        if (send == null || send.equals("")) {
-            return currentSend;
-        }
         try {
-            SendEnum sendEnum = SendEnum.valueOf(send.toUpperCase());
+            SendEnum sendEnum = SendEnum.getInstance(send);
             currentSend = sendEnum.getCurrentSend();
             return currentSend;
         } catch (IllegalArgumentException e) {

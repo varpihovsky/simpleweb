@@ -1,5 +1,7 @@
 package WebManager.send;
 
+import WebManager.security.Checker;
+
 public enum SendEnum {
     REDIRECT {
         {
@@ -31,5 +33,11 @@ public enum SendEnum {
 
     public InterfaceSend getCurrentSend() {
         return send;
+    }
+
+    public static SendEnum getInstance(String s) {
+        if (Checker.isContainsWrong(s))
+            return SendEnum.REDIRECT;
+        return SendEnum.valueOf(s.toUpperCase());
     }
 }
