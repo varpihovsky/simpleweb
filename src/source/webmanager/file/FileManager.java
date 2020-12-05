@@ -1,4 +1,4 @@
-package WebManager.file;
+package webmanager.file;
 
 import javax.servlet.ServletContext;
 import java.io.File;
