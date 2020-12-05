@@ -1,4 +1,4 @@
-package WebManager.send.dbabstractions;
+package webmanager.database.abstractions;
 
 public class Room {
     String description;
