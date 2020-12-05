@@ -27,6 +27,6 @@ public class CheckerTest {
 
     @Test
     public void pageReplaceTest() {
-        assertEquals("src/main", checker.pageReplace("/main.jsp"));
+        assertEquals("main", checker.pageReplace("/main.jsp"));
     }
 }
