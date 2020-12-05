@@ -7,7 +7,6 @@ import org.mockito.Mockito;
 import test.implementations.HttpServletRequestImplemented;
 import test.implementations.HttpServletResponseImplemented;
 import test.implementations.HttpSessionImplemented;
-import webmanager.database.DatabaseConnector;
 import webmanager.database.DatabaseController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +34,9 @@ public class RedirectSendTest {
     @Mock
     private static DatabaseController controller;
 
+    @Mock
+    private static DatabaseController secondController;
+
     @Before
     public void before() {
         send = new RedirectSend();
@@ -45,6 +47,7 @@ public class RedirectSendTest {
         session = mock(HttpSessionImplemented.class);
         responseMock = mock(HttpServletResponseImplemented.class);
         controller = mock(DatabaseController.class);
+        secondController = mock(DatabaseController.class);
 
         session.names = names;
         session.objects = objects;
@@ -53,7 +56,11 @@ public class RedirectSendTest {
         Mockito.when(session.getAttribute(Mockito.any())).thenCallRealMethod();
         Mockito.doCallRealMethod().when(session).setAttribute(Mockito.any(), Mockito.any());
 
-
+        Mockito.when(session.getAttribute("username")).thenReturn("Username");
+        Mockito.when(session.getAttribute("password")).thenReturn("Password");
+        Mockito.when(controller.setOperation(Mockito.matches(DatabaseController.IS_USER_EXISTS),
+                Mockito.any())).thenReturn(secondController);
+        Mockito.when(secondController.execute()).thenReturn(false);
     }
 
     @Test
@@ -61,7 +68,7 @@ public class RedirectSendTest {
         Mockito.when(request.getParameter("page")).thenReturn(null);
 
 
-        assertEquals("src/main", send.executeSend(request, responseMock, controller));
+        assertEquals("main", send.executeSend(request, responseMock, controller));
     }
 
     @Test
@@ -72,13 +79,36 @@ public class RedirectSendTest {
     }
 
     @Test
-    public void executeSendTestThird() {
+    public void rightLoginRedirectTest() {
         Mockito.when(request.getParameter("page")).thenReturn("login");
 
-        Mockito.when(request.getSession()).thenReturn(session);
-        Mockito.when(session.getAttribute("username")).thenReturn("admin");
-        Mockito.when(session.getAttribute("password")).thenReturn("1133224456");
+        Mockito.when(secondController.execute()).thenReturn(true);
 
         assertEquals("profile", send.executeSend(request, responseMock, controller));
+    }
+
+    @Test
+    public void wrongLoginRedirectTest() {
+        Mockito.when(request.getParameter("page")).thenReturn("login");
+
+        Mockito.when(secondController.execute()).thenReturn(false);
+
+        assertEquals("login", send.executeSend(request, responseMock, controller));
+    }
+
+    @Test
+    public void rightProfileSettingsRedirectTest() {
+        Mockito.when(request.getParameter("page")).thenReturn("profileSettings");
+
+        Mockito.when(secondController.execute()).thenReturn(true);
+
+        assertEquals("profileSettings", send.executeSend(request, responseMock, controller));
+    }
+
+    @Test
+    public void wrongProfileSettingsRedirectTest() {
+        Mockito.when(request.getParameter("page")).thenReturn("profileSettings");
+
+        assertEquals("main", send.executeSend(request, responseMock, controller));
     }
 }

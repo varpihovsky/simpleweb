@@ -31,7 +31,7 @@ public class LoginSendTest {
     private static HttpServletResponseImplemented responseMock;
 
     @Mock
-    private static DatabaseController controller;
+    private static DatabaseController dbcontrollerMock;
 
     @Before
     public void before() {
@@ -39,7 +39,8 @@ public class LoginSendTest {
 
         request = mock(HttpServletRequestImplemented.class);
         responseMock = mock(HttpServletResponseImplemented.class);
-        controller = mock(DatabaseController.class);
+        dbcontrollerMock = mock(DatabaseController.class);
+        Mockito.when(dbcontrollerMock.setOperation(Mockito.any(), Mockito.any())).thenReturn(dbcontrollerMock);
     }
 
     @Test
@@ -48,16 +49,18 @@ public class LoginSendTest {
         Mockito.when(request.getParameter("username")).thenReturn(null);
         Mockito.when(request.getParameter("password")).thenReturn(null);
 
-        assertEquals("login", send.executeSend(request, responseMock, controller));
+        assertEquals("login", send.executeSend(request, responseMock, dbcontrollerMock));
     }
 
     @Test
     public void executeSendTestSecond() {
         Mockito.when(request.getParameter("page")).thenReturn("login");
-        Mockito.when(request.getParameter("username")).thenReturn("asdasdasd");
-        Mockito.when(request.getParameter("password")).thenReturn("999999999");
+        Mockito.when(request.getParameter("username")).thenReturn("WrongUsername");
+        Mockito.when(request.getParameter("password")).thenReturn("WrongPassword");
 
-        assertEquals("login", send.executeSend(request, responseMock, controller));
+        Mockito.when(dbcontrollerMock.execute()).thenReturn(false);
+
+        assertEquals("login", send.executeSend(request, responseMock, dbcontrollerMock));
     }
 
     @Test
@@ -68,14 +71,15 @@ public class LoginSendTest {
         ((HttpSessionImplemented) session).objects = new ArrayList<>();
 
         Mockito.when(request.getParameter("page")).thenReturn("login");
-        Mockito.when(request.getParameter("username")).thenReturn("admin");
-        Mockito.when(request.getParameter("password")).thenReturn("1133224456");
+        Mockito.when(request.getParameter("username")).thenReturn("RightUsername");
+        Mockito.when(request.getParameter("password")).thenReturn("RightPassword");
 
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute(Mockito.any())).thenCallRealMethod();
         Mockito.doCallRealMethod().when(session).setAttribute(Mockito.any(), Mockito.any());
+        Mockito.when(dbcontrollerMock.execute()).thenReturn(true);
 
-        assertEquals("profile", send.executeSend(request, responseMock, controller));
+        assertEquals("profile", send.executeSend(request, responseMock, dbcontrollerMock));
         assertEquals(request.getParameter("username"), session.getAttribute("username"));
         assertEquals(request.getParameter("password"), session.getAttribute("password"));
     }

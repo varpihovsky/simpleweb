@@ -12,6 +12,6 @@ public class SessionManager {
         String password = (String) session.getAttribute("password");
         if (Checker.isContainsWrong(username) || Checker.isContainsWrong(password))
             return false;
-        return (Boolean) controller.setOperation(DatabaseController.IS_USER_EXISTS, new User(username, password)).execute();
+        return controller.setOperation(DatabaseController.IS_USER_EXISTS, new User(username, password)).execute();
     }
 }
