@@ -1,5 +1,5 @@
 package webmanager.file;
 
-enum Extensions {
+public enum Extensions {
     JPG, PNG, WEBP, SVG
 }
