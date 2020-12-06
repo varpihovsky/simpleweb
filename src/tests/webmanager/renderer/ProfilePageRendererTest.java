@@ -8,6 +8,7 @@ import test.implementations.HttpServletRequestImplemented;
 import test.implementations.HttpSessionImplemented;
 import webmanager.database.DatabaseController;
 
+import javax.servlet.ServletContext;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -27,6 +28,9 @@ public class ProfilePageRendererTest {
     @Mock
     private static DatabaseController controllerMock;
 
+    @Mock
+    private static ServletContext contextMock;
+
     @Before
     public void before() throws SQLException {
         renderer = new ProfilePageRenderer();
@@ -34,6 +38,7 @@ public class ProfilePageRendererTest {
         requestMock = mock(HttpServletRequestImplemented.class);
         sessionMock = mock(HttpSessionImplemented.class);
         controllerMock = mock(DatabaseController.class);
+        contextMock = mock(ServletContext.class);
 
         requestMock.names = new ArrayList<>();
         requestMock.objects = new ArrayList<>();

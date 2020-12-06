@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import webmanager.database.DatabaseController;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.*;
 import java.util.*;
 
@@ -27,6 +28,9 @@ public class MainPageRendererTest {
     @Mock
     private static DatabaseController controllerMock;
 
+    @Mock
+    private static ServletContext contextMock;
+
     @Before
     public void before() {
         renderer = new MainPageRenderer();
@@ -34,6 +38,7 @@ public class MainPageRendererTest {
         requestMock = mock(HttpServletRequestImplemented.class);
         sessionMock = mock(HttpSession.class);
         controllerMock = mock(DatabaseController.class);
+        contextMock = mock(ServletContext.class);
 
         requestMock.names = new ArrayList<>();
         requestMock.objects = new ArrayList<>();

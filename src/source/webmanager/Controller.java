@@ -42,7 +42,7 @@ public class Controller extends HttpServlet {
 
         InterfaceSend currentSend = controller.defineSend(request);
 
-        String page = executor.execute(currentSend, request, response, this.getServletContext(), databaseController);
+        String page = executor.execute(currentSend, request, response, getServletContext(), databaseController);
         InterfaceRenderer currentRenderer = rendererController.defineRenderer(page);
         currentRenderer.render(request, databaseController);
 
