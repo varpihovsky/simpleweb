@@ -2,6 +2,7 @@ package webmanager.database.operations;
 
 import webmanager.database.abstractions.Room;
 import webmanager.database.abstractions.User;
+import webmanager.security.Checker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,22 +19,25 @@ public class GetRoomListByUser implements DatabaseOperation<ArrayList<Room>, Use
             resultSet.next();
             String roomString = resultSet.getString(1);
 
-            ArrayList<String> names = new ArrayList<>(Arrays.asList(roomString.split(";")));
-            ArrayList<String> descriptions = new ArrayList<>();
+            if (!Checker.isContainsWrong(roomString)) {
+                ArrayList<String> names = new ArrayList<>(Arrays.asList(roomString.split(";")));
+                ArrayList<String> descriptions = new ArrayList<>();
 
-            for (int i = 0; i < names.size(); i++) {
-                resultSet = statement.executeQuery("SELECT description FROM room_data WHERE name='"
-                        + names.get(i) + "'");
-                resultSet.next();
-                descriptions.add(resultSet.getString(1));
+                for (int i = 0; i < names.size(); i++) {
+                    resultSet = statement.executeQuery("SELECT description FROM room_data WHERE name='"
+                            + names.get(i) + "'");
+                    resultSet.next();
+                    descriptions.add(resultSet.getString(1));
+                }
+
+                ArrayList<Room> roomList = new ArrayList<>();
+                for (int i = 0; i < names.size(); i++) {
+                    roomList.add(new Room(names.get(i), descriptions.get(i)));
+                }
+
+                return roomList;
             }
-
-            ArrayList<Room> roomList = new ArrayList<>();
-            for (int i = 0; i < names.size(); i++) {
-                roomList.add(new Room(names.get(i), descriptions.get(i)));
-            }
-
-            return roomList;
+            return new ArrayList<>();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
