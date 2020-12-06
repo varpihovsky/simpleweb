@@ -9,6 +9,7 @@ class MainPageRenderer implements InterfaceRenderer {
     public void render(HttpServletRequest request, DatabaseController controller) {
         request.setAttribute("navbar", RendererTemplates.renderNavbar(
                 (String) request.getSession().getAttribute("username"),
-                (String) request.getSession().getAttribute("password")));
+                (String) request.getSession().getAttribute("password"),
+                request));
     }
 }

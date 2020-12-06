@@ -39,7 +39,8 @@
         <div class="input-form">
             <input type="submit" value="Войти">
         </div>
-        <a href="/controller?page=forget&send=redirect" class="forget">Забыли пароль?</a>
+        <a href="${pageContext.request.contextPath}/controller?page=forget&send=redirect" class="forget">Забыли
+            пароль?</a>
         <input type="hidden" name="send" value="login">
         <input type="hidden" name="page" value="login">
     </form>

@@ -32,7 +32,8 @@ class UsersPageRenderer implements InterfaceRenderer {
 
         if (users != null)
             for (User usr : users)
-                render += "<a href=\"#\">\n" +
+                render += "<a href=\"" + request.getContextPath() + "/controller?page=profile&send=redirect&user=" +
+                        usr.getUsername() + "\">\n" +
                         "                <div class=\"user\">\n" +
                         "                    <h4>" + usr.getUsername() + "</h4>\n" +
                         "                    <img src=\"img/useravatars/" + usr.getUsername() + ".jpg\" alt=\"room logo\"/>\n" +
@@ -43,6 +44,7 @@ class UsersPageRenderer implements InterfaceRenderer {
         request.setAttribute("render", render);
         request.setAttribute("navbar", RendererTemplates.renderNavbar(
                 (String) request.getSession().getAttribute("username"),
-                (String) request.getSession().getAttribute("password")));
+                (String) request.getSession().getAttribute("password"),
+                request));
     }
 }

@@ -14,17 +14,18 @@
 
 <div class="page-container">
     <div class="navbar">
-        <div class="logo-text"><a href="/controller?page=main&send=redirect">echat</a></div>
+        <div class="logo-text"><a href="${pageContext.request.contextPath}/controller?page=main&send=redirect">echat</a>
+        </div>
         <nav>
             <a href="#">Users</a>
-            <a href="/controller?page=login&send=redirect">Register</a>
+            <a href="${pageContext.request.contextPath}/controller?page=login&send=redirect">Register</a>
             <a href="#">News</a>
             <a href="#">Rooms</a>
-            <a href="/controller?page=login&send=redirect">Login</a>
+            <a href="${pageContext.request.contextPath}/controller?page=login&send=redirect">Login</a>
         </nav>
     </div>
     <div class="container">
-        <form class="form" action="/controller">
+        <form class="form" action="${pageContext.request.contextPath}/controller" method="post">
             <a href="${pageContext.request.contextPath}/controller?page=profile&send=redirect" class="back">Back</a>
             <h1>Profile settings</h1>
             <div class="input-form">

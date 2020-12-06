@@ -2,7 +2,7 @@ package webmanager.renderer;
 
 public class RendererController {
     public InterfaceRenderer defineRenderer(String page) {
-        InterfaceRenderer currentRenderer = new NullRenderer();
+        InterfaceRenderer currentRenderer;
 
         try {
             RendererEnum rendererEnum = RendererEnum.getInstance(page);

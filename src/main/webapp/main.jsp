@@ -11,7 +11,8 @@
 <body>
 <div class="page-container">
     <div class="navbar">
-        <div class="logo-text"><a href="/controller?page=main&send=redirect">echat</a></div>
+        <div class="logo-text"><a href="${pageContext.request.contextPath}/controller?page=main&send=redirect">echat</a>
+        </div>
         <nav>
             ${navbar}
         </nav>

@@ -19,7 +19,7 @@
 
 <div class="form">
     <form action="${pageContext.request.contextPath}/controller" method="post">
-        <a class="back" href="/controller?page=login&send=redirect">Back</a>
+        <a class="back" href="${pageContext.request.contextPath}/controller?page=login&send=redirect">Back</a>
         <h1>Забыли пароль?</h1>
 
         <div class="input-form">

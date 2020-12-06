@@ -12,14 +12,15 @@
 <body>
 <div class="page-container">
     <div class="navbar">
-        <div class="logo-text"><a href="/controller?page=main&send=redirect">echat</a></div>
+        <div class="logo-text"><a href="${pageContext.request.contextPath}/controller?page=main&send=redirect">echat</a>
+        </div>
         <nav>
             ${navbar}
         </nav>
     </div>
     <div class="container">
         <div class="form">
-            <form action="/controller">
+            <form action="${pageContext.request.contextPath}/controller" method="post">
                 <div class="find-form">
                     <div class="input-form">
                         <input type="text" name="user" value="">

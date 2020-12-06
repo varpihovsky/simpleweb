@@ -12,7 +12,8 @@
 <body>
 <div class="page-container">
     <div class="navbar">
-        <div class="logo-text"><a href="/controller?page=main&send=redirect">echat</a></div>
+        <div class="logo-text"><a href="${pageContext.request.contextPath}/controller?page=main&send=redirect">echat</a>
+        </div>
         <nav>
             ${navbar}
         </nav>
@@ -25,11 +26,7 @@
             </div>
             <div class="username">
                 ${username}
-                <div class="profile-settings">
-                    <a href="/controller?page=profileSettings&send=redirect">
-                        <img src="img/interface/settings.svg" alt="settings"/>
-                    </a>
-                </div>
+                ${settings}
             </div>
         </div>
         <h3>Rooms</h3>
