@@ -53,7 +53,7 @@ public class ProfilePageRendererTest {
         Mockito.when(sessionMock.getAttribute(eq("username"))).thenReturn("");
         Mockito.when(sessionMock.getAttribute(eq("password"))).thenReturn("");
 
-        renderer.render(requestMock, controllerMock);
+        renderer.render(requestMock);
 
         assertEquals("<a href=\"#\">Users</a>\n" +
                         "            <a href=\"/controller?page=register&send=redirect\">Register</a>\n" +
@@ -72,7 +72,7 @@ public class ProfilePageRendererTest {
         Mockito.when(sessionMock.getAttribute(eq("username"))).thenReturn("user");
         Mockito.when(sessionMock.getAttribute(eq("password"))).thenReturn("password");
 
-        renderer.render(requestMock, controllerMock);
+        renderer.render(requestMock);
 
         assertEquals("<a href=\"#\">Users</a>\n" +
                         "            <a href=\"/controller?page=profile&send=redirect\">Profile</a>\n" +

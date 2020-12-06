@@ -1,4 +1,4 @@
-package webmanager.send;
+package webmanager.sender;
 
 import test.implementations.HttpServletRequestImplemented;
 import org.junit.Before;
@@ -7,8 +7,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import test.implementations.HttpServletResponseImplemented;
 import test.implementations.HttpSessionImplemented;
-import webmanager.database.DatabaseConnector;
 import webmanager.database.DatabaseController;
+import webmanager.sender.sends.LoginSend;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -41,6 +41,8 @@ public class LoginSendTest {
         responseMock = mock(HttpServletResponseImplemented.class);
         dbcontrollerMock = mock(DatabaseController.class);
         Mockito.when(dbcontrollerMock.setOperation(Mockito.any(), Mockito.any())).thenReturn(dbcontrollerMock);
+
+        send.setController(dbcontrollerMock);
     }
 
     @Test
@@ -49,7 +51,8 @@ public class LoginSendTest {
         Mockito.when(request.getParameter("username")).thenReturn(null);
         Mockito.when(request.getParameter("password")).thenReturn(null);
 
-        assertEquals("login", send.executeSend(request, responseMock, dbcontrollerMock));
+
+        assertEquals("login", send.executeSend(request, responseMock));
     }
 
     @Test
@@ -60,7 +63,7 @@ public class LoginSendTest {
 
         Mockito.when(dbcontrollerMock.execute()).thenReturn(false);
 
-        assertEquals("login", send.executeSend(request, responseMock, dbcontrollerMock));
+        assertEquals("login", send.executeSend(request, responseMock));
     }
 
     @Test
@@ -79,7 +82,7 @@ public class LoginSendTest {
         Mockito.doCallRealMethod().when(session).setAttribute(Mockito.any(), Mockito.any());
         Mockito.when(dbcontrollerMock.execute()).thenReturn(true);
 
-        assertEquals("profile", send.executeSend(request, responseMock, dbcontrollerMock));
+        assertEquals("profile", send.executeSend(request, responseMock));
         assertEquals(request.getParameter("username"), session.getAttribute("username"));
         assertEquals(request.getParameter("password"), session.getAttribute("password"));
     }

@@ -1,4 +1,4 @@
-package webmanager.send;
+package webmanager.sender;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -6,8 +6,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import test.implementations.HttpServletRequestImplemented;
 import test.implementations.HttpServletResponseImplemented;
-import test.implementations.HttpSessionImplemented;
 import webmanager.database.DatabaseController;
+import webmanager.sender.sends.RegisterSend;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -31,6 +31,8 @@ public class RegisterSendTest {
         controllerMock = mock(DatabaseController.class);
 
         Mockito.when(controllerMock.setOperation(Mockito.any(), Mockito.any())).thenReturn(controllerMock);
+
+        send.setController(controllerMock);
     }
 
     @Test
@@ -40,7 +42,7 @@ public class RegisterSendTest {
         Mockito.when(requestMock.getParameter("email")).thenReturn("someEmail@mail.com");
         Mockito.when(requestMock.getParameter("page")).thenReturn("register");
 
-        assertEquals("register", send.executeSend(requestMock, responseMock, controllerMock));
+        assertEquals("register", send.executeSend(requestMock, responseMock));
         Mockito.verify(controllerMock, Mockito.times(1)).execute();
     }
 
@@ -49,7 +51,7 @@ public class RegisterSendTest {
         Mockito.when(requestMock.getParameter(Mockito.any())).thenReturn(null);
         Mockito.when(requestMock.getParameter("page")).thenReturn("register");
 
-        assertEquals("register", send.executeSend(requestMock, responseMock, controllerMock));
+        assertEquals("register", send.executeSend(requestMock, responseMock));
         Mockito.verify(controllerMock, Mockito.times(0)).execute();
     }
 }

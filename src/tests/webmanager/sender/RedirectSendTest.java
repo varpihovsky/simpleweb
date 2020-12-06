@@ -1,4 +1,4 @@
-package webmanager.send;
+package webmanager.sender;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +8,7 @@ import test.implementations.HttpServletRequestImplemented;
 import test.implementations.HttpServletResponseImplemented;
 import test.implementations.HttpSessionImplemented;
 import webmanager.database.DatabaseController;
+import webmanager.sender.sends.RedirectSend;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -61,6 +62,8 @@ public class RedirectSendTest {
         Mockito.when(controller.setOperation(Mockito.matches(DatabaseController.IS_USER_EXISTS),
                 Mockito.any())).thenReturn(secondController);
         Mockito.when(secondController.execute()).thenReturn(false);
+
+        send.setController(controller);
     }
 
     @Test
@@ -68,14 +71,15 @@ public class RedirectSendTest {
         Mockito.when(request.getParameter("page")).thenReturn(null);
 
 
-        assertEquals("main", send.executeSend(request, responseMock, controller));
+        assertEquals("main", send.executeSend(request, responseMock));
     }
 
     @Test
     public void executeSendTestSecond() {
         Mockito.when(request.getParameter("page")).thenReturn("profile");
 
-        assertEquals("profile", send.executeSend(request, responseMock, controller));
+
+        assertEquals("profile", send.executeSend(request, responseMock));
     }
 
     @Test
@@ -84,7 +88,7 @@ public class RedirectSendTest {
 
         Mockito.when(secondController.execute()).thenReturn(true);
 
-        assertEquals("profile", send.executeSend(request, responseMock, controller));
+        assertEquals("profile", send.executeSend(request, responseMock));
     }
 
     @Test
@@ -93,7 +97,7 @@ public class RedirectSendTest {
 
         Mockito.when(secondController.execute()).thenReturn(false);
 
-        assertEquals("login", send.executeSend(request, responseMock, controller));
+        assertEquals("login", send.executeSend(request, responseMock));
     }
 
     @Test
@@ -102,13 +106,13 @@ public class RedirectSendTest {
 
         Mockito.when(secondController.execute()).thenReturn(true);
 
-        assertEquals("profileSettings", send.executeSend(request, responseMock, controller));
+        assertEquals("profileSettings", send.executeSend(request, responseMock));
     }
 
     @Test
     public void wrongProfileSettingsRedirectTest() {
         Mockito.when(request.getParameter("page")).thenReturn("profileSettings");
 
-        assertEquals("main", send.executeSend(request, responseMock, controller));
+        assertEquals("main", send.executeSend(request, responseMock));
     }
 }
