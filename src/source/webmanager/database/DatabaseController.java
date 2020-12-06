@@ -1,8 +1,7 @@
 package webmanager.database;
 
 import webmanager.database.abstractions.DatabaseOperator;
-import webmanager.database.operations.DatabaseOperation;
-import webmanager.database.operations.DatabaseOperationEnum;
+import webmanager.database.operations.required.DatabaseOperationEnum;
 
 public class DatabaseController {
 
@@ -94,7 +93,6 @@ public class DatabaseController {
 
     public <T extends Object> T execute() {
         DatabaseOperationEnum databaseOperationEnum = DatabaseOperationEnum.getInstance(operation);
-        DatabaseOperation operation = databaseOperationEnum.getOperation();
-        return (T) operation.operate(connector.getConnection(), operator.getOperator());
+        return (T) databaseOperationEnum.getOperation().operate(connector.getConnection(), operator.getOperator());
     }
 }

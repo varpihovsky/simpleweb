@@ -1,6 +1,7 @@
 package webmanager.database.operations;
 
 import webmanager.database.abstractions.User;
+import webmanager.database.operations.required.DatabaseOperation;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

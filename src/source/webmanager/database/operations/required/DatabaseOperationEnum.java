@@ -1,5 +1,6 @@
-package webmanager.database.operations;
+package webmanager.database.operations.required;
 
+import webmanager.database.operations.*;
 import webmanager.security.Checker;
 
 public enum DatabaseOperationEnum {
