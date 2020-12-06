@@ -3,14 +3,21 @@ package webmanager.renderer;
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.Room;
 import webmanager.database.abstractions.User;
+import webmanager.database.operations.required.DatabaseCommunicative;
+import webmanager.file.FileManager;
+import webmanager.file.abstractions.FileOperator;
+import webmanager.file.operations.required.FileOperating;
 import webmanager.security.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
-class ProfilePageRenderer implements InterfaceRenderer {
+class ProfilePageRenderer implements InterfaceRenderer, DatabaseCommunicative, FileOperating {
+    private DatabaseController databaseController;
+    private FileManager fileManager;
+
     @Override
-    public void render(HttpServletRequest request, DatabaseController controller) {
+    public void render(HttpServletRequest request) {
         String username = request.getParameter("user");
         if (Checker.isContainsWrong(username))
             username = (String) request.getSession().getAttribute("username");
@@ -20,13 +27,15 @@ class ProfilePageRenderer implements InterfaceRenderer {
         String settings = "";
 
         ArrayList<Room> rooms =
-                controller.setOperation(DatabaseController.GET_ROOM_LIST_BY_USER, new User(username)).execute();
+                databaseController.setOperation(DatabaseController.GET_ROOM_LIST_BY_USER, new User(username)).execute();
 
         for (Room room : rooms) {
             roomList += "<a href=\"#\">\n" +
                     "                <div class=\"room\">\n" +
                     "                    <h4>" + room.getName() + "</h4>" +
-                    "                    <img src=\"img/roomlogos/" + room.getName() + ".jpg\" alt=\"room logo\"/>\n" +
+                    "                    <img src=\"" + fileManager.setOperation(FileManager.GET_ROOM_LOGO,
+                    new FileOperator(room.getName())).execute() +
+                    "\" alt=\"room logo\"/>\n" +
                     "                    <div>\n" + room.getDescription() +
                     "                    </div>\n" +
                     "                </div>\n" +
@@ -34,7 +43,8 @@ class ProfilePageRenderer implements InterfaceRenderer {
         }
 
 
-        avatar = "<img src=\"img/useravatars/" + username + ".jpg\" alt=\"avatar\"/>";
+        avatar = "<img src=\"" + fileManager.setOperation(FileManager.GET_USER_AVATAR,
+                new FileOperator(username)).execute() + "\" alt=\"avatar\"/>";
 
         if (Checker.isContainsWrong(request.getParameter("user")))
             settings = "<div class=\"profile-settings\">\n" +
@@ -52,5 +62,15 @@ class ProfilePageRenderer implements InterfaceRenderer {
                 (String) request.getSession().getAttribute("username"),
                 (String) request.getSession().getAttribute("password"),
                 request));
+    }
+
+    @Override
+    public void setController(DatabaseController controller) {
+        databaseController = controller;
+    }
+
+    @Override
+    public void setFileManager(FileManager manager) {
+        fileManager = manager;
     }
 }

@@ -2,11 +2,9 @@ package webmanager;
 
 import webmanager.database.DatabaseConnector;
 import webmanager.database.DatabaseController;
-import webmanager.renderer.InterfaceRenderer;
-import webmanager.renderer.RendererController;
-import webmanager.send.InterfaceSend;
-import webmanager.send.SendController;
-import webmanager.send.SendExecutor;
+import webmanager.file.FileManager;
+import webmanager.renderer.RenderExecutor;
+import webmanager.sender.SendExecutor;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,7 +16,10 @@ import java.io.IOException;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
-    private static DatabaseConnector connector = new DatabaseConnector();
+    private static final DatabaseConnector connector = new DatabaseConnector();
+
+    private FileManager fileManager;
+    private static final DatabaseController databaseController = new DatabaseController(connector);
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,17 +35,10 @@ public class Controller extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        SendController controller = new SendController();
-        RendererController rendererController = new RendererController();
-        SendExecutor executor = new SendExecutor();
+        fileManager = new FileManager(getServletContext());
 
-        DatabaseController databaseController = new DatabaseController(connector);
-
-        InterfaceSend currentSend = controller.defineSend(request);
-
-        String page = executor.execute(currentSend, request, response, getServletContext(), databaseController);
-        InterfaceRenderer currentRenderer = rendererController.defineRenderer(page);
-        currentRenderer.render(request, databaseController);
+        String page = SendExecutor.execute(request, response, fileManager, databaseController);
+        RenderExecutor.execute(page, request, databaseController, fileManager);
 
         page = "/" + page + ".jsp";
 

@@ -1,18 +1,21 @@
-package webmanager.send;
+package webmanager.sender.sends;
 
 import webmanager.CookieManager;
 import webmanager.SessionManager;
 import webmanager.database.DatabaseController;
 import webmanager.security.Checker;
+import webmanager.database.operations.required.DatabaseCommunicative;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
-class RedirectSend implements InterfaceSend {
+public class RedirectSend implements InterfaceSend, DatabaseCommunicative {
+    private DatabaseController controller;
+
     @Override
-    public String executeSend(HttpServletRequest request, HttpServletResponse response, DatabaseController controller) {
+    public String executeSend(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         CookieManager manager = new CookieManager();
         String page = request.getParameter("page");
@@ -42,5 +45,10 @@ class RedirectSend implements InterfaceSend {
             System.out.println(e.getMessage());
             return "main";
         }
+    }
+
+    @Override
+    public void setController(DatabaseController controller) {
+        this.controller = controller;
     }
 }

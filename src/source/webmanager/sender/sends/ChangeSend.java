@@ -1,21 +1,24 @@
-package webmanager.send;
+package webmanager.sender.sends;
 
 import webmanager.CookieManager;
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
 import webmanager.file.FileManager;
+import webmanager.file.abstractions.FileOperator;
+import webmanager.file.operations.required.FileOperating;
 import webmanager.security.Checker;
+import webmanager.database.operations.required.DatabaseCommunicative;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-class ChangeSend implements InterfaceSend {
-    private ServletContext context;
+public class ChangeSend implements InterfaceSend, FileOperating, DatabaseCommunicative {
+    private FileManager fileManager;
+    private DatabaseController controller;
 
     @Override
-    public String executeSend(HttpServletRequest request, HttpServletResponse response, DatabaseController controller) {
+    public String executeSend(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         String page = request.getParameter("page");
         CookieManager manager = new CookieManager();
@@ -43,8 +46,8 @@ class ChangeSend implements InterfaceSend {
                 user.setAdditionalData("newUsername", newUsername);
                 session.setAttribute("username", newUsername);
 
-                FileManager fileManager = new FileManager(context);
-                fileManager.changeAvatarName(oldUsername, newUsername);
+                fileManager.setOperation(FileManager.CHANGE_AVATAR_NAME,
+                        new FileOperator(oldUsername, newUsername)).execute();
 
                 if (!Checker.isContainsWrong(cookieParam) && cookieParam.equals("true"))
                     manager.changeUsername(newUsername, response);
@@ -54,7 +57,13 @@ class ChangeSend implements InterfaceSend {
         return page;
     }
 
-    public void setContext(ServletContext context) {
-        this.context = context;
+    @Override
+    public void setFileManager(FileManager manager) {
+        fileManager = manager;
+    }
+
+    @Override
+    public void setController(DatabaseController controller) {
+        this.controller = controller;
     }
 }

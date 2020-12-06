@@ -1,17 +1,20 @@
-package webmanager.send;
+package webmanager.sender.sends;
 
 import webmanager.CookieManager;
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
 import webmanager.security.Checker;
+import webmanager.database.operations.required.DatabaseCommunicative;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-class LoginSend implements InterfaceSend {
+public class LoginSend implements InterfaceSend, DatabaseCommunicative {
+    private DatabaseController controller;
+
     @Override
-    public String executeSend(HttpServletRequest request, HttpServletResponse response, DatabaseController controller) {
+    public String executeSend(HttpServletRequest request, HttpServletResponse response) {
         CookieManager manager = new CookieManager();
         String page = request.getParameter("page");
         String username = request.getParameter("username");
@@ -36,5 +39,10 @@ class LoginSend implements InterfaceSend {
 
         request.setAttribute("loginMessage", message);
         return Checker.pageReplace(page);
+    }
+
+    @Override
+    public void setController(DatabaseController controller) {
+        this.controller = controller;
     }
 }

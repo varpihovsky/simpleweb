@@ -1,16 +1,18 @@
-package webmanager.send;
+package webmanager.sender.sends;
 
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
 import webmanager.security.Checker;
+import webmanager.database.operations.required.DatabaseCommunicative;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
 
-class RegisterSend implements InterfaceSend {
+public class RegisterSend implements InterfaceSend, DatabaseCommunicative {
+    private DatabaseController controller;
+
     @Override
-    public String executeSend(HttpServletRequest request, HttpServletResponse response, DatabaseController controller) {
+    public String executeSend(HttpServletRequest request, HttpServletResponse response) {
         String page = request.getParameter("page");
         String username = request.getParameter("username");
         String email = request.getParameter("email");
@@ -27,5 +29,10 @@ class RegisterSend implements InterfaceSend {
         }
         request.setAttribute("registerMessage", message);
         return Checker.pageReplace(page);
+    }
+
+    @Override
+    public void setController(DatabaseController controller) {
+        this.controller = controller;
     }
 }

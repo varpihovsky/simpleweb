@@ -1,6 +1,7 @@
-package webmanager.send;
+package webmanager.sender;
 
 import webmanager.security.Checker;
+import webmanager.sender.sends.*;
 
 public enum SendEnum {
     REDIRECT {
