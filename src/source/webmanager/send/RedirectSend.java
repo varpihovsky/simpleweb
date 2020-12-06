@@ -3,6 +3,7 @@ package webmanager.send;
 import webmanager.CookieManager;
 import webmanager.SessionManager;
 import webmanager.database.DatabaseController;
+import webmanager.security.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +22,16 @@ class RedirectSend implements InterfaceSend {
                     (manager.getCookiesFromRequest(request) && manager.checkUser(controller)))
                 manager.createSessionFromCookie(session, controller);
 
-            if (page == null || page.equals(""))
+            if (Checker.isContainsWrong(page))
                 return "main";
 
             else if (page.equals("login") && (SessionManager.checkUserSession(session, controller) ||
                     (manager.getCookiesFromRequest(request) && manager.checkUser(controller))))
                 return "profile";
+
+            else if (page.equals("profile") && Checker.isContainsWrong(request.getParameter("user")) &&
+                    !SessionManager.checkUserSession(session, controller))
+                return "main";
 
             else if (page.equals("profileSettings") && !SessionManager.checkUserSession(session, controller))
                 return "main";
