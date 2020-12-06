@@ -18,6 +18,7 @@ import java.io.IOException;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
+    private static DatabaseConnector connector = new DatabaseConnector();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,7 +38,6 @@ public class Controller extends HttpServlet {
         RendererController rendererController = new RendererController();
         SendExecutor executor = new SendExecutor();
 
-        DatabaseConnector connector = new DatabaseConnector();
         DatabaseController databaseController = new DatabaseController(connector);
 
         InterfaceSend currentSend = controller.defineSend(request);

@@ -3,6 +3,7 @@ package webmanager.send;
 import webmanager.CookieManager;
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
+import webmanager.file.FileManager;
 import webmanager.security.Checker;
 
 import javax.servlet.ServletContext;
@@ -41,6 +42,10 @@ class ChangeSend implements InterfaceSend {
             if (!Checker.isContainsWrong(newUsername)) {
                 user.setAdditionalData("newUsername", newUsername);
                 session.setAttribute("username", newUsername);
+
+                FileManager fileManager = new FileManager(context);
+                fileManager.changeAvatarName(oldUsername, newUsername);
+
                 if (!Checker.isContainsWrong(cookieParam) && cookieParam.equals("true"))
                     manager.changeUsername(newUsername, response);
             }

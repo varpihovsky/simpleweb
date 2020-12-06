@@ -21,11 +21,11 @@ class UsersPageRenderer implements InterfaceRenderer {
         if (!Checker.isContainsWrong(username)) {
             user = new User(username);
             user.setAdditionalData("num", USERS_NUM);
-
             users = controller.setOperation(DatabaseController.FIND_USER,
                     user).execute();
         } else {
             user = new User("");
+            user.setAdditionalData("num", USERS_NUM);
             users = controller.setOperation(DatabaseController.FIND_USER,
                     user).execute();
         }

@@ -6,6 +6,10 @@ import java.io.File;
 public class FileManager {
     private ServletContext context;
 
+    public FileManager(ServletContext context) {
+        this.context = context;
+    }
+
     public void setContext(ServletContext context) {
         this.context = context;
     }
