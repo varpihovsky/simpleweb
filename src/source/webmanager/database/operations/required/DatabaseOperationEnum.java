@@ -24,6 +24,11 @@ public enum DatabaseOperationEnum {
             operation = new FindUser();
         }
     },
+    FINDROOM {
+        {
+            operation = new FindRoom();
+        }
+    },
     GETROOMDATA {
         {
             operation = new GetRoomData();

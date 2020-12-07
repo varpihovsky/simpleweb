@@ -20,7 +20,7 @@
             <a href="#">Users</a>
             <a href="${pageContext.request.contextPath}/controller?page=login&send=redirect">Register</a>
             <a href="#">News</a>
-            <a href="#">Rooms</a>
+            <a href="${pageContext.request.contextPath}/controller?page=rooms&send=redirect">Rooms</a>
             <a href="${pageContext.request.contextPath}/controller?page=login&send=redirect">Login</a>
         </nav>
     </div>

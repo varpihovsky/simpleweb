@@ -14,7 +14,7 @@ public class GetRoomLogo implements FileOperation<String, RenameOperator> {
             File file = new File(context.getRealPath("/img/roomlogos/") + "/" + operator.getName() + "." +
                     extension.toString().toLowerCase());
             if (file.exists())
-                return context.getContextPath() + "img/roomlogos/" + file.getName();
+                return context.getContextPath() + "/img/roomlogos/" + file.getName();
         }
         return null;
     }

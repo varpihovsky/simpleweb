@@ -11,12 +11,12 @@ class RendererTemplates {
             return "<a href=\"" + request.getContextPath() + "/controller?page=users&send=redirect\">Users</a>\n" +
                     "<a href=\"" + request.getContextPath() + "/controller?page=register&send=redirect\">Register</a>\n" +
                     "<a href=\"#\">News</a>\n" +
-                    "<a href=\"#\">Rooms</a>\n" +
+                    "<a href=\"" + request.getContextPath() + "/controller?page=rooms&send=redirect\">Rooms</a>\n" +
                     "<a href=\"" + request.getContextPath() + "/controller?page=login&send=redirect\">Login</a>";
         return "<a href=\"" + request.getContextPath() + "/controller?page=users&send=redirect\">Users</a>\n" +
                 "<a href=\"" + request.getContextPath() + "/controller?page=profile&send=redirect\">Profile</a>\n" +
                 "<a href=\"#\">News</a>\n" +
-                "<a href=\"#\">Rooms</a>\n" +
+                "<a href=\"" + request.getContextPath() + "/controller?page=rooms&send=redirect\">Rooms</a>\n" +
                 "<a href=\"" + request.getContextPath() + "/controller?page=main&send=logout\">Logout</a>";
     }
 }

@@ -27,6 +27,11 @@ public enum RendererEnum {
         {
             this.renderer = new UsersPageRenderer();
         }
+    },
+    ROOMS {
+        {
+            this.renderer = new RoomsPageRenderer();
+        }
     };
     InterfaceRenderer renderer;
 

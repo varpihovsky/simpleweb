@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Tomcat 7.0.106" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.106" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+    <option name="BROWSER_ID" value="53e2f627-b1a7-4dfa-bfa7-5b83cc034776" />
     <option name="START_JAVASCRIPT_DEBUGGER" value="true" />
     <option name="UPDATING_POLICY" value="restart-server" />
     <deployment>
@@ -36,6 +37,21 @@
       </SHUTDOWN>
     </ConfigurationWrapper>
     <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+      <option name="USE_ENV_VARIABLES" value="true" />
+      <STARTUP>
+        <option name="USE_DEFAULT" value="true" />
+        <option name="SCRIPT" value="" />
+        <option name="VM_PARAMETERS" value="" />
+        <option name="PROGRAM_PARAMETERS" value="" />
+      </STARTUP>
+      <SHUTDOWN>
+        <option name="USE_DEFAULT" value="true" />
+        <option name="SCRIPT" value="" />
+        <option name="VM_PARAMETERS" value="" />
+        <option name="PROGRAM_PARAMETERS" value="" />
+      </SHUTDOWN>
+    </ConfigurationWrapper>
+    <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
       <option name="USE_ENV_VARIABLES" value="true" />
       <STARTUP>
         <option name="USE_DEFAULT" value="true" />

@@ -43,6 +43,15 @@ public class DatabaseController {
 
     /**
      * This database operation returns room list.
+     * To get room list you need to send Room with name field initialized.
+     * Have User parameter and returns ArrayList<User>
+     *
+     * @author Varpihovsky
+     */
+    public static final String FIND_ROOM = "findRoom";
+
+    /**
+     * This database operation returns room list.
      * To get room list you need to send User with username field initialized.
      * Have User parameter and returns ArrayList<Room>
      *
