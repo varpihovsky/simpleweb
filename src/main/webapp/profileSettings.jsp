@@ -25,7 +25,8 @@
         </nav>
     </div>
     <div class="container">
-        <form class="form" action="${pageContext.request.contextPath}/controller" method="post">
+        <form class="form" action="${pageContext.request.contextPath}/controller" method="post"
+              enctype="multipart/form-data">
             <a href="${pageContext.request.contextPath}/controller?page=profile&send=redirect" class="back">Back</a>
             <h1>Profile settings</h1>
             <div class="input-form">
@@ -43,6 +44,10 @@
             <div class="input-form">
                 <label for="currentpassword">Current password: </label>
                 <input type="password" id="currentpassword" name="oldpassword" placeholder="Old password" value="">
+            </div>
+            <div class="input-form">
+                <label for="avatarload">Change avatar: </label>
+                <input type="file" id="avatarload" name="file">
             </div>
             <div class="input-form">
                 <input type="submit" value="Confirm">
