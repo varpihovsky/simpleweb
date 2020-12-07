@@ -3,15 +3,17 @@ package webmanager.sender.sends;
 import webmanager.CookieManager;
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
+import webmanager.database.operations.required.DatabaseCommunicative;
 import webmanager.file.FileManager;
-import webmanager.file.abstractions.FileOperator;
+import webmanager.file.abstractions.PartWriteOperator;
+import webmanager.file.abstractions.RenameOperator;
 import webmanager.file.operations.required.FileOperating;
 import webmanager.security.Checker;
-import webmanager.database.operations.required.DatabaseCommunicative;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 public class ChangeSend implements InterfaceSend, FileOperating, DatabaseCommunicative {
     private FileManager fileManager;
@@ -30,6 +32,13 @@ public class ChangeSend implements InterfaceSend, FileOperating, DatabaseCommuni
         String newPassword = request.getParameter("newpassword");
         String oldPassword = request.getParameter("oldpassword");
 
+        try {
+            Part filePart = request.getPart("file");
+            fileManager.setOperation(FileManager.USER_AVATAR_LOAD, new PartWriteOperator(filePart, oldUsername)).execute();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         if (oldPassword.equals(((User) controller.setOperation(DatabaseController.GET_USER_DATA,
                 new User(oldUsername)).execute()).getPassword())) {
             User user = new User(oldUsername);
@@ -47,7 +56,7 @@ public class ChangeSend implements InterfaceSend, FileOperating, DatabaseCommuni
                 session.setAttribute("username", newUsername);
 
                 fileManager.setOperation(FileManager.CHANGE_AVATAR_NAME,
-                        new FileOperator(oldUsername, newUsername)).execute();
+                        new RenameOperator(oldUsername, newUsername)).execute();
 
                 if (!Checker.isContainsWrong(cookieParam) && cookieParam.equals("true"))
                     manager.changeUsername(newUsername, response);
