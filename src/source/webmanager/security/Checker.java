@@ -3,7 +3,7 @@ package webmanager.security;
 public class Checker {
 
     public static boolean isContainsWrong(String str) {
-        return str == null || str.contains("\'") || str.equals("");
+        return str == null || str.contains("'") || str.equals("");
     }
 
     public static boolean checkLength(String str, int from, int to) {

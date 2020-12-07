@@ -3,8 +3,8 @@ package webmanager.sender.sends;
 import webmanager.CookieManager;
 import webmanager.SessionManager;
 import webmanager.database.DatabaseController;
-import webmanager.security.Checker;
 import webmanager.database.operations.required.DatabaseCommunicative;
+import webmanager.security.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

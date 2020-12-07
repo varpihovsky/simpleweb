@@ -5,7 +5,7 @@ import webmanager.database.abstractions.Room;
 import webmanager.database.abstractions.User;
 import webmanager.database.operations.required.DatabaseCommunicative;
 import webmanager.file.FileManager;
-import webmanager.file.abstractions.FileOperator;
+import webmanager.file.abstractions.RenameOperator;
 import webmanager.file.operations.required.FileOperating;
 import webmanager.security.Checker;
 
@@ -34,7 +34,7 @@ class ProfilePageRenderer implements InterfaceRenderer, DatabaseCommunicative, F
                     "                <div class=\"room\">\n" +
                     "                    <h4>" + room.getName() + "</h4>" +
                     "                    <img src=\"" + fileManager.setOperation(FileManager.GET_ROOM_LOGO,
-                    new FileOperator(room.getName())).execute() +
+                    new RenameOperator(room.getName())).execute() +
                     "\" alt=\"room logo\"/>\n" +
                     "                    <div>\n" + room.getDescription() +
                     "                    </div>\n" +
@@ -44,7 +44,7 @@ class ProfilePageRenderer implements InterfaceRenderer, DatabaseCommunicative, F
 
 
         avatar = "<img src=\"" + fileManager.setOperation(FileManager.GET_USER_AVATAR,
-                new FileOperator(username)).execute() + "\" alt=\"avatar\"/>";
+                new RenameOperator(username)).execute() + "\" alt=\"avatar\"/>";
 
         if (Checker.isContainsWrong(request.getParameter("user")))
             settings = "<div class=\"profile-settings\">\n" +

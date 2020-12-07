@@ -77,7 +77,7 @@ public class DatabaseController {
      */
     public static final String IS_USER_EXISTS = "isUserExists";
 
-    private DatabaseConnector connector;
+    private final DatabaseConnector connector;
     private String operation;
     private DatabaseOperator operator;
 

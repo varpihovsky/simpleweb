@@ -4,7 +4,7 @@ import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
 import webmanager.database.operations.required.DatabaseCommunicative;
 import webmanager.file.FileManager;
-import webmanager.file.abstractions.FileOperator;
+import webmanager.file.abstractions.RenameOperator;
 import webmanager.file.operations.required.FileOperating;
 import webmanager.security.Checker;
 
@@ -44,7 +44,7 @@ class UsersPageRenderer implements InterfaceRenderer, DatabaseCommunicative, Fil
                         "                <div class=\"user\">\n" +
                         "                    <h4>" + usr.getUsername() + "</h4>\n" +
                         "                    <img src=\"" + fileManager.setOperation(FileManager.GET_USER_AVATAR,
-                        new FileOperator(usr.getUsername())).execute() + "\" alt=\"room logo\"/>\n" +
+                        new RenameOperator(usr.getUsername())).execute() + "\" alt=\"room logo\"/>\n" +
                         "                </div>\n" +
                         "            </a>\n";
 

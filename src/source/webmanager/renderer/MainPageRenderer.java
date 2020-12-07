@@ -1,8 +1,5 @@
 package webmanager.renderer;
 
-import webmanager.database.DatabaseController;
-import webmanager.database.operations.required.DatabaseCommunicative;
-
 import javax.servlet.http.HttpServletRequest;
 
 class MainPageRenderer implements InterfaceRenderer {

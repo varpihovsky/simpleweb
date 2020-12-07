@@ -8,7 +8,7 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private ArrayList<ConnectionUrlParser.Pair<String, Object>> additionalData;
+    private final ArrayList<ConnectionUrlParser.Pair<String, Object>> additionalData;
 
     public User() {
         additionalData = new ArrayList<>();

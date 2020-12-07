@@ -1,19 +1,20 @@
 package webmanager.file.abstractions;
 
-public class FileOperator {
+public class RenameOperator {
     String name;
     String toName;
 
-    public FileOperator(String name, String toName) {
+
+    public RenameOperator(String name, String toName) {
         this.name = name;
         this.toName = toName;
     }
 
-    public FileOperator(String name) {
+    public RenameOperator(String name) {
         this.name = name;
     }
 
-    public FileOperator() {
+    public RenameOperator() {
 
     }
 

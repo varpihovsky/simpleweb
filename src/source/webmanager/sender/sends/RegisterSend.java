@@ -2,8 +2,8 @@ package webmanager.sender.sends;
 
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
-import webmanager.security.Checker;
 import webmanager.database.operations.required.DatabaseCommunicative;
+import webmanager.security.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

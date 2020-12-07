@@ -1,9 +1,9 @@
 package webmanager.sender;
 
 import webmanager.database.DatabaseController;
+import webmanager.database.operations.required.DatabaseCommunicative;
 import webmanager.file.FileManager;
 import webmanager.file.operations.required.FileOperating;
-import webmanager.database.operations.required.DatabaseCommunicative;
 import webmanager.sender.sends.InterfaceSend;
 import webmanager.sender.sends.RedirectSend;
 

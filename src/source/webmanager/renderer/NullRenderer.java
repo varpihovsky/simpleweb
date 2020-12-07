@@ -1,7 +1,5 @@
 package webmanager.renderer;
 
-import webmanager.database.DatabaseController;
-
 import javax.servlet.http.HttpServletRequest;
 
 class NullRenderer implements InterfaceRenderer {

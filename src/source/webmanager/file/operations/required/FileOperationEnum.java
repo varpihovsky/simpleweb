@@ -1,9 +1,6 @@
 package webmanager.file.operations.required;
 
-import webmanager.file.operations.ChangeAvatarName;
-import webmanager.file.operations.ChangeRoomName;
-import webmanager.file.operations.GetRoomLogo;
-import webmanager.file.operations.GetUserAvatar;
+import webmanager.file.operations.*;
 import webmanager.security.Checker;
 
 public enum FileOperationEnum {
@@ -25,6 +22,11 @@ public enum FileOperationEnum {
     GETROOMLOGO {
         {
             this.operation = new GetRoomLogo();
+        }
+    },
+    USERAVATARLOAD {
+        {
+            this.operation = new UserAvatarLoad();
         }
     };
 

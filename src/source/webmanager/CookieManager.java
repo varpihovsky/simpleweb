@@ -23,8 +23,7 @@ public class CookieManager {
                     password = c;
             }
             return username != null || password != null;
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             return false;
         }
     }
