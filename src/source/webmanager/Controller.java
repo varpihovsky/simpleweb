@@ -3,6 +3,7 @@ package webmanager;
 import webmanager.database.DatabaseConnector;
 import webmanager.database.DatabaseController;
 import webmanager.file.FileManager;
+import webmanager.properties.PropertyManager;
 import webmanager.renderer.RenderExecutor;
 import webmanager.sender.SendExecutor;
 
@@ -18,9 +19,24 @@ import java.io.IOException;
 @WebServlet("/controller")
 @MultipartConfig
 public class Controller extends HttpServlet {
-    private static final DatabaseConnector connector = new DatabaseConnector();
-    private static final DatabaseController databaseController = new DatabaseController(connector);
+    private static DatabaseConnector connector;
+    private static DatabaseController databaseController;
     private FileManager fileManager;
+    private static PropertyManager propertyManager;
+
+    @Override
+    public void init() {
+        propertyManager = new PropertyManager(getServletContext());
+        fileManager = new FileManager(getServletContext());
+
+        connector = new DatabaseConnector(
+                propertyManager.getProperty("DatabaseUrl"),
+                propertyManager.getProperty("DatabaseUser"),
+                propertyManager.getProperty("DatabasePassword"),
+                propertyManager.getProperty("DatabaseCurrent"));
+        databaseController = new DatabaseController(connector,
+                propertyManager.getProperty("DatabaseInitialize"));
+    }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,8 +52,6 @@ public class Controller extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        fileManager = new FileManager(getServletContext());
-
         String page = SendExecutor.execute(request, response, fileManager, databaseController);
         RenderExecutor.execute(page, request, databaseController, fileManager);
 

@@ -1,6 +1,7 @@
 package webmanager.database;
 
 import webmanager.database.abstractions.DatabaseOperator;
+import webmanager.database.operations.required.DatabaseOperation;
 import webmanager.database.operations.required.DatabaseOperationEnum;
 
 public class DatabaseController {
@@ -90,8 +91,13 @@ public class DatabaseController {
     private String operation;
     private DatabaseOperator operator;
 
-    public DatabaseController(DatabaseConnector connector) {
+    public DatabaseController(DatabaseConnector connector, String initialize) {
         this.connector = connector;
+        if (initialize != null && initialize.equals("yes")) {
+            DatabaseOperation tmp = new InitializeDatabase();
+            tmp.operate(connector.getConnection(), null);
+            return;
+        }
     }
 
     public <T> DatabaseController setOperation(String operation, T operator) {
