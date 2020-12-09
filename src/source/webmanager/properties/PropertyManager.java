@@ -26,6 +26,10 @@ public class PropertyManager {
     }
 
     public String getProperty(String key) {
+        if (key.equals("DatabaseInitialize") && properties.getProperty("DatabaseInitialize").equals("yes")) {
+            properties.setProperty("DatabaseInitialize", "no");
+            return "yes";
+        }
         return properties.getProperty(key);
     }
 
