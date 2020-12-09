@@ -15,7 +15,7 @@ public class CreateUser implements DatabaseOperation<Void, User> {
             return null;
 
         try {
-            statement.executeUpdate("INSERT INTO simpleweb.user_data(USERNAME, PASS, EMAIL) VALUES ('" + user.getUsername() +
+            statement.executeUpdate("INSERT INTO user_data(USERNAME, PASS, EMAIL) VALUES ('" + user.getUsername() +
                     "', '" + user.getPassword() + "', '" + user.getEmail() + "');");
             return null;
         } catch (SQLException e) {

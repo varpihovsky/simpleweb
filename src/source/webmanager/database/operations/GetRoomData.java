@@ -11,7 +11,7 @@ public class GetRoomData implements DatabaseOperation<Room, Room> {
     @Override
     public Room operate(Statement statement, Room room) {
         try {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM room_data WHERE name='" + room.getName() + "'");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM room_data WHERE ROOMNAME='" + room.getName() + "'");
             return new Room(resultSet.getString(1), resultSet.getString(2));
         } catch (SQLException e) {
             System.out.println(e.getMessage());

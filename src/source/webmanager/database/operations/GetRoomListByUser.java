@@ -15,7 +15,7 @@ public class GetRoomListByUser implements DatabaseOperation<ArrayList<Room>, Use
     @Override
     public ArrayList<Room> operate(Statement statement, User user) {
         try {
-            ResultSet resultSet = statement.executeQuery("SELECT rooms FROM user_data WHERE USERNAME='" +
+            ResultSet resultSet = statement.executeQuery("SELECT ROOMS FROM user_data WHERE USERNAME='" +
                     user.getUsername() + "'");
             resultSet.next();
             String roomString = resultSet.getString(1);
@@ -25,7 +25,7 @@ public class GetRoomListByUser implements DatabaseOperation<ArrayList<Room>, Use
                 ArrayList<String> descriptions = new ArrayList<>();
 
                 for (int i = 0; i < names.size(); i++) {
-                    resultSet = statement.executeQuery("SELECT description FROM room_data WHERE name='"
+                    resultSet = statement.executeQuery("SELECT DESCRIPTION FROM room_data WHERE ROOMNAME='"
                             + names.get(i) + "'");
                     resultSet.next();
                     descriptions.add(resultSet.getString(1));

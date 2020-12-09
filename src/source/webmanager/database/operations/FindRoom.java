@@ -1,7 +1,6 @@
 package webmanager.database.operations;
 
 import webmanager.database.abstractions.Room;
-import webmanager.database.abstractions.User;
 import webmanager.database.operations.required.DatabaseOperation;
 
 import java.sql.ResultSet;
@@ -13,9 +12,9 @@ public class FindRoom implements DatabaseOperation<ArrayList<Room>, Room> {
     @Override
     public ArrayList<Room> operate(Statement statement, Room room) {
         try {
-            ResultSet resultSet = statement.executeQuery("SELECT name, description FROM room_data " +
+            ResultSet resultSet = statement.executeQuery("SELECT ROOMNAME, DESCRIPTION FROM room_data " +
                     "WHERE isprivate='no' ORDER BY LEVENSHTEIN('" +
-                    room.getName() + "', name) ASC LIMIT 0, " + room.getAdditionalData("num"));
+                    room.getName() + "', ROOMNAME) ASC LIMIT 0, " + room.getAdditionalData("num"));
 
             ArrayList<Room> roomArr = new ArrayList<>();
             while (resultSet.next()) {

@@ -14,7 +14,7 @@ public class CreateRoom implements DatabaseOperation<Void, Room> {
             return null;
 
         try {
-            statement.executeUpdate("INSERT INTO room_data(name, description, password) VALUES ('" +
+            statement.executeUpdate("INSERT INTO room_data(ROOMNAME, DESCRIPTION, PASSWORD) VALUES ('" +
                     room.getName() + "', '" + room.getDescription() + "', NULL");
             return null;
         } catch (SQLException e) {
