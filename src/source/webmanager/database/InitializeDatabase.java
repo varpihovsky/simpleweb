@@ -18,30 +18,34 @@ class InitializeDatabase implements DatabaseOperation<Void, Void> {
                             "  EMAIL VARCHAR(40) not null ,\n" +
                             "  PASS VARCHAR(20) not null ,\n" +
                             "  ISADMIN VARCHAR(3) DEFAULT 'no' not null ,\n" +
+                            "  ROOMS text null," +
                             "  UNIQUE KEY (USERNAME),\n" +
                             "  UNIQUE KEY (EMAIL)\n" +
                             ")");
-            statement.executeUpdate("CREATE TABLE room_data\n" +
-                    "(\n" +
-                    "  ROOMNAME VARCHAR(20) not null ,\n" +
-                    "  PASSWORD VARCHAR(20) null ,\n" +
-                    "  ADMINS text not null ,\n" +
-                    "  ISPRIVATE VARCHAR(3) DEFAULT 'no' not null,\n" +
-                    "  LINKS text null ,\n" +
-                    "  UNIQUE KEY (ROOMNAME),\n" +
-                    "  UNIQUE KEY (PASSWORD)\n" +
-                    ")");
-            statement.execute("CREATE FUNCTION LEVENSHTEIN (s1 VARCHAR(255), s2 VARCHAR(255))\n" +
-                    "    RETURNS INT\n" +
-                    "    DETERMINISTIC\n" +
-                    "BEGIN\n" +
-                    "    DECLARE s1_len, s2_len, i, j, c, c_temp, cost INT;\n" +
-                    "    DECLARE s1_char CHAR;\n" +
-                    "    DECLARE cv0, cv1 VARBINARY(256);\n" +
-                    "    SET s1_len = CHAR_LENGTH(s1), s2_len = CHAR_LENGTH(s2), cv1 = 0x00, j = 1, i = 1, c = 0;\n" +
-                    "    IF s1 = s2 THEN\n" +
-                    "        RETURN 0;\n" +
-                    "    ELSEIF s1_len = 0 THEN\n" +
+            statement.executeUpdate(
+                    "CREATE TABLE room_data\n" +
+                            "(\n" +
+                            "  ROOMNAME VARCHAR(20) not null ,\n" +
+                            "  DESCRIPTION text null," +
+                            "  PASSWORD VARCHAR(20) null ,\n" +
+                            "  ADMINS text not null ,\n" +
+                            "  ISPRIVATE VARCHAR(3) DEFAULT 'no' not null,\n" +
+                            "  LINKS text null ,\n" +
+                            "  UNIQUE KEY (ROOMNAME),\n" +
+                            "  UNIQUE KEY (PASSWORD)\n" +
+                            ")");
+            statement.execute(
+                    "CREATE FUNCTION LEVENSHTEIN (s1 VARCHAR(255), s2 VARCHAR(255))\n" +
+                            "    RETURNS INT\n" +
+                            "    DETERMINISTIC\n" +
+                            "BEGIN\n" +
+                            "    DECLARE s1_len, s2_len, i, j, c, c_temp, cost INT;\n" +
+                            "    DECLARE s1_char CHAR;\n" +
+                            "    DECLARE cv0, cv1 VARBINARY(256);\n" +
+                            "    SET s1_len = CHAR_LENGTH(s1), s2_len = CHAR_LENGTH(s2), cv1 = 0x00, j = 1, i = 1, c = 0;\n" +
+                            "    IF s1 = s2 THEN\n" +
+                            "        RETURN 0;\n" +
+                            "    ELSEIF s1_len = 0 THEN\n" +
                     "        RETURN s2_len;\n" +
                     "    ELSEIF s2_len = 0 THEN\n" +
                     "        RETURN s1_len;\n" +
