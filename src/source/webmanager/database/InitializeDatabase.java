@@ -1,5 +1,6 @@
 package webmanager.database;
 
+import webmanager.Controller;
 import webmanager.database.operations.required.DatabaseOperation;
 
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ class InitializeDatabase implements DatabaseOperation<Void, Void> {
                             "  EMAIL VARCHAR(40) not null ,\n" +
                             "  PASS VARCHAR(20) not null ,\n" +
                             "  ISADMIN VARCHAR(3) DEFAULT 'no' not null ,\n" +
-                            "  ROOMS text null," +
+                            "  ROOMS text DEFAULT '' not null," +
                             "  UNIQUE KEY (USERNAME),\n" +
                             "  UNIQUE KEY (EMAIL)\n" +
                             ")");
@@ -32,7 +33,7 @@ class InitializeDatabase implements DatabaseOperation<Void, Void> {
                             "  ISPRIVATE VARCHAR(3) DEFAULT 'no' not null,\n" +
                             "  LINKS text null ,\n" +
                             "  UNIQUE KEY (ROOMNAME),\n" +
-                            "  UNIQUE KEY (PASSWORD)\n" +
+                            "  UNIQUE KEY (LINKS)" +
                             ")");
             statement.execute(
                     "CREATE FUNCTION LEVENSHTEIN (s1 VARCHAR(255), s2 VARCHAR(255))\n" +
@@ -69,6 +70,8 @@ class InitializeDatabase implements DatabaseOperation<Void, Void> {
                     "    END\n");
         } catch (SQLException e) {
             e.printStackTrace();
+            Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
+                    e.getCause());
         }
         return null;
     }

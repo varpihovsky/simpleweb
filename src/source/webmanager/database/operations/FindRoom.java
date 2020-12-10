@@ -1,5 +1,6 @@
 package webmanager.database.operations;
 
+import webmanager.Controller;
 import webmanager.database.abstractions.Room;
 import webmanager.database.operations.required.DatabaseOperation;
 
@@ -23,6 +24,8 @@ public class FindRoom implements DatabaseOperation<ArrayList<Room>, Room> {
             return roomArr;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
+                    e.getCause());
             return null;
         }
     }

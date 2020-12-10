@@ -1,5 +1,6 @@
 package webmanager.database.operations;
 
+import webmanager.Controller;
 import webmanager.database.abstractions.User;
 import webmanager.database.operations.required.DatabaseOperation;
 import webmanager.security.Checker;
@@ -21,6 +22,8 @@ public class GetUserData implements DatabaseOperation<User, User> {
             return new User(resultSet.getString(1), resultSet.getString(3),
                     resultSet.getString(2));
         } catch (SQLException e) {
+            Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
+                    e.getCause());
             return null;
         }
     }

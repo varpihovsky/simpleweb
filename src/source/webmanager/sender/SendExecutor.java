@@ -1,5 +1,6 @@
 package webmanager.sender;
 
+import webmanager.Controller;
 import webmanager.database.DatabaseController;
 import webmanager.database.operations.required.DatabaseCommunicative;
 import webmanager.file.FileManager;
@@ -20,6 +21,8 @@ public class SendExecutor {
             currentSend = sendEnum.getCurrentSend();
             return currentSend;
         } catch (IllegalArgumentException e) {
+            Controller.logger.warning("IllegalArgumentException:\n\t" + e.getMessage() + "\n\t" + e.getLocalizedMessage() + "\n\t" +
+                    e.getCause());
             return currentSend;
         }
     }

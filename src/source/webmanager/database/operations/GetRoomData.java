@@ -1,5 +1,6 @@
 package webmanager.database.operations;
 
+import webmanager.Controller;
 import webmanager.database.abstractions.Room;
 import webmanager.database.operations.required.DatabaseOperation;
 
@@ -15,6 +16,8 @@ public class GetRoomData implements DatabaseOperation<Room, Room> {
             return new Room(resultSet.getString(1), resultSet.getString(2));
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
+                    e.getCause());
             return null;
         }
     }

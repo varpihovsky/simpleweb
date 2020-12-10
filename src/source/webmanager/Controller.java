@@ -15,10 +15,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @WebServlet("/controller")
 @MultipartConfig
 public class Controller extends HttpServlet {
+    public static Logger logger = Logger.getLogger(Controller.class.getName());
+
     private static DatabaseConnector connector;
     private static DatabaseController databaseController;
     private FileManager fileManager;
@@ -26,6 +29,7 @@ public class Controller extends HttpServlet {
 
     @Override
     public void init() {
+        logger.info("Controller initialization");
         propertyManager = new PropertyManager(getServletContext());
         fileManager = new FileManager(getServletContext());
 

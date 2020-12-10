@@ -3,7 +3,6 @@ package webmanager.file;
 import webmanager.file.operations.required.FileOperationEnum;
 
 import javax.servlet.ServletContext;
-import java.io.File;
 
 public class FileManager {
     public static final String CHANGE_AVATAR_NAME = "ChangeAvatarName";
@@ -11,6 +10,7 @@ public class FileManager {
     public static final String GET_USER_AVATAR = "GetUserAvatar";
     public static final String GET_ROOM_LOGO = "GetRoomLogo";
     public static final String USER_AVATAR_LOAD = "UserAvatarLoad";
+    public static final String ROOM_LOGO_LOAD = "RoomLogoLoad";
 
     private final ServletContext context;
     private Object operator;

@@ -1,5 +1,6 @@
 package webmanager.database.operations;
 
+import webmanager.Controller;
 import webmanager.database.abstractions.User;
 import webmanager.database.operations.required.DatabaseOperation;
 
@@ -22,6 +23,8 @@ public class FindUser implements DatabaseOperation<ArrayList<User>, User> {
             return userArr;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
+                    e.getCause());
             return null;
         }
     }

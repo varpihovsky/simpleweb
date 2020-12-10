@@ -1,5 +1,6 @@
 package webmanager.database.operations;
 
+import webmanager.Controller;
 import webmanager.database.abstractions.Room;
 import webmanager.database.abstractions.User;
 import webmanager.database.operations.required.DatabaseOperation;
@@ -21,7 +22,7 @@ public class GetRoomListByUser implements DatabaseOperation<ArrayList<Room>, Use
             String roomString = resultSet.getString(1);
 
             if (!Checker.isContainsWrong(roomString)) {
-                ArrayList<String> names = new ArrayList<>(Arrays.asList(roomString.split(";")));
+                ArrayList<String> names = new ArrayList<>(Arrays.asList(roomString.split("; ")));
                 ArrayList<String> descriptions = new ArrayList<>();
 
                 for (int i = 0; i < names.size(); i++) {
@@ -41,6 +42,8 @@ public class GetRoomListByUser implements DatabaseOperation<ArrayList<Room>, Use
             return new ArrayList<>();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
+                    e.getCause());
             return null;
         }
     }
