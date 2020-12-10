@@ -28,6 +28,11 @@ public enum SendEnum {
         {
             this.send = new ChangeSend();
         }
+    },
+    ROOMCREATE {
+        {
+            this.send = new RoomCreateSend();
+        }
     };
 
     InterfaceSend send;

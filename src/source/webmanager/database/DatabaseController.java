@@ -87,6 +87,9 @@ public class DatabaseController {
      */
     public static final String IS_USER_EXISTS = "isUserExists";
 
+
+    public static final String ROOM_ADD_TO_USER = "roomAddToUser";
+
     private final DatabaseConnector connector;
     private String operation;
     private DatabaseOperator operator;

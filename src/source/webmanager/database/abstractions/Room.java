@@ -5,14 +5,51 @@ import com.mysql.cj.conf.ConnectionUrlParser;
 import java.util.ArrayList;
 
 public class Room {
-    String description;
-    String name;
+    private String description;
+    private String name;
+    private String password;
+    private String user;
+    private String isPrivate;
+
+    public Room(String name, String description, String isPrivate, String password, String user) {
+        this.name = name;
+        this.description = description;
+        this.password = password;
+        this.user = user;
+        this.isPrivate = isPrivate;
+        additionalData = new ArrayList<>();
+    }
+
+    public String isPrivate() {
+        return isPrivate;
+    }
+
     private final ArrayList<ConnectionUrlParser.Pair<String, Object>> additionalData;
 
     public Room(String name, String description) {
         this.name = name;
         this.description = description;
         additionalData = new ArrayList<>();
+    }
+
+    public void setPrivate(String isPrivate) {
+        this.isPrivate = isPrivate;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public Room(String name) {

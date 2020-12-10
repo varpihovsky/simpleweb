@@ -48,6 +48,11 @@ public enum DatabaseOperationEnum {
         {
             operation = new IsUserExists();
         }
+    },
+    ROOMADDTOUSER {
+        {
+            operation = new RoomAddToUser();
+        }
     };
 
     DatabaseOperation operation;

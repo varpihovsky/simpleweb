@@ -28,6 +28,11 @@ public enum FileOperationEnum {
         {
             this.operation = new UserAvatarLoad();
         }
+    },
+    ROOMLOGOLOAD {
+        {
+            this.operation = new RoomLogoLoad();
+        }
     };
 
     FileOperation operation;

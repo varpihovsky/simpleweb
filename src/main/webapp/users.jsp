@@ -20,7 +20,7 @@
     </div>
     <div class="container">
         <div class="form">
-            <form action="${pageContext.request.contextPath}/controller" method="post">
+            <form action="${pageContext.request.contextPath}/controller" method="post" style="width: 100%;">
                 <div class="find-form">
                     <div class="input-form">
                         <input type="text" name="user" value="">
