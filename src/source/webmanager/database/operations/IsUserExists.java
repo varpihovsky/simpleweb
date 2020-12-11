@@ -17,7 +17,7 @@ public class IsUserExists implements DatabaseOperation<Boolean, User> {
 
         try {
             ResultSet resultSet = statement.executeQuery("SELECT EXISTS(SELECT USERNAME FROM user_data WHERE USERNAME='" +
-                    user.getUsername() + "' AND PASS='" + user.getPassword() + "')");
+                    user.getUsername() + "' AND PASS='" + user.getPassword().hashCode() + "')");
             resultSet.next();
             Boolean bool = resultSet.getBoolean(1);
             return bool;

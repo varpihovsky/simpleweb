@@ -17,7 +17,7 @@ public class CreateUser implements DatabaseOperation<Void, User> {
 
         try {
             statement.executeUpdate("INSERT INTO user_data(USERNAME, PASS, EMAIL) VALUES ('" + user.getUsername() +
-                    "', '" + user.getPassword() + "', '" + user.getEmail() + "');");
+                    "', '" + user.getPassword().hashCode() + "', '" + user.getEmail() + "');");
             return null;
         } catch (SQLException e) {
             System.out.println(e.getMessage());

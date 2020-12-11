@@ -15,7 +15,7 @@ public class CreateRoom implements DatabaseOperation<Void, Room> {
                 room.setPrivate("no");
 
             statement.executeUpdate("INSERT INTO room_data(ROOMNAME, DESCRIPTION, PASSWORD, ADMINS, ISPRIVATE) " +
-                    "VALUES ('" + room.getName() + "', '" + room.getDescription() + "', '" + room.getPassword() + "', " +
+                    "VALUES ('" + room.getName() + "', '" + room.getDescription() + "', '" + room.getPassword().hashCode() + "', " +
                     "'" + room.getUser() + "; ', '" + room.isPrivate() + "')");
             return null;
         } catch (SQLException e) {
