@@ -26,15 +26,25 @@ public class GetRoomListByUser implements DatabaseOperation<ArrayList<Room>, Use
                 ArrayList<String> descriptions = new ArrayList<>();
 
                 for (int i = 0; i < names.size(); i++) {
-                    resultSet = statement.executeQuery("SELECT DESCRIPTION FROM room_data WHERE ROOMNAME='"
-                            + names.get(i) + "'");
-                    resultSet.next();
-                    descriptions.add(resultSet.getString(1));
+                    if (user.getAdditionalData("showPrivate").equals("yes"))
+                        resultSet = statement.executeQuery("SELECT DESCRIPTION FROM room_data WHERE ROOMNAME='"
+                                + names.get(i) + "'");
+                    else
+                        resultSet = statement.executeQuery("SELECT DESCRIPTION FROM room_data WHERE ROOMNAME='"
+                                + names.get(i) + "'AND ISPRIVATE='no'");
+
+                    try {
+                        resultSet.next();
+                        descriptions.add(resultSet.getString(1));
+                    } catch (SQLException e) {
+                        descriptions.add(null);
+                    }
                 }
 
                 ArrayList<Room> roomList = new ArrayList<>();
                 for (int i = 0; i < names.size(); i++) {
-                    roomList.add(new Room(names.get(i), descriptions.get(i)));
+                    if (descriptions.get(i) != null)
+                        roomList.add(new Room(names.get(i), descriptions.get(i)));
                 }
 
                 return roomList;

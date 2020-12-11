@@ -19,15 +19,26 @@ class ProfilePageRenderer implements InterfaceRenderer, DatabaseCommunicative, F
     @Override
     public void render(HttpServletRequest request) {
         String username = request.getParameter("user");
-        if (Checker.isContainsWrong(username))
+        boolean sessionProfile = true;
+
+        if (Checker.isContainsWrong(username)) {
             username = (String) request.getSession().getAttribute("username");
+            sessionProfile = false;
+        }
 
         String roomList = "";
         String avatar;
         String settings = "";
 
+        User user = new User(username);
+
+        if (!sessionProfile)
+            user.setAdditionalData("showPrivate", "yes");
+        else
+            user.setAdditionalData("showPrivate", "no");
+
         ArrayList<Room> rooms =
-                databaseController.setOperation(DatabaseController.GET_ROOM_LIST_BY_USER, new User(username)).execute();
+                databaseController.setOperation(DatabaseController.GET_ROOM_LIST_BY_USER, user).execute();
 
         for (Room room : rooms) {
             roomList += "<a href=\"#\">\n" +

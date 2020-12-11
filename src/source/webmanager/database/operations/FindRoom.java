@@ -14,8 +14,8 @@ public class FindRoom implements DatabaseOperation<ArrayList<Room>, Room> {
     public ArrayList<Room> operate(Statement statement, Room room) {
         try {
             ResultSet resultSet = statement.executeQuery("SELECT ROOMNAME, DESCRIPTION FROM room_data " +
-                    "WHERE isprivate='no' ORDER BY LEVENSHTEIN('" +
-                    room.getName() + "', ROOMNAME) ASC LIMIT 0, " + room.getAdditionalData("num"));
+                    "WHERE ISPRIVATE='no' ORDER BY LEVENSHTEIN('" +
+                    room.getName() + "', ROOMNAME) ASC LIMIT 0," + room.getAdditionalData("num"));
 
             ArrayList<Room> roomArr = new ArrayList<>();
             while (resultSet.next()) {

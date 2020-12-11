@@ -19,7 +19,7 @@ public class RoomAddToUser implements DatabaseOperation<Void, User> {
             resultSet.next();
             currentRooms = resultSet.getString(1);
 
-            if (currentRooms.equals("")) {
+            if (currentRooms == null) {
                 statement.executeUpdate("UPDATE user_data SET \n" +
                         "ROOMS='" + user.getAdditionalData("room") + "; ' \n" +
                         "WHERE USERNAME='" + user.getUsername() + "'");

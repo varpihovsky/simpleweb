@@ -1,5 +1,7 @@
 package webmanager.database;
 
+import webmanager.Controller;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,10 +18,12 @@ public class DatabaseConnector {
             if (user == null || password == null)
                 connection = DriverManager.getConnection(url);
             else
-                connection = DriverManager.getConnection(url, "echat", "5454tankman");
+                connection = DriverManager.getConnection(url, user, password);
 
             statement = connection.createStatement();
         } catch (SQLException e) {
+            Controller.logger.warning("SQLException:\n\t" + e.getMessage() +
+                    "\n\t" + e.getSQLState() + "\n\t" + e.getCause());
             System.out.println(e.getMessage());
         }
     }
