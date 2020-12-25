@@ -1,7 +1,8 @@
 package webmanager.database.operations.required;
 
 import webmanager.database.operations.*;
-import webmanager.security.Checker;
+import webmanager.interfaces.DatabaseOperation;
+import webmanager.util.Checker;
 
 public enum DatabaseOperationEnum {
     CHANGEUSERDATA {
@@ -52,6 +53,11 @@ public enum DatabaseOperationEnum {
     ROOMADDTOUSER {
         {
             operation = new RoomAddToUser();
+        }
+    },
+    GETROOM {
+        {
+            operation = new GetRoom();
         }
     };
 

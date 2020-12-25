@@ -2,7 +2,7 @@ package webmanager;
 
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
-import webmanager.security.Checker;
+import webmanager.util.Checker;
 
 import javax.servlet.http.HttpSession;
 

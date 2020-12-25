@@ -1,6 +1,7 @@
 package webmanager.renderer;
 
-import webmanager.security.Checker;
+import webmanager.interfaces.InterfaceRenderer;
+import webmanager.util.Checker;
 
 public enum RendererEnum {
     MAIN {

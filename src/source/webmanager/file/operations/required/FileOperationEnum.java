@@ -1,7 +1,8 @@
 package webmanager.file.operations.required;
 
 import webmanager.file.operations.*;
-import webmanager.security.Checker;
+import webmanager.interfaces.FileOperation;
+import webmanager.util.Checker;
 
 public enum FileOperationEnum {
     CHANGEAVATARNAME {

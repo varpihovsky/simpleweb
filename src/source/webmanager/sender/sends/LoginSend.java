@@ -3,15 +3,17 @@ package webmanager.sender.sends;
 import webmanager.CookieManager;
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
-import webmanager.database.operations.required.DatabaseCommunicative;
-import webmanager.security.Checker;
+import webmanager.interfaces.InterfaceSend;
+import webmanager.interfaces.Operative;
+import webmanager.util.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
-public class LoginSend implements InterfaceSend, DatabaseCommunicative {
-    private DatabaseController controller;
+public class LoginSend implements InterfaceSend, Operative {
+    private DatabaseController databaseController;
 
     @Override
     public String executeSend(HttpServletRequest request, HttpServletResponse response) {
@@ -25,7 +27,7 @@ public class LoginSend implements InterfaceSend, DatabaseCommunicative {
                 !Checker.checkLength(password, 8, 20)) {
             message += "Wrong username or password";
         } else {
-            if (controller.setOperation(DatabaseController.IS_USER_EXISTS, new User(username, password)).execute()) {
+            if (databaseController.setOperation(DatabaseController.IS_USER_EXISTS, new User(username, password)).execute()) {
                 HttpSession session = request.getSession();
                 session.setAttribute("username", username);
                 session.setAttribute("password", password);
@@ -42,7 +44,7 @@ public class LoginSend implements InterfaceSend, DatabaseCommunicative {
     }
 
     @Override
-    public void setController(DatabaseController controller) {
-        this.controller = controller;
+    public void set(HashMap<String, Object> bundle) {
+        databaseController = (DatabaseController) bundle.get("DatabaseController");
     }
 }

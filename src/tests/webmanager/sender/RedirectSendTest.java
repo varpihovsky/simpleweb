@@ -11,8 +11,8 @@ import webmanager.database.DatabaseController;
 import webmanager.sender.sends.RedirectSend;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -63,7 +63,7 @@ public class RedirectSendTest {
                 Mockito.any())).thenReturn(secondController);
         Mockito.when(secondController.execute()).thenReturn(false);
 
-        send.setController(controller);
+        send.set((HashMap<String, Object>) new HashMap<String, Object>().put("DatabaseController", controller));
     }
 
     @Test

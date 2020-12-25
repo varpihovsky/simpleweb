@@ -2,11 +2,11 @@ package webmanager.sender;
 
 import webmanager.Controller;
 import webmanager.database.DatabaseController;
-import webmanager.database.operations.required.DatabaseCommunicative;
 import webmanager.file.FileManager;
-import webmanager.file.operations.required.FileOperating;
-import webmanager.sender.sends.InterfaceSend;
+import webmanager.interfaces.InterfaceSend;
+import webmanager.interfaces.Operative;
 import webmanager.sender.sends.RedirectSend;
+import webmanager.util.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,12 +31,8 @@ public class SendExecutor {
                                  FileManager fileManager, DatabaseController controller) {
         InterfaceSend send = defineSend(request);
 
-        if (send instanceof FileOperating) {
-            ((FileOperating) send).setFileManager(fileManager);
-        }
-        if (send instanceof DatabaseCommunicative) {
-            ((DatabaseCommunicative) send).setController(controller);
-        }
+
+        Checker.initializeObjects((Operative) send, fileManager, controller);
 
         return send.executeSend(request, response);
     }

@@ -12,7 +12,9 @@
 <body>
 <div class="page-container">
     <div class="navbar">
-        <div class="logo-text"><a href="${pageContext.request.contextPath}/controller?page=main&send=redirect">echat</a>
+        <div class="logo-text"><a
+                href="${pageContext.request.contextPath}/controller?page=main&send=redirect"><% int i = 0; %>
+        </a>
         </div>
         <nav>
             ${navbar}

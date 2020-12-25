@@ -1,6 +1,6 @@
 package webmanager.renderer;
 
-import webmanager.security.Checker;
+import webmanager.util.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 

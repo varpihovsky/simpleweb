@@ -3,7 +3,7 @@ package webmanager.file.operations;
 import webmanager.Controller;
 import webmanager.file.Extensions;
 import webmanager.file.abstractions.PartWriteOperator;
-import webmanager.file.operations.required.FileOperation;
+import webmanager.interfaces.FileOperation;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;

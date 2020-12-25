@@ -1,8 +1,8 @@
 package webmanager.database;
 
 import webmanager.database.abstractions.DatabaseOperator;
-import webmanager.database.operations.required.DatabaseOperation;
 import webmanager.database.operations.required.DatabaseOperationEnum;
+import webmanager.interfaces.DatabaseOperation;
 
 public class DatabaseController {
 
@@ -90,6 +90,9 @@ public class DatabaseController {
 
     public static final String ROOM_ADD_TO_USER = "roomAddToUser";
 
+
+    public static final String GET_ROOM = "GetRoom";
+
     private final DatabaseConnector connector;
     private String operation;
     private DatabaseOperator operator;
@@ -97,7 +100,7 @@ public class DatabaseController {
     public DatabaseController(DatabaseConnector connector, String initialize) {
         this.connector = connector;
         if (initialize != null && initialize.equals("yes")) {
-            DatabaseOperation tmp = new InitializeDatabase();
+            DatabaseOperation<Void, Void> tmp = new InitializeDatabase();
             tmp.operate(connector.getConnection(), null);
             return;
         }

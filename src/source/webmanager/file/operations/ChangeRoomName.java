@@ -2,7 +2,7 @@ package webmanager.file.operations;
 
 import webmanager.file.Extensions;
 import webmanager.file.abstractions.RenameOperator;
-import webmanager.file.operations.required.FileOperation;
+import webmanager.interfaces.FileOperation;
 
 import javax.servlet.ServletContext;
 import java.io.File;

@@ -1,4 +1,4 @@
-package webmanager.renderer;
+package webmanager.interfaces;
 
 import javax.servlet.http.HttpServletRequest;
 

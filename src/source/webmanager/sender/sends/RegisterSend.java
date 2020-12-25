@@ -2,14 +2,16 @@ package webmanager.sender.sends;
 
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
-import webmanager.database.operations.required.DatabaseCommunicative;
-import webmanager.security.Checker;
+import webmanager.interfaces.InterfaceSend;
+import webmanager.interfaces.Operative;
+import webmanager.util.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 
-public class RegisterSend implements InterfaceSend, DatabaseCommunicative {
-    private DatabaseController controller;
+public class RegisterSend implements InterfaceSend, Operative {
+    private DatabaseController databaseController;
 
     @Override
     public String executeSend(HttpServletRequest request, HttpServletResponse response) {
@@ -24,7 +26,7 @@ public class RegisterSend implements InterfaceSend, DatabaseCommunicative {
                 !Checker.checkLength(email, 0, 40)) {
             message += "Contains wrong symbols or has wrong length";
         } else {
-            controller.setOperation(DatabaseController.CREATE_USER, new User(username, email, password)).execute();
+            databaseController.setOperation(DatabaseController.CREATE_USER, new User(username, email, password)).execute();
             message = "User registered";
         }
         request.setAttribute("registerMessage", message);
@@ -32,7 +34,7 @@ public class RegisterSend implements InterfaceSend, DatabaseCommunicative {
     }
 
     @Override
-    public void setController(DatabaseController controller) {
-        this.controller = controller;
+    public void set(HashMap<String, Object> bundle) {
+        databaseController = (DatabaseController) bundle.get("DatabaseController");
     }
 }

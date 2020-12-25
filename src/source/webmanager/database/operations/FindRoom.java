@@ -2,7 +2,7 @@ package webmanager.database.operations;
 
 import webmanager.Controller;
 import webmanager.database.abstractions.Room;
-import webmanager.database.operations.required.DatabaseOperation;
+import webmanager.interfaces.DatabaseOperation;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

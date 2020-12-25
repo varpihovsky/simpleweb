@@ -1,7 +1,7 @@
 package webmanager.database;
 
 import webmanager.Controller;
-import webmanager.database.operations.required.DatabaseOperation;
+import webmanager.interfaces.DatabaseOperation;
 
 import java.sql.SQLException;
 import java.sql.Statement;

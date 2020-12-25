@@ -3,8 +3,8 @@ package webmanager.database.operations;
 import webmanager.Controller;
 import webmanager.database.abstractions.Room;
 import webmanager.database.abstractions.User;
-import webmanager.database.operations.required.DatabaseOperation;
-import webmanager.security.Checker;
+import webmanager.interfaces.DatabaseOperation;
+import webmanager.util.Checker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

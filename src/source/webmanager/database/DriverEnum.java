@@ -1,6 +1,6 @@
 package webmanager.database;
 
-import webmanager.security.Checker;
+import webmanager.util.Checker;
 
 import java.sql.Driver;
 import java.sql.SQLException;

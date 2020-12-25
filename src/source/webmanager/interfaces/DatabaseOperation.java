@@ -1,4 +1,4 @@
-package webmanager.database.operations.required;
+package webmanager.interfaces;
 
 import java.sql.Statement;
 

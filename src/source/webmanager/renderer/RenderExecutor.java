@@ -1,9 +1,10 @@
 package webmanager.renderer;
 
 import webmanager.database.DatabaseController;
-import webmanager.database.operations.required.DatabaseCommunicative;
 import webmanager.file.FileManager;
-import webmanager.file.operations.required.FileOperating;
+import webmanager.interfaces.InterfaceRenderer;
+import webmanager.interfaces.Operative;
+import webmanager.util.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,12 +25,7 @@ public class RenderExecutor {
                                FileManager fileManager) {
         InterfaceRenderer renderer = defineRenderer(page);
 
-        if (renderer instanceof DatabaseCommunicative) {
-            ((DatabaseCommunicative) renderer).setController(databaseController);
-        }
-        if (renderer instanceof FileOperating) {
-            ((FileOperating) renderer).setFileManager(fileManager);
-        }
+        Checker.initializeObjects((Operative) renderer, fileManager, databaseController);
 
         renderer.render(request);
     }

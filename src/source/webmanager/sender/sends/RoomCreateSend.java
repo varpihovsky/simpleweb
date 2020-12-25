@@ -5,25 +5,21 @@ import webmanager.SessionManager;
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.Room;
 import webmanager.database.abstractions.User;
-import webmanager.database.operations.required.DatabaseCommunicative;
 import webmanager.file.FileManager;
 import webmanager.file.abstractions.PartWriteOperator;
-import webmanager.file.operations.required.FileOperating;
+import webmanager.interfaces.InterfaceSend;
+import webmanager.interfaces.Operative;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.util.HashMap;
 
-public class RoomCreateSend implements InterfaceSend, DatabaseCommunicative, FileOperating {
+public class RoomCreateSend implements InterfaceSend, Operative {
     private DatabaseController databaseController;
     private FileManager fileManager;
-
-    @Override
-    public void setController(DatabaseController controller) {
-        databaseController = controller;
-    }
 
     @Override
     public String executeSend(HttpServletRequest request, HttpServletResponse response) {
@@ -59,7 +55,8 @@ public class RoomCreateSend implements InterfaceSend, DatabaseCommunicative, Fil
     }
 
     @Override
-    public void setFileManager(FileManager manager) {
-        fileManager = manager;
+    public void set(HashMap<String, Object> bundle) {
+        fileManager = (FileManager) bundle.get("FileManager");
+        databaseController = (DatabaseController) bundle.get("DatabaseController");
     }
 }

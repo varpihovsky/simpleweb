@@ -2,17 +2,17 @@ package webmanager.renderer;
 
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.Room;
-import webmanager.database.abstractions.User;
-import webmanager.database.operations.required.DatabaseCommunicative;
 import webmanager.file.FileManager;
 import webmanager.file.abstractions.RenameOperator;
-import webmanager.file.operations.required.FileOperating;
-import webmanager.security.Checker;
+import webmanager.interfaces.InterfaceRenderer;
+import webmanager.interfaces.Operative;
+import webmanager.util.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class RoomsPageRenderer implements InterfaceRenderer, DatabaseCommunicative, FileOperating {
+public class RoomsPageRenderer implements InterfaceRenderer, Operative {
     private final static int ROOMS_NUM = 30;
 
     private DatabaseController databaseController;
@@ -58,12 +58,7 @@ public class RoomsPageRenderer implements InterfaceRenderer, DatabaseCommunicati
     }
 
     @Override
-    public void setController(DatabaseController controller) {
-        databaseController = controller;
-    }
-
-    @Override
-    public void setFileManager(FileManager manager) {
-        fileManager = manager;
+    public void set(HashMap<String, Object> bundle) {
+        databaseController = (DatabaseController) bundle.get("DatabaseController");
     }
 }

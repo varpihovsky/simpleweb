@@ -2,13 +2,15 @@ package webmanager.renderer;
 
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
-import webmanager.database.operations.required.DatabaseCommunicative;
-import webmanager.security.Checker;
+import webmanager.interfaces.InterfaceRenderer;
+import webmanager.interfaces.Operative;
+import webmanager.util.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
-class ProfileSettingsPageRenderer implements InterfaceRenderer, DatabaseCommunicative {
+class ProfileSettingsPageRenderer implements InterfaceRenderer, Operative {
     private DatabaseController databaseController;
 
     @Override
@@ -27,7 +29,7 @@ class ProfileSettingsPageRenderer implements InterfaceRenderer, DatabaseCommunic
     }
 
     @Override
-    public void setController(DatabaseController controller) {
-        databaseController = controller;
+    public void set(HashMap<String, Object> bundle) {
+        databaseController = (DatabaseController) bundle.get("DatabaseController");
     }
 }

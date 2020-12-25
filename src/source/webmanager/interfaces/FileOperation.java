@@ -1,4 +1,4 @@
-package webmanager.file.operations.required;
+package webmanager.interfaces;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;

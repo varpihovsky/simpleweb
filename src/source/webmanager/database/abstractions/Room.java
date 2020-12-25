@@ -10,6 +10,36 @@ public class Room {
     private String password;
     private String user;
     private String isPrivate;
+    private String admins;
+    private String links;
+
+    public String getIsPrivate() {
+        return isPrivate;
+    }
+
+    public void setIsPrivate(String isPrivate) {
+        this.isPrivate = isPrivate;
+    }
+
+    public String getAdmins() {
+        return admins;
+    }
+
+    public void setAdmins(String admins) {
+        this.admins = admins;
+    }
+
+    public String getLinks() {
+        return links;
+    }
+
+    public void setLinks(String links) {
+        this.links = links;
+    }
+
+    public ArrayList<ConnectionUrlParser.Pair<String, Object>> getAdditionalData() {
+        return additionalData;
+    }
 
     public Room(String name, String description, String isPrivate, String password, String user) {
         this.name = name;

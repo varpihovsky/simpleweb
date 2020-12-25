@@ -9,6 +9,8 @@ import test.implementations.HttpServletResponseImplemented;
 import webmanager.database.DatabaseController;
 import webmanager.sender.sends.RegisterSend;
 
+import java.util.HashMap;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
@@ -32,7 +34,7 @@ public class RegisterSendTest {
 
         Mockito.when(controllerMock.setOperation(Mockito.any(), Mockito.any())).thenReturn(controllerMock);
 
-        send.setController(controllerMock);
+        send.set((HashMap<String, Object>) new HashMap<String, Object>().put("DatabaseController", controllerMock));
     }
 
     @Test

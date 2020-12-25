@@ -1,10 +1,10 @@
 package webmanager.sender;
 
-import test.implementations.HttpServletRequestImplemented;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import test.implementations.HttpServletRequestImplemented;
 import test.implementations.HttpServletResponseImplemented;
 import test.implementations.HttpSessionImplemented;
 import webmanager.database.DatabaseController;
@@ -12,8 +12,8 @@ import webmanager.sender.sends.LoginSend;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -42,7 +42,7 @@ public class LoginSendTest {
         dbcontrollerMock = mock(DatabaseController.class);
         Mockito.when(dbcontrollerMock.setOperation(Mockito.any(), Mockito.any())).thenReturn(dbcontrollerMock);
 
-        send.setController(dbcontrollerMock);
+        send.set((HashMap<String, Object>) new HashMap<String, Object>().put("DatabaseController", dbcontrollerMock));
     }
 
     @Test

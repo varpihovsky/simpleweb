@@ -1,5 +1,7 @@
 package webmanager.renderer;
 
+import webmanager.interfaces.InterfaceRenderer;
+
 public class RendererController {
     public InterfaceRenderer defineRenderer(String page) {
         InterfaceRenderer currentRenderer;
