@@ -4,7 +4,6 @@ import webmanager.Controller;
 import webmanager.SessionManager;
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.Room;
-import webmanager.database.abstractions.User;
 import webmanager.file.FileManager;
 import webmanager.file.abstractions.PartWriteOperator;
 import webmanager.interfaces.InterfaceSend;
@@ -37,11 +36,9 @@ public class RoomCreateSend implements InterfaceSend, Operative {
 
 
             Room room = new Room(roomName, roomDescription, isPrivate, roomPassword, username);
-            User user = new User(username);
-            user.setAdditionalData("room", roomName);
+            room.setAdditionalData("username", username);
 
             databaseController.setOperation(DatabaseController.CREATE_ROOM, room).execute();
-            databaseController.setOperation(DatabaseController.ROOM_ADD_TO_USER, user).execute();
             fileManager.setOperation(FileManager.ROOM_LOGO_LOAD, new PartWriteOperator(part, roomName)).execute();
         } catch (IOException e) {
             System.out.println(e.getMessage());

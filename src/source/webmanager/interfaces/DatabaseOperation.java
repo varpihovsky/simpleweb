@@ -1,7 +1,19 @@
 package webmanager.interfaces;
 
-import java.sql.Statement;
+import webmanager.database.pool.ConnectionPool;
 
-public interface DatabaseOperation<T, U> {
-    T operate(Statement statement, U type);
+import java.sql.Connection;
+
+public abstract class DatabaseOperation<T, U> {
+    protected Connection connection;
+
+    public DatabaseOperation() {
+        connection = ConnectionPool.getConnection();
+    }
+
+    protected void closeConnection() {
+        ConnectionPool.giveBack(connection);
+    }
+
+    public abstract T operate(U type);
 }

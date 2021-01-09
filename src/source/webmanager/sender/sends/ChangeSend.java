@@ -70,5 +70,6 @@ public class ChangeSend implements InterfaceSend, Operative {
     @Override
     public void set(HashMap<String, Object> bundle) {
         fileManager = (FileManager) bundle.get("FileManager");
+        controller = (DatabaseController) bundle.get("DatabaseController");
     }
 }

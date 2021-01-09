@@ -4,7 +4,6 @@ import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
 import webmanager.interfaces.InterfaceRenderer;
 import webmanager.interfaces.Operative;
-import webmanager.util.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,8 +18,9 @@ class ProfileSettingsPageRenderer implements InterfaceRenderer, Operative {
         User user = databaseController.setOperation(DatabaseController.GET_USER_DATA,
                 new User((String) session.getAttribute("username"))).execute();
 
-        if (!Checker.isContainsWrong(user.getPassword()) &&
-                user.getPassword().equals(session.getAttribute("password"))) {
+        if (user.getUsername().equals(session.getAttribute("username")) &&
+                Integer.parseInt(user.getPassword()) == session.getAttribute("password").hashCode()) {
+            request.setAttribute("username", session.getAttribute("username"));
             request.setAttribute("email", user.getEmail());
         } else {
             request.setAttribute("username", "Error! Please login again!");

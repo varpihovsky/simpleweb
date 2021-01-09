@@ -60,5 +60,6 @@ class UsersPageRenderer implements InterfaceRenderer, Operative {
     @Override
     public void set(HashMap<String, Object> bundle) {
         databaseController = (DatabaseController) bundle.get("DatabaseController");
+        fileManager = (FileManager) bundle.get("FileManager");
     }
 }
