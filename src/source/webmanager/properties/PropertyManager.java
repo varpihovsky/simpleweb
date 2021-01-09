@@ -11,11 +11,21 @@ import java.util.Properties;
 
 public class PropertyManager {
 
-    private final Properties properties = new Properties();
-    String path;
-    private FileReader reader;
+    //Database properties
+    public static final String DATABASE_URL = "DatabaseUrl";
+    public static final String DATABASE_USER = "DatabaseUser";
+    public static final String DATABASE_PASSWORD = "DatabasePassword";
+    public static final String DATABASE_CURRENT = "DatabaseCurrent";
+    public static final String DATABASE_INITIALIZE = "DatabaseInit";
+    public static final String DATABASE_CONNECTIONS_AMOUNT = "DatabaseConnectionsAmount";
 
-    public PropertyManager(ServletContext context) {
+    private final Properties properties = new Properties();
+    private static ServletContext context;
+    private FileReader reader;
+    private static PropertyManager propertyManager;
+    private final String path;
+
+    private PropertyManager(ServletContext context) {
         path = context.getRealPath("/properties/");
         Controller.logger.info("PropertyManager initialization");
         try {
@@ -29,6 +39,23 @@ public class PropertyManager {
             e.printStackTrace();
             Controller.logger.warning("IOException in PropertyManager");
         }
+    }
+
+    public static synchronized void setServletContext(ServletContext context) {
+        PropertyManager.context = context;
+    }
+
+    public static synchronized PropertyManager getInstance() {
+        if (propertyManager == null) {
+            if (context == null)
+                throw new IllegalStateException("Servlet context wasn't set");
+            propertyManager = new PropertyManager(context);
+        }
+        return propertyManager;
+    }
+
+    public static void setInstance(PropertyManager propertyManager) {
+        PropertyManager.propertyManager = propertyManager;
     }
 
     public String getProperty(String key) {

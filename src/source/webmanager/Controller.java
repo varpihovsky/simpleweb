@@ -1,6 +1,5 @@
 package webmanager;
 
-import webmanager.database.DatabaseConnector;
 import webmanager.database.DatabaseController;
 import webmanager.file.FileManager;
 import webmanager.properties.PropertyManager;
@@ -22,24 +21,15 @@ import java.util.logging.Logger;
 public class Controller extends HttpServlet {
     public static Logger logger = Logger.getLogger(Controller.class.getName());
 
-    private static DatabaseConnector connector;
     private static DatabaseController databaseController;
     private FileManager fileManager;
-    private static PropertyManager propertyManager;
 
     @Override
     public void init() {
         logger.info("Controller initialization");
-        propertyManager = new PropertyManager(getServletContext());
+        PropertyManager.setServletContext(getServletContext());
         fileManager = new FileManager(getServletContext());
-
-        connector = new DatabaseConnector(
-                propertyManager.getProperty("DatabaseUrl"),
-                propertyManager.getProperty("DatabaseUser"),
-                propertyManager.getProperty("DatabasePassword"),
-                propertyManager.getProperty("DatabaseCurrent"));
-        databaseController = new DatabaseController(connector,
-                propertyManager.getProperty("DatabaseInitialize"));
+        databaseController = new DatabaseController(PropertyManager.getInstance().getProperty("DatabaseInitialize"));
     }
 
     @Override
