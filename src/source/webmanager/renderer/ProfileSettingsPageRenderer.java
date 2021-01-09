@@ -7,11 +7,8 @@ import webmanager.interfaces.Operative;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 
-class ProfileSettingsPageRenderer implements InterfaceRenderer, Operative {
-    private DatabaseController databaseController;
-
+class ProfileSettingsPageRenderer extends Operative implements InterfaceRenderer {
     @Override
     public void render(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -26,10 +23,5 @@ class ProfileSettingsPageRenderer implements InterfaceRenderer, Operative {
             request.setAttribute("username", "Error! Please login again!");
             request.setAttribute("email", "Error! Please login again!");
         }
-    }
-
-    @Override
-    public void set(HashMap<String, Object> bundle) {
-        databaseController = (DatabaseController) bundle.get("DatabaseController");
     }
 }

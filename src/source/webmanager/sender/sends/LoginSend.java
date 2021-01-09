@@ -10,11 +10,8 @@ import webmanager.util.Checker;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 
-public class LoginSend implements InterfaceSend, Operative {
-    private DatabaseController databaseController;
-
+public class LoginSend extends Operative implements InterfaceSend {
     @Override
     public String executeSend(HttpServletRequest request, HttpServletResponse response) {
         CookieManager manager = new CookieManager();
@@ -41,10 +38,5 @@ public class LoginSend implements InterfaceSend, Operative {
 
         request.setAttribute("loginMessage", message);
         return Checker.pageReplace(page);
-    }
-
-    @Override
-    public void set(HashMap<String, Object> bundle) {
-        databaseController = (DatabaseController) bundle.get("DatabaseController");
     }
 }

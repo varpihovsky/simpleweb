@@ -12,11 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
-import java.util.HashMap;
 
-public class RedirectSend implements InterfaceSend, Operative {
-    private DatabaseController databaseController;
-
+public class RedirectSend extends Operative implements InterfaceSend {
     @Override
     public String executeSend(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -64,10 +61,5 @@ public class RedirectSend implements InterfaceSend, Operative {
             return "main";
         }
         return "main";
-    }
-
-    @Override
-    public void set(HashMap<String, Object> bundle) {
-        databaseController = (DatabaseController) bundle.get("DatabaseController");
     }
 }

@@ -14,12 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import java.util.HashMap;
 
-public class ChangeSend implements InterfaceSend, Operative {
-    private FileManager fileManager;
-    private DatabaseController controller;
-
+public class ChangeSend extends Operative implements InterfaceSend {
     @Override
     public String executeSend(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -40,7 +36,7 @@ public class ChangeSend implements InterfaceSend, Operative {
             System.out.println(e.getMessage());
         }
 
-        if (oldPassword.equals(((User) controller.setOperation(DatabaseController.GET_USER_DATA,
+        if (oldPassword.equals(((User) databaseController.setOperation(DatabaseController.GET_USER_DATA,
                 new User(oldUsername)).execute()).getPassword())) {
             User user = new User(oldUsername);
             if (!Checker.isContainsWrong(newEmail)) {
@@ -62,14 +58,8 @@ public class ChangeSend implements InterfaceSend, Operative {
                 if (!Checker.isContainsWrong(cookieParam) && cookieParam.equals("true"))
                     manager.changeUsername(newUsername, response);
             }
-            controller.setOperation(DatabaseController.CHANGE_USER_DATA, user).execute();
+            databaseController.setOperation(DatabaseController.CHANGE_USER_DATA, user).execute();
         }
         return page;
-    }
-
-    @Override
-    public void set(HashMap<String, Object> bundle) {
-        fileManager = (FileManager) bundle.get("FileManager");
-        controller = (DatabaseController) bundle.get("DatabaseController");
     }
 }

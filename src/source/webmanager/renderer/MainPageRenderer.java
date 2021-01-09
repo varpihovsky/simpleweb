@@ -5,7 +5,7 @@ import webmanager.interfaces.Operative;
 
 import javax.servlet.http.HttpServletRequest;
 
-class MainPageRenderer implements InterfaceRenderer, Operative {
+class MainPageRenderer extends Operative implements InterfaceRenderer {
     @Override
     public void render(HttpServletRequest request) {
         request.setAttribute("navbar", RendererTemplates.renderNavbar(
@@ -13,4 +13,5 @@ class MainPageRenderer implements InterfaceRenderer, Operative {
                 (String) request.getSession().getAttribute("password"),
                 request));
     }
+
 }

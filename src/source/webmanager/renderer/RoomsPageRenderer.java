@@ -10,13 +10,9 @@ import webmanager.util.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class RoomsPageRenderer implements InterfaceRenderer, Operative {
+public class RoomsPageRenderer extends Operative implements InterfaceRenderer {
     private final static int ROOMS_NUM = 30;
-
-    private DatabaseController databaseController;
-    private FileManager fileManager;
 
     @Override
     public void render(HttpServletRequest request) {
@@ -55,11 +51,5 @@ public class RoomsPageRenderer implements InterfaceRenderer, Operative {
                 (String) request.getSession().getAttribute("username"),
                 (String) request.getSession().getAttribute("password"),
                 request));
-    }
-
-    @Override
-    public void set(HashMap<String, Object> bundle) {
-        databaseController = (DatabaseController) bundle.get("DatabaseController");
-        fileManager = (FileManager) bundle.get("FileManager");
     }
 }

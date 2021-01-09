@@ -14,12 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
-import java.util.HashMap;
 
-public class RoomCreateSend implements InterfaceSend, Operative {
-    private DatabaseController databaseController;
-    private FileManager fileManager;
-
+public class RoomCreateSend extends Operative implements InterfaceSend {
     @Override
     public String executeSend(HttpServletRequest request, HttpServletResponse response) {
         if (!SessionManager.checkUserSession(request.getSession(), databaseController))
@@ -49,11 +45,5 @@ public class RoomCreateSend implements InterfaceSend, Operative {
                     e.getCause());
         }
         return page;
-    }
-
-    @Override
-    public void set(HashMap<String, Object> bundle) {
-        fileManager = (FileManager) bundle.get("FileManager");
-        databaseController = (DatabaseController) bundle.get("DatabaseController");
     }
 }

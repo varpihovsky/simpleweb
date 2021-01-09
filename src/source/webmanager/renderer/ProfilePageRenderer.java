@@ -11,12 +11,8 @@ import webmanager.util.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-class ProfilePageRenderer implements InterfaceRenderer, Operative {
-    private DatabaseController databaseController;
-    private FileManager fileManager;
-
+class ProfilePageRenderer extends Operative implements InterfaceRenderer {
     @Override
     public void render(HttpServletRequest request) {
         String username = request.getParameter("user");
@@ -74,11 +70,5 @@ class ProfilePageRenderer implements InterfaceRenderer, Operative {
                 (String) request.getSession().getAttribute("username"),
                 (String) request.getSession().getAttribute("password"),
                 request));
-    }
-
-    @Override
-    public void set(HashMap<String, Object> bundle) {
-        databaseController = (DatabaseController) bundle.get("DatabaseController");
-        fileManager = (FileManager) bundle.get("FileManager");
     }
 }

@@ -8,11 +8,8 @@ import webmanager.util.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 
-public class RegisterSend implements InterfaceSend, Operative {
-    private DatabaseController databaseController;
-
+public class RegisterSend extends Operative implements InterfaceSend {
     @Override
     public String executeSend(HttpServletRequest request, HttpServletResponse response) {
         String page = request.getParameter("page");
@@ -31,10 +28,5 @@ public class RegisterSend implements InterfaceSend, Operative {
         }
         request.setAttribute("registerMessage", message);
         return Checker.pageReplace(page);
-    }
-
-    @Override
-    public void set(HashMap<String, Object> bundle) {
-        databaseController = (DatabaseController) bundle.get("DatabaseController");
     }
 }
