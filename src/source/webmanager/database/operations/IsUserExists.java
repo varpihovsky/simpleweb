@@ -2,29 +2,39 @@ package webmanager.database.operations;
 
 import webmanager.Controller;
 import webmanager.database.abstractions.User;
+import webmanager.database.operations.required.Constants;
 import webmanager.interfaces.DatabaseOperation;
 import webmanager.util.Checker;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class IsUserExists implements DatabaseOperation<Boolean, User> {
+public class IsUserExists extends DatabaseOperation<Boolean, User> {
     @Override
-    public Boolean operate(Statement statement, User user) {
+    public Boolean operate(User user) {
         if (Checker.isContainsWrong(user.getUsername()) || Checker.isContainsWrong(user.getPassword()))
             return false;
 
         try {
-            ResultSet resultSet = statement.executeQuery("SELECT EXISTS(SELECT USERNAME FROM user_data WHERE USERNAME='" +
-                    user.getUsername() + "' AND PASS='" + user.getPassword().hashCode() + "')");
+            PreparedStatement statement = connection.prepareStatement(Constants.IS_USER_EXISTS);
+            statement.setString(1, user.getUsername());
+            statement.setInt(2, user.getPassword().hashCode());
+
+            ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             Boolean bool = resultSet.getBoolean(1);
+
+            resultSet.close();
+            statement.close();
+            closeConnection();
             return bool;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
                     e.getCause());
+
+            closeConnection();
             return false;
         }
     }

@@ -2,27 +2,39 @@ package webmanager.database.operations;
 
 import webmanager.Controller;
 import webmanager.database.abstractions.User;
+import webmanager.database.operations.required.Constants;
 import webmanager.interfaces.DatabaseOperation;
 import webmanager.util.Checker;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class CreateUser implements DatabaseOperation<Void, User> {
+public class CreateUser extends DatabaseOperation<Void, User> {
     @Override
-    public Void operate(Statement statement, User user) {
+    public Void operate(User user) {
         if (Checker.isContainsWrong(user.getEmail()) || Checker.isContainsWrong(user.getPassword()) ||
-                Checker.isContainsWrong(user.getUsername()))
+                Checker.isContainsWrong(user.getUsername())) {
+            closeConnection();
             return null;
+        }
 
         try {
-            statement.executeUpdate("INSERT INTO user_data(USERNAME, PASS, EMAIL) VALUES ('" + user.getUsername() +
-                    "', '" + user.getPassword().hashCode() + "', '" + user.getEmail() + "');");
+            PreparedStatement statement = connection.prepareStatement(Constants.CREATE_USER);
+            int k = 1;
+            statement.setString(k++, user.getUsername());
+            statement.setInt(k++, user.getPassword().hashCode());
+            statement.setString(k++, user.getEmail());
+            statement.executeUpdate();
+            statement.close();
+
+            closeConnection();
             return null;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
                     e.getCause());
+
+            closeConnection();
             return null;
         }
     }

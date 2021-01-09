@@ -3,57 +3,36 @@ package webmanager.database.operations;
 import webmanager.Controller;
 import webmanager.database.abstractions.Room;
 import webmanager.database.abstractions.User;
+import webmanager.database.operations.required.Constants;
 import webmanager.interfaces.DatabaseOperation;
-import webmanager.util.Checker;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class GetRoomListByUser implements DatabaseOperation<ArrayList<Room>, User> {
+public class GetRoomListByUser extends DatabaseOperation<ArrayList<Room>, User> {
     @Override
-    public ArrayList<Room> operate(Statement statement, User user) {
+    public ArrayList<Room> operate(User user) {
         try {
-            ResultSet resultSet = statement.executeQuery("SELECT ROOMS FROM user_data WHERE USERNAME='" +
-                    user.getUsername() + "'");
-            resultSet.next();
-            String roomString = resultSet.getString(1);
+            PreparedStatement statement = connection.prepareStatement(Constants.GET_ROOM_LIST_BY_USER);
+            statement.setString(1, user.getUsername());
+            ArrayList<Room> roomList = new ArrayList<>();
 
-            if (!Checker.isContainsWrong(roomString)) {
-                ArrayList<String> names = new ArrayList<>(Arrays.asList(roomString.split("; ")));
-                ArrayList<String> descriptions = new ArrayList<>();
-
-                for (int i = 0; i < names.size(); i++) {
-                    if (user.getAdditionalData("showPrivate").equals("yes"))
-                        resultSet = statement.executeQuery("SELECT DESCRIPTION FROM room_data WHERE ROOMNAME='"
-                                + names.get(i) + "'");
-                    else
-                        resultSet = statement.executeQuery("SELECT DESCRIPTION FROM room_data WHERE ROOMNAME='"
-                                + names.get(i) + "'AND ISPRIVATE='no'");
-
-                    try {
-                        resultSet.next();
-                        descriptions.add(resultSet.getString(1));
-                    } catch (SQLException e) {
-                        descriptions.add(null);
-                    }
-                }
-
-                ArrayList<Room> roomList = new ArrayList<>();
-                for (int i = 0; i < names.size(); i++) {
-                    if (descriptions.get(i) != null)
-                        roomList.add(new Room(names.get(i), descriptions.get(i)));
-                }
-
-                return roomList;
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                roomList.add(new Room(resultSet.getString(1), resultSet.getString(2)));
             }
-            return new ArrayList<>();
+            resultSet.close();
+            statement.close();
+            closeConnection();
+            return roomList;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
                     e.getCause());
+
+            closeConnection();
             return null;
         }
     }

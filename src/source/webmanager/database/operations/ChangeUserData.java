@@ -2,36 +2,52 @@ package webmanager.database.operations;
 
 import webmanager.Controller;
 import webmanager.database.abstractions.User;
+import webmanager.database.operations.required.Constants;
 import webmanager.interfaces.DatabaseOperation;
 import webmanager.util.Checker;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class ChangeUserData implements DatabaseOperation<Void, User> {
+public class ChangeUserData extends DatabaseOperation<Void, User> {
 
     @Override
-    public Void operate(Statement statement, User user) {
-        if (Checker.isContainsWrong(user.getUsername()))
+    public Void operate(User user) {
+        if (Checker.isContainsWrong(user.getUsername())) {
+            closeConnection();
             return null;
+        }
+
         try {
             if (!Checker.isContainsWrong(user.getEmail())) {
-                statement.executeUpdate("UPDATE user_data SET EMAIL='" + user.getEmail() +
-                        "' WHERE USERNAME='" + user.getUsername() + "'");
+                PreparedStatement statement = connection.prepareStatement(Constants.CHANGE_USER_EMAIL);
+                statement.setString(1, user.getEmail());
+                statement.setString(2, user.getUsername());
+                statement.executeUpdate();
+                statement.close();
             }
             if (!Checker.isContainsWrong(user.getPassword())) {
-                statement.executeUpdate("UPDATE user_data SET PASS='" + user.getPassword() +
-                        "' WHERE USERNAME='" + user.getUsername() + "'");
+                PreparedStatement statement = connection.prepareStatement(Constants.CHANGE_USER_PASSWORD);
+                statement.setInt(1, user.getPassword().hashCode());
+                statement.setString(2, user.getUsername());
+                statement.executeUpdate();
+                statement.close();
             }
             if (!Checker.isContainsWrong((String) user.getAdditionalData("newUsername"))) {
-                statement.executeUpdate("UPDATE user_data SET USERNAME='" + user.getAdditionalData("newUsername")
-                        + "' WHERE USERNAME='" + user.getUsername() + "'");
+                PreparedStatement statement = connection.prepareStatement(Constants.CHANGE_USER_USERNAME);
+                statement.setString(1, (String) user.getAdditionalData("newUsername"));
+                statement.setString(2, user.getUsername());
+                statement.executeUpdate();
+                statement.close();
             }
+            closeConnection();
             return null;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
                     e.getCause());
+
+            closeConnection();
             return null;
         }
     }

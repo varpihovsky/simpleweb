@@ -4,6 +4,8 @@ import webmanager.database.abstractions.DatabaseOperator;
 import webmanager.database.operations.required.DatabaseOperationEnum;
 import webmanager.interfaces.DatabaseOperation;
 
+import java.sql.Statement;
+
 public class DatabaseController {
 
     /**
@@ -93,15 +95,14 @@ public class DatabaseController {
 
     public static final String GET_ROOM = "GetRoom";
 
-    private final DatabaseConnector connector;
+    private Statement statement;
     private String operation;
     private DatabaseOperator operator;
 
-    public DatabaseController(DatabaseConnector connector, String initialize) {
-        this.connector = connector;
+    public DatabaseController(String initialize) {
         if (initialize != null && initialize.equals("yes")) {
             DatabaseOperation<Void, Void> tmp = new InitializeDatabase();
-            tmp.operate(connector.getConnection(), null);
+            tmp.operate(null);
             return;
         }
     }
@@ -112,8 +113,8 @@ public class DatabaseController {
         return this;
     }
 
-    public <T extends Object> T execute() {
+    public <T> T execute() {
         DatabaseOperationEnum databaseOperationEnum = DatabaseOperationEnum.getInstance(operation);
-        return (T) databaseOperationEnum.getOperation().operate(connector.getConnection(), operator.getOperator());
+        return (T) databaseOperationEnum.getOperation().operate(operator.getOperator());
     }
 }

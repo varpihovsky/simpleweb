@@ -1,35 +1,29 @@
 package webmanager.database.abstractions;
 
-import com.mysql.cj.conf.ConnectionUrlParser;
-
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class User {
     private String username;
     private String email;
     private String password;
-    private final ArrayList<ConnectionUrlParser.Pair<String, Object>> additionalData;
+    private final HashMap<String, Object> additionalData = new HashMap<>();
 
     public User() {
-        additionalData = new ArrayList<>();
     }
 
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-        additionalData = new ArrayList<>();
     }
 
     public User(String username) {
         this.username = username;
-        additionalData = new ArrayList<>();
     }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        additionalData = new ArrayList<>();
     }
 
     public String getPassword() {
@@ -57,14 +51,10 @@ public class User {
     }
 
     public Object getAdditionalData(String attributeName) {
-        for (ConnectionUrlParser.Pair pair : additionalData) {
-            if (pair.left.equals(attributeName))
-                return pair.right;
-        }
-        return null;
+        return additionalData.get(attributeName);
     }
 
     public void setAdditionalData(String attributeName, Object data) {
-        additionalData.add(new ConnectionUrlParser.Pair<>(attributeName, data));
+        additionalData.put(attributeName, data);
     }
 }

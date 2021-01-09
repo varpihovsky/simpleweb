@@ -54,11 +54,6 @@ public enum DatabaseOperationEnum {
         {
             operation = new RoomAddToUser();
         }
-    },
-    GETROOM {
-        {
-            operation = new GetRoom();
-        }
     };
 
     DatabaseOperation operation;
