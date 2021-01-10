@@ -22,7 +22,7 @@ public class FindUser extends DatabaseOperation<ArrayList<User>, User> {
 
             ArrayList<User> userArr = new ArrayList<>();
             while (resultSet.next()) {
-                userArr.add(new User(resultSet.getString(1)));
+                userArr.add(new User(resultSet.getInt(1), resultSet.getString(2)));
             }
             resultSet.close();
             statement.close();

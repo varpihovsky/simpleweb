@@ -2,6 +2,7 @@ package webmanager.renderer;
 
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.Room;
+import webmanager.database.operations.FindRoom;
 import webmanager.file.FileManager;
 import webmanager.file.abstractions.RenameOperator;
 import webmanager.interfaces.InterfaceRenderer;
@@ -17,22 +18,20 @@ public class RoomsPageRenderer extends Operative implements InterfaceRenderer {
     @Override
     public void render(HttpServletRequest request) {
         String render = "";
-        String roomname = request.getParameter("room");
+        String roomName = request.getParameter("room");
 
         ArrayList<Room> rooms;
         Room room;
 
-        if (!Checker.isContainsWrong(roomname)) {
-            room = new Room(roomname);
-            room.setAdditionalData("num", ROOMS_NUM);
-            rooms = databaseController.setOperation(DatabaseController.FIND_ROOM,
-                    room).execute();
+        if (!Checker.isContainsWrong(roomName)) {
+            room = new Room(roomName);
         } else {
             room = new Room("");
-            room.setAdditionalData("num", ROOMS_NUM);
-            rooms = databaseController.setOperation(DatabaseController.FIND_ROOM,
-                    room).execute();
         }
+        room.setAdditionalData("num", ROOMS_NUM);
+        rooms =
+                (ArrayList<Room>) DatabaseController.getDatabaseAccess(new FindRoom(), room).execute();
+        //databaseController.setOperation(DatabaseController.FIND_ROOM, room).execute();
 
         if (rooms != null)
             for (Room room1 : rooms)
@@ -41,7 +40,7 @@ public class RoomsPageRenderer extends Operative implements InterfaceRenderer {
                         "                <div class=\"user\">\n" +
                         "                    <h4>" + room1.getName() + "</h4>\n" +
                         "                    <img src=\"" + fileManager.setOperation(FileManager.GET_ROOM_LOGO,
-                        new RenameOperator(room1.getName())).execute() + "\" alt=\"room logo\"/>\n" +
+                        new RenameOperator(String.valueOf(room1.getId()))).execute() + "\" alt=\"room logo\"/>\n" +
                         "                </div>\n" +
                         "            </a>\n";
 

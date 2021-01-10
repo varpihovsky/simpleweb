@@ -40,7 +40,7 @@ public class LoginSendTest {
         request = mock(HttpServletRequestImplemented.class);
         responseMock = mock(HttpServletResponseImplemented.class);
         dbcontrollerMock = mock(DatabaseController.class);
-        Mockito.when(dbcontrollerMock.setOperation(Mockito.any(), Mockito.any())).thenReturn(dbcontrollerMock);
+        //Mockito.when(dbcontrollerMock.setOperation(Mockito.any(), Mockito.any())).thenReturn(dbcontrollerMock);
 
         send.set((HashMap<String, Object>) new HashMap<String, Object>().put("DatabaseController", dbcontrollerMock));
     }

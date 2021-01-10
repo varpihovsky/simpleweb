@@ -1,14 +1,26 @@
 package webmanager.database.abstractions;
 
+import webmanager.interfaces.DatabaseObject;
+
 import java.util.HashMap;
 
-public class User {
+public class User implements DatabaseObject {
+    private int id;
     private String username;
     private String email;
     private String password;
     private final HashMap<String, Object> additionalData = new HashMap<>();
 
     public User() {
+    }
+
+    public User(int id) {
+        this.id = id;
+    }
+
+    public User(int id, String username) {
+        this.id = id;
+        this.username = username;
     }
 
     public User(String username, String email, String password) {
@@ -56,5 +68,13 @@ public class User {
 
     public void setAdditionalData(String attributeName, Object data) {
         additionalData.put(attributeName, data);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

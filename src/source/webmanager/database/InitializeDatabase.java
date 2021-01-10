@@ -1,14 +1,15 @@
 package webmanager.database;
 
 import webmanager.Controller;
+import webmanager.database.abstractions.NullDatabaseObject;
 import webmanager.interfaces.DatabaseOperation;
 
 import java.sql.SQLException;
 import java.sql.Statement;
 
-class InitializeDatabase extends DatabaseOperation<Void, Void> {
+class InitializeDatabase extends DatabaseOperation<Void, NullDatabaseObject> {
     @Override
-    public Void operate(Void type) {
+    public Void operate(NullDatabaseObject type) {
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate("DROP TABLE IF EXISTS `room_has_link` CASCADE;");

@@ -21,7 +21,8 @@ public class GetRoomListByUser extends DatabaseOperation<ArrayList<Room>, User> 
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                roomList.add(new Room(resultSet.getString(1), resultSet.getString(2)));
+                roomList.add(new Room(resultSet.getInt(1),
+                        resultSet.getString(2), resultSet.getString(3)));
             }
             resultSet.close();
             statement.close();

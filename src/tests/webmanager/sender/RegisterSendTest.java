@@ -32,7 +32,7 @@ public class RegisterSendTest {
         responseMock = mock(HttpServletResponseImplemented.class);
         controllerMock = mock(DatabaseController.class);
 
-        Mockito.when(controllerMock.setOperation(Mockito.any(), Mockito.any())).thenReturn(controllerMock);
+        //Mockito.when(controllerMock.setOperation(Mockito.any(), Mockito.any())).thenReturn(controllerMock);
 
         send.set((HashMap<String, Object>) new HashMap<String, Object>().put("DatabaseController", controllerMock));
     }

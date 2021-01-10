@@ -1,20 +1,13 @@
 package webmanager.file.operations.required;
 
-import webmanager.file.operations.*;
+import webmanager.file.operations.GetRoomLogo;
+import webmanager.file.operations.GetUserAvatar;
+import webmanager.file.operations.RoomLogoLoad;
+import webmanager.file.operations.UserAvatarLoad;
 import webmanager.interfaces.FileOperation;
 import webmanager.util.Checker;
 
 public enum FileOperationEnum {
-    CHANGEAVATARNAME {
-        {
-            this.operation = new ChangeAvatarName();
-        }
-    },
-    CHANGEROOMNAME {
-        {
-            this.operation = new ChangeRoomName();
-        }
-    },
     GETUSERAVATAR {
         {
             this.operation = new GetUserAvatar();

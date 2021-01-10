@@ -24,7 +24,8 @@ public class FindRoom extends DatabaseOperation<ArrayList<Room>, Room> {
 
             ArrayList<Room> roomArr = new ArrayList<>();
             while (resultSet.next()) {
-                roomArr.add(new Room(resultSet.getString(1), resultSet.getString(2)));
+                roomArr.add(new Room(resultSet.getInt(1),
+                        resultSet.getString(2), resultSet.getString(3)));
             }
 
             resultSet.close();

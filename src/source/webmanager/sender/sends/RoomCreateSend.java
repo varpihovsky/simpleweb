@@ -4,6 +4,8 @@ import webmanager.Controller;
 import webmanager.SessionManager;
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.Room;
+import webmanager.database.operations.CreateRoom;
+import webmanager.database.operations.GetRoomIdByName;
 import webmanager.file.FileManager;
 import webmanager.file.abstractions.PartWriteOperator;
 import webmanager.interfaces.InterfaceSend;
@@ -18,7 +20,7 @@ import java.io.IOException;
 public class RoomCreateSend extends Operative implements InterfaceSend {
     @Override
     public String executeSend(HttpServletRequest request, HttpServletResponse response) {
-        if (!SessionManager.checkUserSession(request.getSession(), databaseController))
+        if (!SessionManager.checkUserSession(request.getSession()))
             return "login";
 
         String page = request.getParameter("page");
@@ -31,11 +33,16 @@ public class RoomCreateSend extends Operative implements InterfaceSend {
             Part part = request.getPart("roomLogo");
 
 
-            Room room = new Room(roomName, roomDescription, isPrivate, roomPassword, username);
+            Room room = new Room(roomName, roomDescription, isPrivate, roomPassword);
             room.setAdditionalData("username", username);
 
-            databaseController.setOperation(DatabaseController.CREATE_ROOM, room).execute();
-            fileManager.setOperation(FileManager.ROOM_LOGO_LOAD, new PartWriteOperator(part, roomName)).execute();
+            DatabaseController.getDatabaseAccess(new CreateRoom(), room).execute();
+            //databaseController.setOperation(DatabaseController.CREATE_ROOM, room).execute();
+            fileManager.setOperation(FileManager.ROOM_LOGO_LOAD, new PartWriteOperator(part,
+                    String.valueOf(((Room)
+                            DatabaseController.getDatabaseAccess(new GetRoomIdByName(), room).execute()
+                            //databaseController.setOperation(DatabaseController.GET_ROOM_ID_BY_NAME, room).execute()
+                    ).getId()))).execute();
         } catch (IOException e) {
             System.out.println(e.getMessage());
             Controller.logger.warning("IOException:\n\t" + e.getMessage() + "\n\t" + e.getLocalizedMessage() + "\n\t" +

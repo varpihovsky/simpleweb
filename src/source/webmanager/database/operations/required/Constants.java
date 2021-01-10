@@ -19,18 +19,22 @@ public class Constants {
 
     public static final String CREATE_USER = "INSERT INTO account(username, password, email, role_id) VALUES (?, ?, ?, 2)";
 
-    public static final String FIND_ROOM = "SELECT name, description FROM room " +
+    public static final String FIND_ROOM = "SELECT id, name, description FROM room " +
             "WHERE private='no' ORDER BY LEVENSHTEIN(?, name) ASC LIMIT 0,?";
 
-    public static final String FIND_USER = "SELECT username FROM account ORDER BY LEVENSHTEIN(?, username) " +
+    public static final String FIND_USER = "SELECT id, username FROM account ORDER BY LEVENSHTEIN(?, username) " +
             "ASC LIMIT 0,?";
 
     public static final String GET_ROOM_DATA = "SELECT * FROM room WHERE name=?";
 
-    public static final String GET_ROOM_LIST_BY_USER = "SELECT name, description FROM room WHERE " +
-            "id IN (SELECT room_id FROM room_members WHERE user_id=(SELECT id FROM account WHERE username=?))";
+    public static final String GET_ROOM_ID_BY_NAME = "SELECT id FROM room WHERE name=?";
+
+    public static final String GET_ROOM_LIST_BY_USER = "SELECT id, name, description FROM room WHERE " +
+            "id IN (SELECT room_id FROM room_members WHERE user_id=(SELECT account.id FROM account WHERE username=?))";
 
     public static final String GET_USER_DATA = "SELECT * FROM account WHERE username=?";
+
+    public static final String GET_USER_ID_BY_USERNAME = "SELECT id FROM account WHERE username=?";
 
     public static final String IS_USER_EXISTS = "SELECT EXISTS(SELECT username FROM account " +
             "WHERE username=? AND password=?)";

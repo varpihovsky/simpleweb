@@ -3,6 +3,8 @@ package webmanager.renderer;
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.Room;
 import webmanager.database.abstractions.User;
+import webmanager.database.operations.GetRoomListByUser;
+import webmanager.database.operations.GetUserIdByUsername;
 import webmanager.file.FileManager;
 import webmanager.file.abstractions.RenameOperator;
 import webmanager.interfaces.InterfaceRenderer;
@@ -35,14 +37,15 @@ class ProfilePageRenderer extends Operative implements InterfaceRenderer {
             user.setAdditionalData("showPrivate", "no");
 
         ArrayList<Room> rooms =
-                databaseController.setOperation(DatabaseController.GET_ROOM_LIST_BY_USER, user).execute();
+                (ArrayList<Room>) DatabaseController.getDatabaseAccess(new GetRoomListByUser(), user).execute();
+//                databaseController.setOperation(DatabaseController.GET_ROOM_LIST_BY_USER, user).execute();
 
         for (Room room : rooms) {
             roomList += "<a href=\"#\">\n" +
                     "                <div class=\"room\">\n" +
                     "                    <h4>" + room.getName() + "</h4>" +
                     "                    <img src=\"" + fileManager.setOperation(FileManager.GET_ROOM_LOGO,
-                    new RenameOperator(room.getName())).execute() +
+                    new RenameOperator(String.valueOf(room.getId()))).execute() +
                     "\" alt=\"room logo\"/>\n" +
                     "                    <div>\n" + room.getDescription() +
                     "                    </div>\n" +
@@ -52,7 +55,10 @@ class ProfilePageRenderer extends Operative implements InterfaceRenderer {
 
 
         avatar = "<img src=\"" + fileManager.setOperation(FileManager.GET_USER_AVATAR,
-                new RenameOperator(username)).execute() + "\" alt=\"avatar\"/>";
+                new RenameOperator(String.valueOf((
+                        (User) DatabaseController.getDatabaseAccess(new GetUserIdByUsername(), user)
+                                .execute()).getId())))
+                .execute() + "\" alt=\"avatar\"/>";
 
         if (Checker.isContainsWrong(request.getParameter("user")))
             settings = "<div class=\"profile-settings\">\n" +

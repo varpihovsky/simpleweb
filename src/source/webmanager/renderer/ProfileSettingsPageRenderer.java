@@ -2,6 +2,7 @@ package webmanager.renderer;
 
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
+import webmanager.database.operations.GetUserData;
 import webmanager.interfaces.InterfaceRenderer;
 import webmanager.interfaces.Operative;
 
@@ -12,8 +13,10 @@ class ProfileSettingsPageRenderer extends Operative implements InterfaceRenderer
     @Override
     public void render(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        User user = databaseController.setOperation(DatabaseController.GET_USER_DATA,
-                new User((String) session.getAttribute("username"))).execute();
+        User user =
+                (User) DatabaseController.getDatabaseAccess(new GetUserData(),
+                        new User((String) session.getAttribute("username"))).execute();
+        //databaseController.setOperation(DatabaseController.GET_USER_DATA, new User((String) session.getAttribute("username"))).execute();
 
         if (user.getUsername().equals(session.getAttribute("username")) &&
                 Integer.parseInt(user.getPassword()) == session.getAttribute("password").hashCode()) {

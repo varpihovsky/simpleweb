@@ -2,6 +2,7 @@ package webmanager.renderer;
 
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
+import webmanager.database.operations.FindUser;
 import webmanager.file.FileManager;
 import webmanager.file.abstractions.RenameOperator;
 import webmanager.interfaces.InterfaceRenderer;
@@ -24,15 +25,13 @@ class UsersPageRenderer extends Operative implements InterfaceRenderer {
 
         if (!Checker.isContainsWrong(username)) {
             user = new User(username);
-            user.setAdditionalData("num", USERS_NUM);
-            users = databaseController.setOperation(DatabaseController.FIND_USER,
-                    user).execute();
         } else {
             user = new User("");
-            user.setAdditionalData("num", USERS_NUM);
-            users = databaseController.setOperation(DatabaseController.FIND_USER,
-                    user).execute();
         }
+
+        user.setAdditionalData("num", USERS_NUM);
+        users = (ArrayList<User>) DatabaseController.getDatabaseAccess(new FindUser(), user).execute();
+        //databaseController.setOperation(DatabaseController.FIND_USER, user).execute();
 
         if (users != null)
             for (User usr : users)
@@ -41,7 +40,7 @@ class UsersPageRenderer extends Operative implements InterfaceRenderer {
                         "                <div class=\"user\">\n" +
                         "                    <h4>" + usr.getUsername() + "</h4>\n" +
                         "                    <img src=\"" + fileManager.setOperation(FileManager.GET_USER_AVATAR,
-                        new RenameOperator(usr.getUsername())).execute() + "\" alt=\"room logo\"/>\n" +
+                        new RenameOperator(String.valueOf(usr.getId()))).execute() + "\" alt=\"room logo\"/>\n" +
                         "                </div>\n" +
                         "            </a>\n";
 

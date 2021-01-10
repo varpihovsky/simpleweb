@@ -4,7 +4,7 @@ import webmanager.database.pool.ConnectionPool;
 
 import java.sql.Connection;
 
-public abstract class DatabaseOperation<T, U> {
+public abstract class DatabaseOperation<T, U extends DatabaseObject> {
     protected Connection connection;
 
     public DatabaseOperation() {

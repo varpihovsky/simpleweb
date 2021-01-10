@@ -29,7 +29,7 @@ public class Controller extends HttpServlet {
         logger.info("Controller initialization");
         PropertyManager.setServletContext(getServletContext());
         fileManager = new FileManager(getServletContext());
-        databaseController = new DatabaseController(PropertyManager.getInstance().getProperty("DatabaseInitialize"));
+        DatabaseController.init(PropertyManager.getInstance().getProperty(PropertyManager.DATABASE_INITIALIZE));
     }
 
     @Override

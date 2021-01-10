@@ -21,6 +21,7 @@ public class ConnectionPool {
     private static ArrayList<ConnectionPoolWrapper> connectionPoolWrappers;
 
     public static synchronized Connection getConnection() {
+        Controller.logger.info("Someone tried to take connection");
         if (connectionPoolWrappers == null) {
             connectionPoolWrappers = (ArrayList<ConnectionPoolWrapper>)
                     Stream.generate(new ConnectionPoolSupplier())
@@ -39,6 +40,7 @@ public class ConnectionPool {
 
             if (connectionPoolWrapper.isPresent()) {
                 connectionPoolWrapper.get().taken = true;
+                Controller.logger.info("return connection");
                 return connectionPoolWrapper.get().connection;
             }
         }

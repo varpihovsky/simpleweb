@@ -1,17 +1,45 @@
 package webmanager.database.abstractions;
 
 import com.mysql.cj.conf.ConnectionUrlParser;
+import webmanager.interfaces.DatabaseObject;
 
 import java.util.ArrayList;
 
-public class Room {
+public class Room implements DatabaseObject {
+    private final ArrayList<ConnectionUrlParser.Pair<String, Object>>
+            additionalData = new ArrayList<>();
     private String description;
     private String name;
     private String password;
-    private String user;
     private String isPrivate;
-    private String admins;
-    private String links;
+    private int id;
+
+
+    public Room(String name) {
+        this.name = name;
+    }
+
+    public Room(int id) {
+        this.id = id;
+    }
+
+    public Room(String name, String description, String isPrivate, String password) {
+        this.name = name;
+        this.description = description;
+        this.password = password;
+        this.isPrivate = isPrivate;
+    }
+
+    public Room(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+    public Room(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
     public String getIsPrivate() {
         return isPrivate;
@@ -21,45 +49,12 @@ public class Room {
         this.isPrivate = isPrivate;
     }
 
-    public String getAdmins() {
-        return admins;
-    }
-
-    public void setAdmins(String admins) {
-        this.admins = admins;
-    }
-
-    public String getLinks() {
-        return links;
-    }
-
-    public void setLinks(String links) {
-        this.links = links;
-    }
-
     public ArrayList<ConnectionUrlParser.Pair<String, Object>> getAdditionalData() {
         return additionalData;
     }
 
-    public Room(String name, String description, String isPrivate, String password, String user) {
-        this.name = name;
-        this.description = description;
-        this.password = password;
-        this.user = user;
-        this.isPrivate = isPrivate;
-        additionalData = new ArrayList<>();
-    }
-
     public String isPrivate() {
         return isPrivate;
-    }
-
-    private final ArrayList<ConnectionUrlParser.Pair<String, Object>> additionalData;
-
-    public Room(String name, String description) {
-        this.name = name;
-        this.description = description;
-        additionalData = new ArrayList<>();
     }
 
     public void setPrivate(String isPrivate) {
@@ -72,19 +67,6 @@ public class Room {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public Room(String name) {
-        this.name = name;
-        additionalData = new ArrayList<>();
     }
 
     public String getDescription() {
@@ -113,5 +95,13 @@ public class Room {
 
     public void setAdditionalData(String attributeName, Object data) {
         additionalData.add(new ConnectionUrlParser.Pair<>(attributeName, data));
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

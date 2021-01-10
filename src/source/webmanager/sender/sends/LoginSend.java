@@ -3,6 +3,7 @@ package webmanager.sender.sends;
 import webmanager.CookieManager;
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
+import webmanager.database.operations.IsUserExists;
 import webmanager.interfaces.InterfaceSend;
 import webmanager.interfaces.Operative;
 import webmanager.util.Checker;
@@ -24,7 +25,9 @@ public class LoginSend extends Operative implements InterfaceSend {
                 !Checker.checkLength(password, 8, 20)) {
             message += "Wrong username or password";
         } else {
-            if (databaseController.setOperation(DatabaseController.IS_USER_EXISTS, new User(username, password)).execute()) {
+            if ((Boolean) DatabaseController.getDatabaseAccess(new IsUserExists(), new User(username, password)).execute()
+                //databaseController.setOperation(DatabaseController.IS_USER_EXISTS, new User(username, password)).execute()
+            ) {
                 HttpSession session = request.getSession();
                 session.setAttribute("username", username);
                 session.setAttribute("password", password);

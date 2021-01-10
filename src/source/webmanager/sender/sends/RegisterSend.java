@@ -2,6 +2,7 @@ package webmanager.sender.sends;
 
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
+import webmanager.database.operations.CreateUser;
 import webmanager.interfaces.InterfaceSend;
 import webmanager.interfaces.Operative;
 import webmanager.util.Checker;
@@ -23,7 +24,8 @@ public class RegisterSend extends Operative implements InterfaceSend {
                 !Checker.checkLength(email, 0, 40)) {
             message += "Contains wrong symbols or has wrong length";
         } else {
-            databaseController.setOperation(DatabaseController.CREATE_USER, new User(username, email, password)).execute();
+            DatabaseController.getDatabaseAccess(new CreateUser(), new User(username, email, password)).execute();
+            //databaseController.setOperation(DatabaseController.CREATE_USER, new User(username, email, password)).execute();
             message = "User registered";
         }
         request.setAttribute("registerMessage", message);

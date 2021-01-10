@@ -1,11 +1,14 @@
 package webmanager.sender.sends;
 
+import webmanager.Controller;
 import webmanager.CookieManager;
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
+import webmanager.database.operations.ChangeUserData;
+import webmanager.database.operations.GetUserData;
+import webmanager.database.operations.GetUserIdByUsername;
 import webmanager.file.FileManager;
 import webmanager.file.abstractions.PartWriteOperator;
-import webmanager.file.abstractions.RenameOperator;
 import webmanager.interfaces.InterfaceSend;
 import webmanager.interfaces.Operative;
 import webmanager.util.Checker;
@@ -31,13 +34,19 @@ public class ChangeSend extends Operative implements InterfaceSend {
 
         try {
             Part filePart = request.getPart("file");
-            fileManager.setOperation(FileManager.USER_AVATAR_LOAD, new PartWriteOperator(filePart, oldUsername)).execute();
+            fileManager.setOperation(FileManager.USER_AVATAR_LOAD, new PartWriteOperator(filePart,
+                    String.valueOf(((User)
+                            DatabaseController.getDatabaseAccess(new GetUserIdByUsername(), new User(oldUsername)).execute()
+                            //databaseController.setOperation(DatabaseController.GET_USER_ID_BY_USERNAME, new User(oldUsername)).execute()
+                    ).getId()))).execute();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Controller.logger.severe(e.getMessage());
         }
 
-        if (oldPassword.equals(((User) databaseController.setOperation(DatabaseController.GET_USER_DATA,
-                new User(oldUsername)).execute()).getPassword())) {
+        if (oldPassword.equals(((User)
+                DatabaseController.getDatabaseAccess(new GetUserData(), new User(oldUsername)).execute()
+                //databaseController.setOperation(DatabaseController.GET_USER_DATA, new User(oldUsername)).execute()
+        ).getPassword())) {
             User user = new User(oldUsername);
             if (!Checker.isContainsWrong(newEmail)) {
                 user.setEmail(newEmail);
@@ -52,13 +61,11 @@ public class ChangeSend extends Operative implements InterfaceSend {
                 user.setAdditionalData("newUsername", newUsername);
                 session.setAttribute("username", newUsername);
 
-                fileManager.setOperation(FileManager.CHANGE_AVATAR_NAME,
-                        new RenameOperator(oldUsername, newUsername)).execute();
-
                 if (!Checker.isContainsWrong(cookieParam) && cookieParam.equals("true"))
                     manager.changeUsername(newUsername, response);
             }
-            databaseController.setOperation(DatabaseController.CHANGE_USER_DATA, user).execute();
+            DatabaseController.getDatabaseAccess(new ChangeUserData(), user).execute();
+            //databaseController.setOperation(DatabaseController.CHANGE_USER_DATA, user).execute();
         }
         return page;
     }

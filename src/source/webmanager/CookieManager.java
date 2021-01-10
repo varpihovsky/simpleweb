@@ -2,6 +2,7 @@ package webmanager;
 
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
+import webmanager.database.operations.IsUserExists;
 import webmanager.util.Checker;
 
 import javax.servlet.http.Cookie;
@@ -35,16 +36,16 @@ public class CookieManager {
         }
     }
 
-    public boolean checkUser(DatabaseController controller) throws SQLException {
+    public boolean checkUser() throws SQLException {
         if (username == null || password == null)
             return false;
-        return controller.setOperation(DatabaseController.IS_USER_EXISTS,
-                new User(username.getValue(), password.getValue())).execute();
+        return (Boolean) DatabaseController.getDatabaseAccess(new IsUserExists(), new User(username.getValue(), password.getValue())).execute();
+        //controller.setOperation(DatabaseController.IS_USER_EXISTS, new User(username.getValue(), password.getValue())).execute();
     }
 
-    public boolean createSessionFromCookie(HttpSession session, DatabaseController controller) {
+    public boolean createSessionFromCookie(HttpSession session) {
         try {
-            if (checkUser(controller)) {
+            if (checkUser()) {
                 session.setAttribute("username", username.getValue());
                 session.setAttribute("password", password.getValue());
                 return true;

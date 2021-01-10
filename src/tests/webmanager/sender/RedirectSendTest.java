@@ -59,8 +59,8 @@ public class RedirectSendTest {
 
         Mockito.when(session.getAttribute("username")).thenReturn("Username");
         Mockito.when(session.getAttribute("password")).thenReturn("Password");
-        Mockito.when(controller.setOperation(Mockito.matches(DatabaseController.IS_USER_EXISTS),
-                Mockito.any())).thenReturn(secondController);
+        //Mockito.when(controller.setOperation(Mockito.matches(DatabaseController.IS_USER_EXISTS),
+        //Mockito.any())).thenReturn(secondController);
         Mockito.when(secondController.execute()).thenReturn(false);
 
         send.set((HashMap<String, Object>) new HashMap<String, Object>().put("DatabaseController", controller));
