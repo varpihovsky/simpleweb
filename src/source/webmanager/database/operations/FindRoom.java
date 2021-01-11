@@ -30,15 +30,12 @@ public class FindRoom extends DatabaseOperation<ArrayList<Room>, Room> {
 
             resultSet.close();
             statement.close();
-            closeConnection();
             return roomArr;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
                     e.getCause());
-
-            closeConnection();
-            return null;
         }
+        return null;
     }
 }

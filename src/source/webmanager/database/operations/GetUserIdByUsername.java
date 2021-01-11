@@ -21,14 +21,11 @@ public class GetUserIdByUsername extends DatabaseOperation<User, User> {
 
             resultSet.close();
             statement.close();
-            closeConnection();
 
             return user;
         } catch (SQLException e) {
             Controller.logger.severe(e.getMessage());
         }
-
-        closeConnection();
         return null;
     }
 }

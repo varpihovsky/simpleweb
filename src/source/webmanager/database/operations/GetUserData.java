@@ -27,14 +27,11 @@ public class GetUserData extends DatabaseOperation<User, User> {
 
             resultSet.close();
             statement.close();
-            closeConnection();
             return returnUser;
         } catch (SQLException e) {
             Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
                     e.getCause());
-
-            closeConnection();
-            return null;
         }
+        return null;
     }
 }

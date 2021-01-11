@@ -34,17 +34,12 @@ public class CreateRoom extends DatabaseOperation<Void, Room> {
             statement.setString(1, (String) room.getAdditionalData("username"));
             statement.executeUpdate();
             statement.close();
-
-            closeConnection();
-            return null;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
             Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
                     e.getCause());
-
-            closeConnection();
-            return null;
         }
+        return null;
     }
 }

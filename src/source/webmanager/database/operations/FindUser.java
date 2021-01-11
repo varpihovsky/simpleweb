@@ -26,15 +26,12 @@ public class FindUser extends DatabaseOperation<ArrayList<User>, User> {
             }
             resultSet.close();
             statement.close();
-            closeConnection();
             return userArr;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
                     e.getCause());
-
-            closeConnection();
-            return null;
         }
+        return null;
     }
 }

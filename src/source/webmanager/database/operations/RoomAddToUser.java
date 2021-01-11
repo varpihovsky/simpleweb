@@ -22,7 +22,6 @@ public class RoomAddToUser extends DatabaseOperation<Void, User> {
             Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
                     e.getCause());
         }
-        closeConnection();
         return null;
     }
 }

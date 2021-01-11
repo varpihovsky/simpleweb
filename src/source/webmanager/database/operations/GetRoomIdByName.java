@@ -21,14 +21,11 @@ public class GetRoomIdByName extends DatabaseOperation<Room, Room> {
 
             resultSet.close();
             statement.close();
-            closeConnection();
 
             return room;
         } catch (SQLException e) {
             Controller.logger.severe(e.getMessage());
         }
-
-        closeConnection();
         return null;
     }
 }

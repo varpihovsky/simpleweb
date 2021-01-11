@@ -15,5 +15,11 @@ public abstract class DatabaseOperation<T, U extends DatabaseObject> {
         ConnectionPool.giveBack(connection);
     }
 
-    public abstract T operate(U type);
+    public T start(U type) {
+        T t = operate(type);
+        closeConnection();
+        return t;
+    }
+
+    protected abstract T operate(U type);
 }

@@ -40,15 +40,11 @@ public class ChangeUserData extends DatabaseOperation<Void, User> {
                 statement.executeUpdate();
                 statement.close();
             }
-            closeConnection();
-            return null;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
                     e.getCause());
-
-            closeConnection();
-            return null;
         }
+        return null;
     }
 }

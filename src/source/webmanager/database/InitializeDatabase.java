@@ -15,6 +15,7 @@ class InitializeDatabase extends DatabaseOperation<Void, NullDatabaseObject> {
             statement.executeUpdate("DROP TABLE IF EXISTS `room_has_link` CASCADE;");
             statement.executeUpdate("DROP TABLE IF EXISTS `room_members` CASCADE;");
             statement.executeUpdate("DROP TABLE IF EXISTS `room_admins` CASCADE;");
+            statement.executeUpdate("DROP TABLE IF EXISTS `account_has_account` CASCADE;");
             statement.executeUpdate("DROP TABLE IF EXISTS `account` CASCADE;");
             statement.executeUpdate("DROP TABLE IF EXISTS `role` CASCADE;");
             statement.executeUpdate("DROP TABLE IF EXISTS `room` CASCADE;");
@@ -155,6 +156,24 @@ class InitializeDatabase extends DatabaseOperation<Void, NullDatabaseObject> {
                             END IF;
                             RETURN c;
                         END""");
+            statement.execute("""
+                    CREATE TABLE IF NOT EXISTS `account_has_account` (
+                      `user_id` INT UNSIGNED NOT NULL,
+                      `user_id1` INT UNSIGNED NOT NULL,
+                      PRIMARY KEY (`user_id`, `user_id1`),
+                      INDEX `fk_user_has_user_user2_idx` (`user_id1` ASC) VISIBLE,
+                      INDEX `fk_user_has_user_user1_idx` (`user_id` ASC) VISIBLE,
+                      CONSTRAINT `fk_user_has_user_user1`
+                        FOREIGN KEY (`user_id`)
+                        REFERENCES `account` (`id`)
+                        ON DELETE NO ACTION
+                        ON UPDATE NO ACTION,
+                      CONSTRAINT `fk_user_has_user_user2`
+                        FOREIGN KEY (`user_id1`)
+                        REFERENCES `account` (`id`)
+                        ON DELETE NO ACTION
+                        ON UPDATE NO ACTION);
+                    """);
             statement.executeUpdate("INSERT INTO role(type) VALUE('admin');");
             statement.executeUpdate("INSERT INTO role(type) VALUE('user');");
             statement.close();
@@ -163,7 +182,6 @@ class InitializeDatabase extends DatabaseOperation<Void, NullDatabaseObject> {
             Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
                     e.getCause());
         }
-        closeConnection();
         return null;
     }
 }

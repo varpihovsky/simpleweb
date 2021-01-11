@@ -14,7 +14,6 @@ public class CreateUser extends DatabaseOperation<Void, User> {
     public Void operate(User user) {
         if (Checker.isContainsWrong(user.getEmail()) || Checker.isContainsWrong(user.getPassword()) ||
                 Checker.isContainsWrong(user.getUsername())) {
-            closeConnection();
             return null;
         }
 
@@ -26,16 +25,11 @@ public class CreateUser extends DatabaseOperation<Void, User> {
             statement.setString(k++, user.getEmail());
             statement.executeUpdate();
             statement.close();
-
-            closeConnection();
-            return null;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
                     e.getCause());
-
-            closeConnection();
-            return null;
         }
+        return null;
     }
 }

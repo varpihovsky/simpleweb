@@ -26,15 +26,12 @@ public class GetRoomListByUser extends DatabaseOperation<ArrayList<Room>, User> 
             }
             resultSet.close();
             statement.close();
-            closeConnection();
             return roomList;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
                     e.getCause());
-
-            closeConnection();
-            return null;
         }
+        return null;
     }
 }

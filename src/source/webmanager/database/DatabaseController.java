@@ -16,7 +16,7 @@ public class DatabaseController<O extends DatabaseOperation, T extends DatabaseO
     public static void init(String initialize) {
         if (initialize != null && initialize.equals("yes")) {
             DatabaseOperation<Void, NullDatabaseObject> tmp = new InitializeDatabase();
-            tmp.operate(null);
+            tmp.start(null);
         }
     }
 
@@ -26,6 +26,6 @@ public class DatabaseController<O extends DatabaseOperation, T extends DatabaseO
     }
 
     public <T> T execute() {
-        return (T) operation.operate(operator);
+        return (T) operation.start(operator);
     }
 }
