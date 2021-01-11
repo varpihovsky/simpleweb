@@ -51,6 +51,7 @@ public class Controller extends HttpServlet {
 
         page = "/" + page + ".jsp";
 
+        request.setAttribute("contextPath", request.getContextPath());
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
         dispatcher.forward(request, response);
     }

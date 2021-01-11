@@ -72,9 +72,5 @@ class ProfilePageRenderer extends Operative implements InterfaceRenderer {
         request.setAttribute("avatar", avatar);
         request.setAttribute("roomlist", roomList);
         request.setAttribute("username", username);
-        request.setAttribute("navbar", RendererTemplates.renderNavbar(
-                (String) request.getSession().getAttribute("username"),
-                (String) request.getSession().getAttribute("password"),
-                request));
     }
 }

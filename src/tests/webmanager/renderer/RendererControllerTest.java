@@ -1,13 +1,11 @@
 package webmanager.renderer;
 
-import test.implementations.HttpServletRequestImplemented;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import test.implementations.HttpServletRequestImplemented;
 
 import static org.junit.Assert.assertSame;
-
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 
 public class RendererControllerTest {
@@ -26,11 +24,6 @@ public class RendererControllerTest {
     @Test
     public void defineRendererTestFirst() {
         assertSame(controller.defineRenderer(null).getClass(), NullRenderer.class);
-    }
-
-    @Test
-    public void defineRendererTestSecond() {
-        assertSame(controller.defineRenderer("src/main").getClass(), MainPageRenderer.class);
     }
 
     @Test

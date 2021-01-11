@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="https://github.com/varpihovsky/simpleweb" prefix="simpleweb" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,11 +14,11 @@
 <div class="page-container">
     <div class="navbar">
         <div class="logo-text"><a
-                href="${pageContext.request.contextPath}/controller?page=main&send=redirect"><% int i = 0; %>
+                href="${pageContext.request.contextPath}/controller?page=main&send=redirect">
         </a>
         </div>
         <nav>
-            ${navbar}
+            <simpleweb:navbar/>
         </nav>
     </div>
     <div class="container">

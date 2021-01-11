@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="https://github.com/varpihovsky/simpleweb" prefix="simpleweb" %>
 <!DOCTYPE html>
 <html>
 <head>

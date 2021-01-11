@@ -15,4 +15,8 @@
     <exception-type>java.lang.RuntimeException</exception-type>
     <location>/error.jsp</location>
   </error-page>
+  <taglib>
+    <taglib-uri>https://github.com/varpihovsky/simpleweb</taglib-uri>
+    <taglib-location>simpleweb.tld</taglib-location>
+  </taglib>
 </web-app>

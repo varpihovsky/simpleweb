@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="https://github.com/varpihovsky/simpleweb" prefix="simpleweb" %>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">

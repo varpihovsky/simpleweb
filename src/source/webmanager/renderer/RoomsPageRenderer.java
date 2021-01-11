@@ -46,9 +46,5 @@ public class RoomsPageRenderer extends Operative implements InterfaceRenderer {
 
 
         request.setAttribute("render", render);
-        request.setAttribute("navbar", RendererTemplates.renderNavbar(
-                (String) request.getSession().getAttribute("username"),
-                (String) request.getSession().getAttribute("password"),
-                request));
     }
 }
