@@ -1,10 +1,9 @@
 package webmanager.sender.sends;
 
+import webmanager.Controller;
 import webmanager.CookieManager;
 import webmanager.SessionManager;
-import webmanager.database.DatabaseController;
-import webmanager.database.abstractions.Room;
-import webmanager.database.operations.GetRoomData;
+import webmanager.database.abstractions.User;
 import webmanager.interfaces.InterfaceSend;
 import webmanager.interfaces.Operative;
 import webmanager.util.Checker;
@@ -21,45 +20,43 @@ public class RedirectSend extends Operative implements InterfaceSend {
         CookieManager manager = new CookieManager();
         String page = request.getParameter("page");
 
-        try {
-            if (!SessionManager.checkUserSession(session) &&
-                    (manager.getCookiesFromRequest(request) && manager.checkUser()))
-                manager.createSessionFromCookie(session);
+        request.setAttribute("contextPath", request.getContextPath());
 
+        try {
             if (Checker.isContainsWrong(page))
                 return "main";
 
             else if (page.equals("login") && (SessionManager.checkUserSession(session) ||
-                    (manager.getCookiesFromRequest(request) && manager.checkUser())))
+                    (manager.getCookiesFromRequest(request) && manager.checkUser()))) {
+                request.setAttribute("user",
+                        new User.Builder()
+                                .withUsername((String) session.getAttribute("username"))
+                                .build());
+                Controller.logger.info((String) request.getAttribute("user"));
                 return "profile";
-
-            else if (page.equals("profile") && Checker.isContainsWrong(request.getParameter("user")) &&
-                    !SessionManager.checkUserSession(session))
-                return "main";
-
-            else if (page.equals("profileSettings") && !SessionManager.checkUserSession(session))
+            } else if (page.equals("profile")) {
+                if (request.getParameter("user") != null && !request.getParameter("user").equals(""))
+                    request.setAttribute("user",
+                            new User.Builder()
+                                    .withUsername(request.getParameter("user"))
+                                    .build());
+                else request.setAttribute("user",
+                        new User.Builder()
+                                .withUsername((String) session.getAttribute("username"))
+                                .build());
+                return page;
+            } else if (page.equals("profileSettings") && !SessionManager.checkUserSession(session))
                 return "main";
 
             else if (page.equals("room") && (!SessionManager.checkUserSession(session) ||
                     Checker.isContainsWrong(request.getParameter("roomName"))))
                 return "rooms";
 
-
-            else if (page.equals("room") && request.getParameter("link") != null ||
-                    request.getParameter("password") != null) {
-                Room room =
-                        (Room) DatabaseController.getDatabaseAccess(new GetRoomData(),
-                                new Room(request.getParameter("roomName"))).execute();
-                //databaseController.setOperation(DatabaseController.GET_ROOM, new Room(request.getParameter("roomName"))).execute();
-
-                if (request.getParameter("password") != null && !room.getPassword().contains(request.getParameter("password")))
-                    return "rooms";
-            } else
+            else
                 return page;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return "main";
         }
-        return "main";
     }
 }

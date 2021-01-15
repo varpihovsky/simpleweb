@@ -25,7 +25,10 @@ public class LoginSend extends Operative implements InterfaceSend {
                 !Checker.checkLength(password, 8, 20)) {
             message += "Wrong username or password";
         } else {
-            if ((Boolean) DatabaseController.getDatabaseAccess(new IsUserExists(), new User(username, password)).execute()
+            if ((Boolean) DatabaseController.getDatabaseAccess(new IsUserExists(), new User.Builder()
+                    .withUsername(username)
+                    .withPassword(password)
+                    .build()).execute()
                 //databaseController.setOperation(DatabaseController.IS_USER_EXISTS, new User(username, password)).execute()
             ) {
                 HttpSession session = request.getSession();
@@ -40,6 +43,7 @@ public class LoginSend extends Operative implements InterfaceSend {
         }
 
         request.setAttribute("loginMessage", message);
+        request.setAttribute("user", new User.Builder().withUsername(username).build());
         return Checker.pageReplace(page);
     }
 }

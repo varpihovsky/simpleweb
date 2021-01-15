@@ -4,7 +4,6 @@ import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.Room;
 import webmanager.database.abstractions.User;
 import webmanager.database.operations.GetRoomListByUser;
-import webmanager.database.operations.GetUserIdByUsername;
 import webmanager.file.FileManager;
 import webmanager.file.abstractions.RenameOperator;
 import webmanager.interfaces.InterfaceRenderer;
@@ -26,10 +25,9 @@ class ProfilePageRenderer extends Operative implements InterfaceRenderer {
         }
 
         String roomList = "";
-        String avatar;
         String settings = "";
 
-        User user = new User(username);
+        User user = new User.Builder().withUsername(username).build();
 
         if (!sessionProfile)
             user.setAdditionalData("showPrivate", "yes");
@@ -53,13 +51,6 @@ class ProfilePageRenderer extends Operative implements InterfaceRenderer {
                     "            </a>";
         }
 
-
-        avatar = "<img src=\"" + fileManager.setOperation(FileManager.GET_USER_AVATAR,
-                new RenameOperator(String.valueOf((
-                        (User) DatabaseController.getDatabaseAccess(new GetUserIdByUsername(), user)
-                                .execute()).getId())))
-                .execute() + "\" alt=\"avatar\"/>";
-
         if (Checker.isContainsWrong(request.getParameter("user")))
             settings = "<div class=\"profile-settings\">\n" +
                     "                    <a href=\"" + request.getContextPath() +
@@ -69,7 +60,6 @@ class ProfilePageRenderer extends Operative implements InterfaceRenderer {
                     "                </div>\n";
 
         request.setAttribute("settings", settings);
-        request.setAttribute("avatar", avatar);
         request.setAttribute("roomlist", roomList);
         request.setAttribute("username", username);
     }

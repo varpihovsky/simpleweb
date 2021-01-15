@@ -10,12 +10,26 @@ public class FileManager {
     public static final String USER_AVATAR_LOAD = "UserAvatarLoad";
     public static final String ROOM_LOGO_LOAD = "RoomLogoLoad";
 
+    private static FileManager instance;
+
     private final ServletContext context;
     private Object operator;
     private String operation;
 
-    public FileManager(ServletContext context) {
+    private FileManager(ServletContext context) {
         this.context = context;
+    }
+
+    public static void setContext(ServletContext context) {
+        if (context == null)
+            throw new NullPointerException("Servlet context is null");
+        instance = new FileManager(context);
+    }
+
+    public static synchronized FileManager getInstance() {
+        if (instance == null)
+            throw new IllegalStateException("Servlet context wasn't set");
+        return instance;
     }
 
     public FileManager setOperation(String operation, Object operator) {

@@ -2,7 +2,6 @@ package webmanager.database;
 
 import webmanager.database.abstractions.NullDatabaseObject;
 import webmanager.interfaces.DatabaseObject;
-import webmanager.interfaces.DatabaseOperation;
 
 public class DatabaseController<O extends DatabaseOperation, T extends DatabaseObject> {
     private final O operation;

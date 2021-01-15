@@ -1,10 +1,10 @@
 package webmanager.database.operations;
 
 import webmanager.Controller;
+import webmanager.database.DatabaseOperation;
 import webmanager.database.abstractions.Room;
 import webmanager.database.abstractions.User;
 import webmanager.database.operations.required.Constants;
-import webmanager.interfaces.DatabaseOperation;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,8 +21,11 @@ public class GetRoomListByUser extends DatabaseOperation<ArrayList<Room>, User> 
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                roomList.add(new Room(resultSet.getInt(1),
-                        resultSet.getString(2), resultSet.getString(3)));
+                roomList.add(new Room.Builder()
+                        .withId(resultSet.getInt(1))
+                        .withName(resultSet.getString(2))
+                        .withDescription(resultSet.getString(3))
+                        .build());
             }
             resultSet.close();
             statement.close();

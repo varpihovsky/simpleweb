@@ -1,6 +1,7 @@
 package webmanager;
 
 import webmanager.database.DatabaseController;
+import webmanager.database.abstractions.User;
 import webmanager.file.FileManager;
 import webmanager.properties.PropertyManager;
 import webmanager.renderer.RenderExecutor;
@@ -13,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -28,7 +30,8 @@ public class Controller extends HttpServlet {
     public void init() {
         logger.info("Controller initialization");
         PropertyManager.setServletContext(getServletContext());
-        fileManager = new FileManager(getServletContext());
+        FileManager.setContext(getServletContext());
+        fileManager = FileManager.getInstance();
         DatabaseController.init(PropertyManager.getInstance().getProperty(PropertyManager.DATABASE_INITIALIZE));
     }
 
@@ -46,13 +49,25 @@ public class Controller extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        String page = SendExecutor.execute(request, response, fileManager, databaseController);
-        RenderExecutor.execute(page, request, databaseController, fileManager);
+        String page = SendExecutor.execute(request, response);
+        RenderExecutor.execute(page, request);
 
         page = "/" + page + ".jsp";
 
-        request.setAttribute("contextPath", request.getContextPath());
+        setAttributesOnEveryRedirect(request);
+
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
         dispatcher.forward(request, response);
+    }
+
+    private void setAttributesOnEveryRedirect(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        request.setAttribute("currentUser",
+                new User.Builder()
+                        .withUsername((String) session.getAttribute("username"))
+                        .withPassword((String) session.getAttribute("password"))
+                        .addAdditionalData("contextPath", request.getContextPath())
+                        .build());
     }
 }

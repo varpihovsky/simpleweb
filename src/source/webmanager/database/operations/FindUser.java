@@ -1,9 +1,9 @@
 package webmanager.database.operations;
 
 import webmanager.Controller;
+import webmanager.database.DatabaseOperation;
 import webmanager.database.abstractions.User;
 import webmanager.database.operations.required.Constants;
-import webmanager.interfaces.DatabaseOperation;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +22,10 @@ public class FindUser extends DatabaseOperation<ArrayList<User>, User> {
 
             ArrayList<User> userArr = new ArrayList<>();
             while (resultSet.next()) {
-                userArr.add(new User(resultSet.getInt(1), resultSet.getString(2)));
+                userArr.add(new User.Builder()
+                        .withId(resultSet.getInt(1))
+                        .withUsername(resultSet.getString(2))
+                        .build());
             }
             resultSet.close();
             statement.close();

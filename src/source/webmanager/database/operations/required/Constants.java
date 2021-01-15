@@ -25,8 +25,6 @@ public class Constants {
     public static final String FIND_USER = "SELECT id, username FROM account ORDER BY LEVENSHTEIN(?, username) " +
             "ASC LIMIT 0,?";
 
-    public static final String GET_ROOM_DATA = "SELECT * FROM room WHERE name=?";
-
     public static final String GET_ROOM_ID_BY_NAME = "SELECT id FROM room WHERE name=?";
 
     public static final String GET_ROOM_LIST_BY_USER = "SELECT id, name, description FROM room WHERE " +

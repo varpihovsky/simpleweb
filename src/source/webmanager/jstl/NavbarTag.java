@@ -1,6 +1,7 @@
 package webmanager.jstl;
 
 import webmanager.Controller;
+import webmanager.database.abstractions.User;
 import webmanager.renderer.RendererTemplates;
 
 import javax.servlet.jsp.JspException;
@@ -9,14 +10,20 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
 public class NavbarTag extends SimpleTagSupport {
+    private User currentUser;
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+
     @Override
-    public void doTag() throws JspException, IOException {
+    public void doTag() throws JspException {
         try {
             getJspContext().getOut().write(
                     RendererTemplates.renderNavbar(
-                            (String) getJspContext().getAttribute("username"),
-                            (String) getJspContext().getAttribute("password"),
-                            (String) getJspContext().getAttribute("contextPath")));
+                            currentUser.getUsername(),
+                            currentUser.getPassword(),
+                            (String) currentUser.getAdditionalData("contextPath")));
         } catch (IOException e) {
             Controller.logger.severe(e.getMessage());
             throw new SkipPageException(e);

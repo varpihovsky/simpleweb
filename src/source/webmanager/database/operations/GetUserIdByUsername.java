@@ -1,9 +1,9 @@
 package webmanager.database.operations;
 
 import webmanager.Controller;
+import webmanager.database.DatabaseOperation;
 import webmanager.database.abstractions.User;
 import webmanager.database.operations.required.Constants;
-import webmanager.interfaces.DatabaseOperation;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +17,7 @@ public class GetUserIdByUsername extends DatabaseOperation<User, User> {
             statement.setString(1, type.getUsername());
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
-            User user = new User(resultSet.getInt(1));
+            User user = new User.Builder().withId(resultSet.getInt(1)).build();
 
             resultSet.close();
             statement.close();

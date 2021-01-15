@@ -1,6 +1,7 @@
-package webmanager.interfaces;
+package webmanager.database;
 
 import webmanager.database.pool.ConnectionPool;
+import webmanager.interfaces.DatabaseObject;
 
 import java.sql.Connection;
 
@@ -15,7 +16,7 @@ public abstract class DatabaseOperation<T, U extends DatabaseObject> {
         ConnectionPool.giveBack(connection);
     }
 
-    public T start(U type) {
+    T start(U type) {
         T t = operate(type);
         closeConnection();
         return t;

@@ -18,7 +18,7 @@
         </a>
         </div>
         <nav>
-            <simpleweb:navbar/>
+            <simpleweb:navbar currentUser="${currentUser}"/>
         </nav>
     </div>
     <div class="container">

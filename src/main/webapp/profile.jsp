@@ -17,14 +17,14 @@
         <div class="logo-text"><a href="${pageContext.request.contextPath}/controller?page=main&send=redirect">echat</a>
         </div>
         <nav>
-            <simpleweb:navbar/>
+            <simpleweb:navbar currentUser="${currentUser}"/>
         </nav>
     </div>
     <!-- Profile container -->
     <div class="container">
         <div class="profile-container">
             <div class="profile-avatar">
-                ${avatar}
+                <simpleweb:avatar user="${user}"/>
             </div>
             <div class="username">
                 ${username}

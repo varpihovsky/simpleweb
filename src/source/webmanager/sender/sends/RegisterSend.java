@@ -24,7 +24,11 @@ public class RegisterSend extends Operative implements InterfaceSend {
                 !Checker.checkLength(email, 0, 40)) {
             message += "Contains wrong symbols or has wrong length";
         } else {
-            DatabaseController.getDatabaseAccess(new CreateUser(), new User(username, email, password)).execute();
+            DatabaseController.getDatabaseAccess(new CreateUser(), new User.Builder()
+                    .withUsername(username)
+                    .withEmail(email)
+                    .withPassword(password)
+                    .build()).execute();
             //databaseController.setOperation(DatabaseController.CREATE_USER, new User(username, email, password)).execute();
             message = "User registered";
         }

@@ -1,9 +1,9 @@
 package webmanager.database.operations;
 
 import webmanager.Controller;
+import webmanager.database.DatabaseOperation;
 import webmanager.database.abstractions.Room;
 import webmanager.database.operations.required.Constants;
-import webmanager.interfaces.DatabaseOperation;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

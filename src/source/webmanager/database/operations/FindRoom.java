@@ -1,9 +1,9 @@
 package webmanager.database.operations;
 
 import webmanager.Controller;
+import webmanager.database.DatabaseOperation;
 import webmanager.database.abstractions.Room;
 import webmanager.database.operations.required.Constants;
-import webmanager.interfaces.DatabaseOperation;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,14 +18,15 @@ public class FindRoom extends DatabaseOperation<ArrayList<Room>, Room> {
             statement.setString(1, room.getName());
             statement.setInt(2, (Integer) room.getAdditionalData("num"));
 
-
             ResultSet resultSet = statement.executeQuery();
-
 
             ArrayList<Room> roomArr = new ArrayList<>();
             while (resultSet.next()) {
-                roomArr.add(new Room(resultSet.getInt(1),
-                        resultSet.getString(2), resultSet.getString(3)));
+                roomArr.add(new Room.Builder()
+                        .withId(resultSet.getInt(1))
+                        .withName(resultSet.getString(2))
+                        .withDescription(resultSet.getString(3))
+                        .build());
             }
 
             resultSet.close();

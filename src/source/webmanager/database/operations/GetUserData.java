@@ -1,9 +1,9 @@
 package webmanager.database.operations;
 
 import webmanager.Controller;
+import webmanager.database.DatabaseOperation;
 import webmanager.database.abstractions.User;
 import webmanager.database.operations.required.Constants;
-import webmanager.interfaces.DatabaseOperation;
 import webmanager.util.Checker;
 
 import java.sql.PreparedStatement;
@@ -22,8 +22,11 @@ public class GetUserData extends DatabaseOperation<User, User> {
 
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
-            User returnUser = new User(resultSet.getString(2), resultSet.getString(3),
-                    resultSet.getString(4));
+            User returnUser = new User.Builder()
+                    .withUsername(resultSet.getString(2))
+                    .withEmail(resultSet.getString(3))
+                    .withPassword(resultSet.getString(4))
+                    .build();
 
             resultSet.close();
             statement.close();

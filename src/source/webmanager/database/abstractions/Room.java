@@ -1,56 +1,54 @@
 package webmanager.database.abstractions;
 
-import com.mysql.cj.conf.ConnectionUrlParser;
 import webmanager.interfaces.DatabaseObject;
 
-import java.util.ArrayList;
-
-public class Room implements DatabaseObject {
-    private final ArrayList<ConnectionUrlParser.Pair<String, Object>>
-            additionalData = new ArrayList<>();
+public class Room extends WithDataAddition implements DatabaseObject {
     private String description;
     private String name;
     private String password;
     private String isPrivate;
     private int id;
 
+    private Room() {
 
-    public Room(String name) {
-        this.name = name;
     }
 
-    public Room(int id) {
-        this.id = id;
-    }
+    public static class Builder {
+        private final Room room = new Room();
 
-    public Room(String name, String description, String isPrivate, String password) {
-        this.name = name;
-        this.description = description;
-        this.password = password;
-        this.isPrivate = isPrivate;
-    }
+        public Builder withName(String name) {
+            room.setName(name);
+            return this;
+        }
 
-    public Room(int id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
+        public Builder withPassword(String password) {
+            room.setPassword(password);
+            return this;
+        }
 
-    public Room(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
+        public Builder withPrivate(String isPrivate) {
+            room.setPrivate(isPrivate);
+            return this;
+        }
 
-    public String getIsPrivate() {
-        return isPrivate;
-    }
+        public Builder withId(int id) {
+            room.setId(id);
+            return this;
+        }
 
-    public void setIsPrivate(String isPrivate) {
-        this.isPrivate = isPrivate;
-    }
+        public Builder withDescription(String description) {
+            room.setDescription(description);
+            return this;
+        }
 
-    public ArrayList<ConnectionUrlParser.Pair<String, Object>> getAdditionalData() {
-        return additionalData;
+        public Builder addAdditionalData(String attributeName, Object data) {
+            room.setAdditionalData(attributeName, data);
+            return this;
+        }
+
+        public Room build() {
+            return room;
+        }
     }
 
     public String isPrivate() {
@@ -83,18 +81,6 @@ public class Room implements DatabaseObject {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Object getAdditionalData(String attributeName) {
-        for (ConnectionUrlParser.Pair pair : additionalData) {
-            if (pair.left.equals(attributeName))
-                return pair.right;
-        }
-        return null;
-    }
-
-    public void setAdditionalData(String attributeName, Object data) {
-        additionalData.add(new ConnectionUrlParser.Pair<>(attributeName, data));
     }
 
     public int getId() {

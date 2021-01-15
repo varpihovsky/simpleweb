@@ -2,40 +2,47 @@ package webmanager.database.abstractions;
 
 import webmanager.interfaces.DatabaseObject;
 
-import java.util.HashMap;
-
-public class User implements DatabaseObject {
+public class User extends WithDataAddition implements DatabaseObject {
     private int id;
     private String username;
     private String email;
     private String password;
-    private final HashMap<String, Object> additionalData = new HashMap<>();
 
-    public User() {
+    private User() {
+
     }
 
-    public User(int id) {
-        this.id = id;
-    }
+    public static class Builder {
+        private final User user = new User();
 
-    public User(int id, String username) {
-        this.id = id;
-        this.username = username;
-    }
+        public Builder withId(int id) {
+            user.setId(id);
+            return this;
+        }
 
-    public User(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
+        public Builder withUsername(String username) {
+            user.setUsername(username);
+            return this;
+        }
 
-    public User(String username) {
-        this.username = username;
-    }
+        public Builder withEmail(String email) {
+            user.setEmail(email);
+            return this;
+        }
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
+        public Builder withPassword(String password) {
+            user.setPassword(password);
+            return this;
+        }
+
+        public Builder addAdditionalData(String attributeName, Object data) {
+            user.setAdditionalData(attributeName, data);
+            return this;
+        }
+
+        public User build() {
+            return user;
+        }
     }
 
     public String getPassword() {
@@ -60,14 +67,6 @@ public class User implements DatabaseObject {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public Object getAdditionalData(String attributeName) {
-        return additionalData.get(attributeName);
-    }
-
-    public void setAdditionalData(String attributeName, Object data) {
-        additionalData.put(attributeName, data);
     }
 
     public int getId() {

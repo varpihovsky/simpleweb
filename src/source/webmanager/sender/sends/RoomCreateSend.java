@@ -33,8 +33,13 @@ public class RoomCreateSend extends Operative implements InterfaceSend {
             Part part = request.getPart("roomLogo");
 
 
-            Room room = new Room(roomName, roomDescription, isPrivate, roomPassword);
-            room.setAdditionalData("username", username);
+            Room room = new Room.Builder()
+                    .withName(roomName)
+                    .withDescription(roomDescription)
+                    .withPrivate(isPrivate)
+                    .withPassword(roomPassword)
+                    .addAdditionalData("username", username)
+                    .build();
 
             DatabaseController.getDatabaseAccess(new CreateRoom(), room).execute();
             //databaseController.setOperation(DatabaseController.CREATE_ROOM, room).execute();

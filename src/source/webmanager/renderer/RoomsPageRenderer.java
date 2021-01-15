@@ -24,9 +24,9 @@ public class RoomsPageRenderer extends Operative implements InterfaceRenderer {
         Room room;
 
         if (!Checker.isContainsWrong(roomName)) {
-            room = new Room(roomName);
+            room = new Room.Builder().withName(roomName).build();
         } else {
-            room = new Room("");
+            room = new Room.Builder().withName("").build();
         }
         room.setAdditionalData("num", ROOMS_NUM);
         rooms =

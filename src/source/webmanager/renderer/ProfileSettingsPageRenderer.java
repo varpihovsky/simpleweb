@@ -15,7 +15,9 @@ class ProfileSettingsPageRenderer extends Operative implements InterfaceRenderer
         HttpSession session = request.getSession();
         User user =
                 (User) DatabaseController.getDatabaseAccess(new GetUserData(),
-                        new User((String) session.getAttribute("username"))).execute();
+                        new User.Builder()
+                                .withUsername((String) session.getAttribute("username"))
+                                .build()).execute();
         //databaseController.setOperation(DatabaseController.GET_USER_DATA, new User((String) session.getAttribute("username"))).execute();
 
         if (user.getUsername().equals(session.getAttribute("username")) &&

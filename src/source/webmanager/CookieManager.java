@@ -39,8 +39,10 @@ public class CookieManager {
     public boolean checkUser() throws SQLException {
         if (username == null || password == null)
             return false;
-        return (Boolean) DatabaseController.getDatabaseAccess(new IsUserExists(), new User(username.getValue(), password.getValue())).execute();
-        //controller.setOperation(DatabaseController.IS_USER_EXISTS, new User(username.getValue(), password.getValue())).execute();
+        return (Boolean) DatabaseController.getDatabaseAccess(new IsUserExists(), new User.Builder()
+                .withUsername(username.getValue())
+                .withPassword(password.getValue())
+                .build()).execute();
     }
 
     public boolean createSessionFromCookie(HttpSession session) {

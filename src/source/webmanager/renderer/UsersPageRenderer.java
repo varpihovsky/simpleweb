@@ -24,9 +24,9 @@ class UsersPageRenderer extends Operative implements InterfaceRenderer {
         User user;
 
         if (!Checker.isContainsWrong(username)) {
-            user = new User(username);
+            user = new User.Builder().withUsername(username).build();
         } else {
-            user = new User("");
+            user = new User.Builder().withUsername("").build();
         }
 
         user.setAdditionalData("num", USERS_NUM);

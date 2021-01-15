@@ -1,9 +1,9 @@
 package webmanager.database.operations;
 
 import webmanager.Controller;
+import webmanager.database.DatabaseOperation;
 import webmanager.database.abstractions.Room;
 import webmanager.database.operations.required.Constants;
-import webmanager.interfaces.DatabaseOperation;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +17,7 @@ public class GetRoomIdByName extends DatabaseOperation<Room, Room> {
             statement.setString(1, type.getName());
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
-            Room room = new Room(resultSet.getInt(1));
+            Room room = new Room.Builder().withId(resultSet.getInt(1)).build();
 
             resultSet.close();
             statement.close();
