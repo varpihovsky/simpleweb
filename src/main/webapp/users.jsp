@@ -18,7 +18,7 @@
         </a>
         </div>
         <nav>
-            <simpleweb:navbar currentUser="${currentUser}"/>
+            <simpleweb:navbar currentUser="${currentUser}" contextPath="${pageContext.request.contextPath}"/>
         </nav>
     </div>
     <div class="container">

@@ -18,9 +18,10 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 
 public class RoomCreateSend extends Operative implements InterfaceSend {
+    SessionManager sessionManager = new SessionManager();
     @Override
     public String executeSend(HttpServletRequest request, HttpServletResponse response) {
-        if (!SessionManager.checkUserSession(request.getSession()))
+        if (!sessionManager.checkUserSession(request.getSession()))
             return "login";
 
         String page = request.getParameter("page");

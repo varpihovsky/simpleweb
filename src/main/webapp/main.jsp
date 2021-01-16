@@ -15,7 +15,7 @@
         <div class="logo-text"><a href="${pageContext.request.contextPath}/controller?page=main&send=redirect">echat</a>
         </div>
         <nav>
-            <simpleweb:navbar currentUser="${currentUser}"/>
+            <simpleweb:navbar currentUser="${currentUser}" contextPath="${pageContext.request.contextPath}"/>
         </nav>
     </div>
     <div class="container">

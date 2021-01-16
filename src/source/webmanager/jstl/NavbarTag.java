@@ -11,9 +11,14 @@ import java.io.IOException;
 
 public class NavbarTag extends SimpleTagSupport {
     private User currentUser;
+    private String contextPath;
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+    }
+
+    public void setContextPath(String contextPath) {
+        this.contextPath = contextPath;
     }
 
     @Override
@@ -23,7 +28,7 @@ public class NavbarTag extends SimpleTagSupport {
                     RendererTemplates.renderNavbar(
                             currentUser.getUsername(),
                             currentUser.getPassword(),
-                            (String) currentUser.getAdditionalData("contextPath")));
+                            contextPath));
         } catch (IOException e) {
             Controller.logger.severe(e.getMessage());
             throw new SkipPageException(e);

@@ -9,7 +9,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.sql.SQLException;
 
 public class CookieManager {
     Cookie username;
@@ -36,26 +35,13 @@ public class CookieManager {
         }
     }
 
-    public boolean checkUser() throws SQLException {
+    public boolean checkUser(HttpSession session) {
         if (username == null || password == null)
             return false;
         return (Boolean) DatabaseController.getDatabaseAccess(new IsUserExists(), new User.Builder()
                 .withUsername(username.getValue())
                 .withPassword(password.getValue())
                 .build()).execute();
-    }
-
-    public boolean createSessionFromCookie(HttpSession session) {
-        try {
-            if (checkUser()) {
-                session.setAttribute("username", username.getValue());
-                session.setAttribute("password", password.getValue());
-                return true;
-            }
-            return false;
-        } catch (SQLException e) {
-            return false;
-        }
     }
 
     public void deleteCookies(HttpServletResponse response) {
