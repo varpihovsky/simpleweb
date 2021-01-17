@@ -20,10 +20,14 @@ public class AvatarTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws IOException {
-        getJspContext().getOut().write("<img src=\"" + fileManager.setOperation(FileManager.GET_USER_AVATAR,
-                new RenameOperator(String.valueOf((
-                        (User) DatabaseController.getDatabaseAccess(new GetUserIdByUsername(), user)
-                                .execute()).getId())))
-                .execute() + "\" alt=\"avatar\"/>");
+        getJspContext()
+                .getOut()
+                .write((String) fileManager.setOperation(FileManager.GET_USER_AVATAR,
+                        new RenameOperator(String.valueOf((
+                                (User) DatabaseController
+                                        .getDatabaseAccess(new GetUserIdByUsername(), user)
+                                        .execute())
+                                .getId())))
+                        .execute());
     }
 }

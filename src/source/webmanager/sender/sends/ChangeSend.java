@@ -10,7 +10,6 @@ import webmanager.database.operations.GetUserIdByUsername;
 import webmanager.file.FileManager;
 import webmanager.file.abstractions.PartWriteOperator;
 import webmanager.interfaces.InterfaceSend;
-import webmanager.interfaces.Operative;
 import webmanager.util.Checker;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-public class ChangeSend extends Operative implements InterfaceSend {
+public class ChangeSend implements InterfaceSend {
+    FileManager fileManager = FileManager.getInstance();
+
     @Override
     public String executeSend(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -38,16 +39,15 @@ public class ChangeSend extends Operative implements InterfaceSend {
             Part filePart = request.getPart("file");
             fileManager.setOperation(FileManager.USER_AVATAR_LOAD, new PartWriteOperator(filePart,
                     String.valueOf(((User)
-                            DatabaseController.getDatabaseAccess(new GetUserIdByUsername(), userWithOldUsername).execute()
-                            //databaseController.setOperation(DatabaseController.GET_USER_ID_BY_USERNAME, new User(oldUsername)).execute()
-                    ).getId()))).execute();
+                            DatabaseController.getDatabaseAccess
+                                    (new GetUserIdByUsername(), userWithOldUsername).execute()).getId())))
+                    .execute();
         } catch (Exception e) {
             Controller.logger.severe(e.getMessage());
         }
 
         if (oldPassword.equals(((User)
                 DatabaseController.getDatabaseAccess(new GetUserData(), userWithOldUsername).execute()
-                //databaseController.setOperation(DatabaseController.GET_USER_DATA, new User(oldUsername)).execute()
         ).getPassword())) {
             if (!Checker.isContainsWrong(newEmail)) {
                 userWithOldUsername.setEmail(newEmail);

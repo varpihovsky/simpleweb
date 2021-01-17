@@ -4,12 +4,11 @@ import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
 import webmanager.database.operations.GetUserData;
 import webmanager.interfaces.InterfaceRenderer;
-import webmanager.interfaces.Operative;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-class ProfileSettingsPageRenderer extends Operative implements InterfaceRenderer {
+class ProfileSettingsPageRenderer implements InterfaceRenderer {
     @Override
     public void render(HttpServletRequest request) {
         HttpSession session = request.getSession();

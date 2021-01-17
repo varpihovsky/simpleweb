@@ -8,7 +8,7 @@ import webmanager.database.abstractions.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class LoginPagePrepare extends Preparing {
+class LoginPagePrepare extends Preparing {
     private final HttpSession session;
     CookieManager cookieManager = new CookieManager();
     SessionManager sessionManager = new SessionManager();

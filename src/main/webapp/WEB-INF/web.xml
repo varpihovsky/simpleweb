@@ -2,17 +2,19 @@
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
-<web-app>
-  <display-name>Archetype Created Web Application</display-name>
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
-  <error-page>
-    <error-code>404</error-code>
-    <location>/error.jsp</location>
-  </error-page>
-  <error-page>
-    <exception-type>java.lang.RuntimeException</exception-type>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
+    <display-name>Archetype Created Web Application</display-name>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.RuntimeException</exception-type>
     <location>/error.jsp</location>
   </error-page>
   <taglib>

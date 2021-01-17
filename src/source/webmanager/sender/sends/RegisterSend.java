@@ -4,13 +4,12 @@ import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
 import webmanager.database.operations.CreateUser;
 import webmanager.interfaces.InterfaceSend;
-import webmanager.interfaces.Operative;
 import webmanager.util.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class RegisterSend extends Operative implements InterfaceSend {
+public class RegisterSend implements InterfaceSend {
     @Override
     public String executeSend(HttpServletRequest request, HttpServletResponse response) {
         String page = request.getParameter("page");

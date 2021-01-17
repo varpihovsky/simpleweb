@@ -16,7 +16,7 @@ public class PropertyManager {
     public static final String DATABASE_USER = "DatabaseUser";
     public static final String DATABASE_PASSWORD = "DatabasePassword";
     public static final String DATABASE_CURRENT = "DatabaseCurrent";
-    public static final String DATABASE_INITIALIZE = "DatabaseInit";
+    public static final String DATABASE_INITIALIZE = "DatabaseInitialize";
     public static final String DATABASE_CONNECTIONS_AMOUNT = "DatabaseConnectionsAmount";
 
     private final Properties properties = new Properties();

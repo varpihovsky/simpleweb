@@ -9,7 +9,6 @@ import webmanager.database.operations.GetRoomIdByName;
 import webmanager.file.FileManager;
 import webmanager.file.abstractions.PartWriteOperator;
 import webmanager.interfaces.InterfaceSend;
-import webmanager.interfaces.Operative;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,11 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 
-public class RoomCreateSend extends Operative implements InterfaceSend {
+public class RoomCreateSend implements InterfaceSend {
     SessionManager sessionManager = new SessionManager();
+    FileManager fileManager = FileManager.getInstance();
+
     @Override
     public String executeSend(HttpServletRequest request, HttpServletResponse response) {
-        if (!sessionManager.checkUserSession(request.getSession()))
+        if (sessionManager.checkUserSession(request.getSession()))
             return "login";
 
         String page = request.getParameter("page");
@@ -43,11 +44,10 @@ public class RoomCreateSend extends Operative implements InterfaceSend {
                     .build();
 
             DatabaseController.getDatabaseAccess(new CreateRoom(), room).execute();
-            //databaseController.setOperation(DatabaseController.CREATE_ROOM, room).execute();
+
             fileManager.setOperation(FileManager.ROOM_LOGO_LOAD, new PartWriteOperator(part,
                     String.valueOf(((Room)
                             DatabaseController.getDatabaseAccess(new GetRoomIdByName(), room).execute()
-                            //databaseController.setOperation(DatabaseController.GET_ROOM_ID_BY_NAME, room).execute()
                     ).getId()))).execute();
         } catch (IOException e) {
             System.out.println(e.getMessage());

@@ -6,14 +6,14 @@ import webmanager.database.operations.FindUser;
 import webmanager.file.FileManager;
 import webmanager.file.abstractions.RenameOperator;
 import webmanager.interfaces.InterfaceRenderer;
-import webmanager.interfaces.Operative;
 import webmanager.util.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
-class UsersPageRenderer extends Operative implements InterfaceRenderer {
+class UsersPageRenderer implements InterfaceRenderer {
     private final static int USERS_NUM = 30;
+    private final FileManager fileManager = FileManager.getInstance();
 
     @Override
     public void render(HttpServletRequest request) {

@@ -34,4 +34,14 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+    <tag>
+        <name>getRoomLogo</name>
+        <tag-class>webmanager.jstl.GetRoomLogoByRoom</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>room</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
 </taglib>

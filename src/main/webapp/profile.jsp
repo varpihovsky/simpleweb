@@ -1,6 +1,7 @@
 <%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="https://github.com/varpihovsky/simpleweb" prefix="simpleweb" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -20,20 +21,39 @@
             <simpleweb:navbar currentUser="${currentUser}" contextPath="${pageContext.request.contextPath}"/>
         </nav>
     </div>
-    <!-- Profile container -->
     <div class="container">
         <div class="profile-container">
             <div class="profile-avatar">
-                <simpleweb:avatar user="${user}"/>
+                <c:set var="avatar">
+                    <simpleweb:avatar user="${user}"/>
+                </c:set>
+                <img src="${avatar}" alt="avatar"/>
             </div>
             <div class="username">
-                ${username}
-                ${settings}
+                ${user.getUsername()}
+                <c:if test="${showSettings}">
+                    <div class=\"profile-settings\">
+                        <a href="${pageContext.request.contextPath}/controller?page=profileSettings&send=redirect\">
+                            <img src="${pageContext.request.contextPath}/img/interface/settings.svg" alt=\"settings\"/>
+                        </a>
+                    </div>
+                </c:if>
             </div>
         </div>
         <h3>Rooms</h3>
         <div class="room-grid">
-            ${roomlist}
+            <c:forEach var="room" items="${roomList}">
+                <c:set var="path">
+                    <simpleweb:getRoomLogo room="${room}"/>
+                </c:set>
+                <a href="#">
+                    <div class="room">
+                        <h4>${room.name}</h4>
+                        <img src="${path}" alt="room logo"/>
+                        <div>${room.description}</div>
+                    </div>
+                </a>
+            </c:forEach>
         </div>
     </div>
 </div>

@@ -6,14 +6,14 @@ import webmanager.database.operations.FindRoom;
 import webmanager.file.FileManager;
 import webmanager.file.abstractions.RenameOperator;
 import webmanager.interfaces.InterfaceRenderer;
-import webmanager.interfaces.Operative;
 import webmanager.util.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
-public class RoomsPageRenderer extends Operative implements InterfaceRenderer {
+public class RoomsPageRenderer implements InterfaceRenderer {
     private final static int ROOMS_NUM = 30;
+    private final FileManager fileManager = FileManager.getInstance();
 
     @Override
     public void render(HttpServletRequest request) {
@@ -31,7 +31,6 @@ public class RoomsPageRenderer extends Operative implements InterfaceRenderer {
         room.setAdditionalData("num", ROOMS_NUM);
         rooms =
                 (ArrayList<Room>) DatabaseController.getDatabaseAccess(new FindRoom(), room).execute();
-        //databaseController.setOperation(DatabaseController.FIND_ROOM, room).execute();
 
         if (rooms != null)
             for (Room room1 : rooms)

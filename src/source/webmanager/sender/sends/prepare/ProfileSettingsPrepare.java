@@ -5,7 +5,7 @@ import webmanager.SessionManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class ProfileSettingsPrepare extends Preparing {
+class ProfileSettingsPrepare extends Preparing {
     SessionManager sessionManager = new SessionManager();
     HttpSession session;
 

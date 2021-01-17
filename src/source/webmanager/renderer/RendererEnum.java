@@ -4,11 +4,6 @@ import webmanager.interfaces.InterfaceRenderer;
 import webmanager.util.Checker;
 
 public enum RendererEnum {
-    PROFILE {
-        {
-            this.renderer = new ProfilePageRenderer();
-        }
-    },
     PROFILESETTINGS {
         {
             this.renderer = new ProfileSettingsPageRenderer();
