@@ -12,29 +12,31 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class GetRoomListByUser extends DatabaseOperation<ArrayList<Room>, User> {
+    private PreparedStatement statement;
+    private User user;
+
     @Override
     public ArrayList<Room> operate(User user) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(Constants.GET_ROOM_LIST_BY_USER);
-            statement.setString(1, user.getUsername());
-            ArrayList<Room> roomList = new ArrayList<>();
+        this.user = user;
 
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                roomList.add(new Room.Builder()
-                        .withId(resultSet.getInt(1))
-                        .withName(resultSet.getString(2))
-                        .withDescription(resultSet.getString(3))
-                        .build());
-            }
-            resultSet.close();
+        try {
+            ArrayList<Room> roomList = getRooms(getRoomTable());
+
             statement.close();
+
             return roomList;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
+            Controller.logger.severe("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
                     e.getCause());
         }
         return null;
     }
+
+    private ResultSet getRoomTable() throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(Constants.GET_ROOM_LIST_BY_USER);
+        statement.setString(1, user.getUsername());
+        return statement.executeQuery();
+    }
+
 }

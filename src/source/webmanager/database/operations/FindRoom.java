@@ -11,32 +11,38 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class FindRoom extends DatabaseOperation<ArrayList<Room>, Room> {
+    private Room room;
+    private PreparedStatement statement;
+
     @Override
     public ArrayList<Room> operate(Room room) {
+        this.room = room;
+
         try {
-            PreparedStatement statement = connection.prepareStatement(Constants.FIND_ROOM);
-            statement.setString(1, room.getName());
-            statement.setInt(2, (Integer) room.getAdditionalData("num"));
+            ArrayList<Room> roomList;
 
-            ResultSet resultSet = statement.executeQuery();
+            roomList = getRoomList(getRoomTable());
 
-            ArrayList<Room> roomArr = new ArrayList<>();
-            while (resultSet.next()) {
-                roomArr.add(new Room.Builder()
-                        .withId(resultSet.getInt(1))
-                        .withName(resultSet.getString(2))
-                        .withDescription(resultSet.getString(3))
-                        .build());
-            }
-
-            resultSet.close();
             statement.close();
-            return roomArr;
+
+            return roomList;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            Controller.logger.warning("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
+            Controller.logger.severe("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
                     e.getCause());
         }
         return null;
+    }
+
+    private ResultSet getRoomTable() throws SQLException {
+        statement = connection.prepareStatement(Constants.FIND_ROOM);
+        statement.setString(1, room.getName());
+        statement.setInt(2, (Integer) room.getAdditionalData("num"));
+
+        return statement.executeQuery();
+    }
+
+    private ArrayList<Room> getRoomList(ResultSet resultSet) throws SQLException {
+        return getRooms(resultSet);
     }
 }
