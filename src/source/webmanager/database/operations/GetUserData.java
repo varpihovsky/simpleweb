@@ -23,6 +23,7 @@ public class GetUserData extends DatabaseOperation<User, User> {
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             User returnUser = new User.Builder()
+                    .withId(resultSet.getInt(1))
                     .withUsername(resultSet.getString(2))
                     .withEmail(resultSet.getString(3))
                     .withPassword(resultSet.getString(4))
