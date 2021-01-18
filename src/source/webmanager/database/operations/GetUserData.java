@@ -30,7 +30,7 @@ public class GetUserData extends DatabaseOperation<User, User> {
     }
 
     private ResultSet getUserTable() throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(Constants.GET_USER_DATA);
+        statement = connection.prepareStatement(Constants.GET_USER_DATA);
         statement.setString(1, user.getUsername());
 
         return statement.executeQuery();

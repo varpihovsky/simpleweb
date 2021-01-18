@@ -5,7 +5,6 @@ import webmanager.database.abstractions.Room;
 import webmanager.database.abstractions.User;
 import webmanager.database.operations.GetRoomListByUser;
 import webmanager.database.operations.GetUserData;
-import webmanager.database.operations.IsUserExists;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,44 +22,47 @@ class ProfilePrepare extends Preparing {
 
         String userParameter = request.getParameter("user");
 
-        if (userParameter != null && checkUserExisting(userParameter)) {
+        if (userParameter != null) {
             prepareUserByUsername(userParameter);
         } else {
             prepareCurrentUser();
         }
     }
 
-    private boolean checkUserExisting(String username) {
-        User user = new User.Builder().withUsername(username).build();
-
-        DatabaseController<IsUserExists, User> databaseController =
-                DatabaseController.getDatabaseAccess(new IsUserExists(), user);
-
-        return databaseController.execute();
-    }
-
     private void prepareCurrentUser() {
-        user = prepareUser((String) session.getAttribute("username"));
+        User currentUser = (User) session.getAttribute("currentUser");
+
+        request.setAttribute("showSettings", true);
+
+        if (currentUser != null)
+            user = prepareUser((User) session.getAttribute("currentUser"));
     }
 
     private void prepareUserByUsername(String username) {
-        user = prepareUser(username);
+        User user = new User.Builder()
+                .withUsername(username)
+                .build();
+
+        this.user = prepareUser(user);
     }
 
-    private User prepareUser(String username) {
+    private User prepareUser(User user) {
         User dbGet =
                 new User.Builder()
-                        .withUsername(username)
+                        .withUsername(user.getUsername())
                         .build();
 
         DatabaseController<GetUserData, User> databaseController =
-                DatabaseController.getDatabaseAccess(new GetUserData(), dbGet);
+                new DatabaseController<>(GetUserData::new, dbGet);
 
         return databaseController.execute();
     }
 
     @Override
     public String prepare() {
+        if (user == null)
+            return "main";
+
         request.setAttribute("user", user);
 
         request.setAttribute("roomList", getRoomList());
@@ -70,7 +72,7 @@ class ProfilePrepare extends Preparing {
 
     private ArrayList<Room> getRoomList() {
         DatabaseController<GetRoomListByUser, User> databaseController =
-                DatabaseController.getDatabaseAccess(new GetRoomListByUser(), user);
+                new DatabaseController<>(GetRoomListByUser::new, user);
 
         return databaseController.execute();
     }

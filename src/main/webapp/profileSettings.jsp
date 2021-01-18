@@ -31,11 +31,11 @@
             <h1>Profile settings</h1>
             <div class="input-form">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="newusername" placeholder="${username}" value="">
+                <input type="text" id="username" name="newusername" placeholder="${currentUser.username}" value="">
             </div>
             <div class="input-form">
                 <label for="email">Email: </label>
-                <input type="email" id="email" name="newemail" placeholder="${email}" value="">
+                <input type="email" id="email" name="newemail" placeholder="${currentUser.email}" value="">
             </div>
             <div class="input-form">
                 <label for="newpassword">New password: </label>

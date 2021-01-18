@@ -21,11 +21,10 @@ public abstract class Preparing {
     public abstract String prepare();
 
     private void defaultPrepare() {
-        User user =
-                new User.Builder()
-                        .withUsername((String) session.getAttribute("username"))
-                        .withPassword((String) session.getAttribute("password"))
-                        .build();
+        User user = (User) session.getAttribute("currentUser");
+
+        if (user == null)
+            user = new User.Builder().build();
 
         request.setAttribute("currentUser", user);
     }

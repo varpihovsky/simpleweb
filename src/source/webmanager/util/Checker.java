@@ -1,19 +1,18 @@
 package webmanager.util;
 
+import webmanager.database.DatabaseController;
+import webmanager.database.abstractions.User;
+import webmanager.database.operations.IsUserExists;
+
 public class Checker {
 
-    public static boolean isContainsWrong(String str) {
-        return str == null || str.contains("'") || str.equals("");
-    }
+    public boolean checkUserExisting(String username) {
+        User user = new User.Builder().withUsername(username).build();
 
-    public static boolean checkLength(String str, int from, int to) {
-        int temp;
-        if (from > to) {
-            temp = from;
-            from = to;
-            to = temp;
-        }
-        return str.length() >= from && str.length() <= to;
+        DatabaseController<IsUserExists, User> databaseController =
+                new DatabaseController<>(IsUserExists::new, user);
+
+        return databaseController.execute();
     }
 
     public static String pageReplace(String page) {

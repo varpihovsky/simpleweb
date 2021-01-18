@@ -1,6 +1,7 @@
 <%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="https://github.com/varpihovsky/simpleweb" prefix="simpleweb" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +43,17 @@
             </form>
         </div>
         <div class="user-grid">
-            ${render}
+            <c:forEach var="room" items="${roomList}">
+                <c:set var="path">
+                    <simpleweb:getRoomLogo room="${room}"/>
+                </c:set>
+                <a href=" ${pageContext.request.contextPath}/controller?page=room&send=redirect&room=${room.id}">
+                    <div class="user">
+                        <h4>${room.name}</h4>
+                        <img src="${path}" alt="room logo"/>
+                    </div>
+                </a>
+            </c:forEach>
         </div>
     </div>
 </div>

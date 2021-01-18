@@ -1,7 +1,6 @@
 package webmanager.sender.sends.prepare;
 
 import webmanager.Controller;
-import webmanager.CookieManager;
 import webmanager.SessionManager;
 import webmanager.database.abstractions.User;
 
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 class LoginPagePrepare extends Preparing {
     private final HttpSession session;
-    CookieManager cookieManager = new CookieManager();
     SessionManager sessionManager = new SessionManager();
 
     public LoginPagePrepare(String currentPage, HttpServletRequest request) {
@@ -20,7 +18,7 @@ class LoginPagePrepare extends Preparing {
 
     @Override
     public String prepare() {
-        if ((sessionManager.checkUserSession(session) || cookieManager.checkUser(session))) {
+        if ((sessionManager.checkUserSession(session))) {
             request.setAttribute("user",
                     new User.Builder()
                             .withUsername((String) session.getAttribute("username"))

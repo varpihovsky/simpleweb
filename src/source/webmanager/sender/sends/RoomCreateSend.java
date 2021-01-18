@@ -43,12 +43,9 @@ public class RoomCreateSend implements InterfaceSend {
                     .addAdditionalData("username", username)
                     .build();
 
-            DatabaseController.getDatabaseAccess(new CreateRoom(), room).execute();
+            new DatabaseController<>(CreateRoom::new, room).execute();
 
-            fileManager.setOperation(FileManager.ROOM_LOGO_LOAD, new PartWriteOperator(part,
-                    String.valueOf(((Room)
-                            DatabaseController.getDatabaseAccess(new GetRoomIdByName(), room).execute()
-                    ).getId()))).execute();
+            setImage(part, room);
         } catch (IOException e) {
             System.out.println(e.getMessage());
             Controller.logger.warning("IOException:\n\t" + e.getMessage() + "\n\t" + e.getLocalizedMessage() + "\n\t" +
@@ -58,5 +55,15 @@ public class RoomCreateSend implements InterfaceSend {
                     e.getCause());
         }
         return page;
+    }
+
+    private void setImage(Part part, Room room) {
+        DatabaseController<GetRoomIdByName, Room> databaseController
+                = new DatabaseController<>(GetRoomIdByName::new, room);
+
+        room = databaseController.execute();
+
+        fileManager.setOperation(FileManager.ROOM_LOGO_LOAD, new PartWriteOperator(part, String.valueOf(room.getId())))
+                .execute();
     }
 }

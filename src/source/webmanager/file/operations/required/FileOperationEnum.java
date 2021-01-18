@@ -5,7 +5,6 @@ import webmanager.file.operations.GetUserAvatar;
 import webmanager.file.operations.RoomLogoLoad;
 import webmanager.file.operations.UserAvatarLoad;
 import webmanager.interfaces.FileOperation;
-import webmanager.util.Checker;
 
 public enum FileOperationEnum {
     GETUSERAVATAR {
@@ -32,8 +31,8 @@ public enum FileOperationEnum {
     FileOperation operation;
 
     public static FileOperationEnum getInstance(String s) {
-        if (Checker.isContainsWrong(s))
-            return null;
+        if (s == null)
+            throw new NullPointerException("Parameter can not be null");
         return FileOperationEnum.valueOf(s.toUpperCase());
     }
 

@@ -33,8 +33,8 @@
                 ${user.getUsername()}
                 <c:if test="${showSettings}">
                     <div class=\"profile-settings\">
-                        <a href="${pageContext.request.contextPath}/controller?page=profileSettings&send=redirect\">
-                            <img src="${pageContext.request.contextPath}/img/interface/settings.svg" alt=\"settings\"/>
+                        <a href="${pageContext.request.contextPath}/controller?page=profileSettings&send=redirect">
+                            <img src="${pageContext.request.contextPath}/img/interface/settings.svg" alt="settings"/>
                         </a>
                     </div>
                 </c:if>

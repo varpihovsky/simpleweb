@@ -12,10 +12,13 @@ import java.sql.SQLException;
 public class IsUserExists extends DatabaseOperation<Boolean, User> {
     @Override
     public Boolean operate(User user) {
+        if (user == null)
+            return false;
+
         try {
             PreparedStatement statement = connection.prepareStatement(Constants.IS_USER_EXISTS);
             statement.setString(1, user.getUsername());
-            statement.setInt(2, user.getPassword().hashCode());
+            statement.setInt(2, Integer.parseInt(user.getPassword()));
 
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();

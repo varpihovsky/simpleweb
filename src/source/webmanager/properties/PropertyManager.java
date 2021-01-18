@@ -11,7 +11,6 @@ import java.util.Properties;
 
 public class PropertyManager {
 
-    //Database properties
     public static final String DATABASE_URL = "DatabaseUrl";
     public static final String DATABASE_USER = "DatabaseUser";
     public static final String DATABASE_PASSWORD = "DatabasePassword";

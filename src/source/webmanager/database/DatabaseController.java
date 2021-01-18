@@ -3,13 +3,15 @@ package webmanager.database;
 import webmanager.database.abstractions.NullDatabaseObject;
 import webmanager.interfaces.DatabaseObject;
 
+import java.util.function.Supplier;
+
 public class DatabaseController<O extends DatabaseOperation, T extends DatabaseObject> {
     private final O operation;
     private final T operator;
 
-    private DatabaseController(O operation, T operator) {
-        this.operation = operation;
+    public DatabaseController(Supplier<? extends O> supplier, T operator) {
         this.operator = operator;
+        operation = supplier.get();
     }
 
     public static void init(String initialize) {
@@ -17,11 +19,6 @@ public class DatabaseController<O extends DatabaseOperation, T extends DatabaseO
             DatabaseOperation<Void, NullDatabaseObject> tmp = new InitializeDatabase();
             tmp.start(null);
         }
-    }
-
-    public static <O extends DatabaseOperation, T extends DatabaseObject> DatabaseController
-    getDatabaseAccess(O operation, T operator) {
-        return new DatabaseController<>(operation, operator);
     }
 
     public <T> T execute() {

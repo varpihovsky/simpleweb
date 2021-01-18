@@ -10,7 +10,6 @@ import webmanager.database.operations.GetUserIdByUsername;
 import webmanager.file.FileManager;
 import webmanager.file.abstractions.PartWriteOperator;
 import webmanager.interfaces.InterfaceSend;
-import webmanager.util.Checker;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,37 +36,47 @@ public class ChangeSend implements InterfaceSend {
 
         try {
             Part filePart = request.getPart("file");
-            fileManager.setOperation(FileManager.USER_AVATAR_LOAD, new PartWriteOperator(filePart,
-                    String.valueOf(((User)
-                            DatabaseController.getDatabaseAccess
-                                    (new GetUserIdByUsername(), userWithOldUsername).execute()).getId())))
+            fileManager.setOperation(FileManager.USER_AVATAR_LOAD,
+                    new PartWriteOperator(filePart, getUserId(userWithOldUsername)))
                     .execute();
         } catch (Exception e) {
             Controller.logger.severe(e.getMessage());
         }
 
-        if (oldPassword.equals(((User)
-                DatabaseController.getDatabaseAccess(new GetUserData(), userWithOldUsername).execute()
-        ).getPassword())) {
-            if (!Checker.isContainsWrong(newEmail)) {
+        if (oldPassword.hashCode() == getUserPasswordHashCode(userWithOldUsername)) {
+            if (newEmail != null) {
                 userWithOldUsername.setEmail(newEmail);
             }
-            if (!Checker.isContainsWrong(newPassword)) {
+            if (newPassword != null) {
                 userWithOldUsername.setPassword(newPassword);
                 session.setAttribute("password", newPassword);
-                if (!Checker.isContainsWrong(cookieParam) && cookieParam.equals("true"))
+                if (cookieParam != null && cookieParam.equals("true"))
                     manager.changePassword(newPassword, response);
             }
-            if (!Checker.isContainsWrong(newUsername)) {
+            if (newUsername != null) {
                 userWithOldUsername.setAdditionalData("newUsername", newUsername);
                 session.setAttribute("username", newUsername);
 
-                if (!Checker.isContainsWrong(cookieParam) && cookieParam.equals("true"))
+                if (cookieParam != null && cookieParam.equals("true"))
                     manager.changeUsername(newUsername, response);
             }
-            DatabaseController.getDatabaseAccess(new ChangeUserData(), userWithOldUsername).execute();
-            //databaseController.setOperation(DatabaseController.CHANGE_USER_DATA, user).execute();
+            DatabaseController<ChangeUserData, User> databaseController =
+                    new DatabaseController<>(ChangeUserData::new, userWithOldUsername);
+            databaseController.execute();
         }
         return page;
+    }
+
+    private String getUserId(User user) {
+        DatabaseController<GetUserIdByUsername, User> databaseController =
+                new DatabaseController<>(GetUserIdByUsername::new, user);
+        return databaseController.execute();
+    }
+
+    private int getUserPasswordHashCode(User user) {
+        DatabaseController<GetUserData, User> databaseController =
+                new DatabaseController<>(GetUserData::new, user);
+        String password = ((User) databaseController.execute()).getPassword();
+        return password.hashCode();
     }
 }

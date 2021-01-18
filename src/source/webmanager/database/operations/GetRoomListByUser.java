@@ -34,7 +34,7 @@ public class GetRoomListByUser extends DatabaseOperation<ArrayList<Room>, User> 
     }
 
     private ResultSet getRoomTable() throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(Constants.GET_ROOM_LIST_BY_USER);
+        statement = connection.prepareStatement(Constants.GET_ROOM_LIST_BY_USER);
         statement.setString(1, user.getUsername());
         return statement.executeQuery();
     }

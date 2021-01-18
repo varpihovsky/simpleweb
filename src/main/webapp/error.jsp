@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
+<%@ page isErrorPage="true" %>
 <%@ taglib uri="https://github.com/varpihovsky/simpleweb" prefix="simpleweb" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +26,14 @@
     <h1>Error</h1>
     <p>There are some troubles...<br/>
         We have error code №${pageContext.errorData.statusCode}<br/>
-        Try to return to main page.</p>
+        Try to return to main page.<br/>
+        <c:set var="exception" value="${requestScope['javax.servlet.error.exception']}"/>
+        <jsp:scriptlet>
+
+                    exception.printStackTrace(new java.io.PrintWriter(out));
+
+        </jsp:scriptlet>
+    </p>
 </div>
 </body>
 </html>

@@ -1,18 +1,18 @@
 package webmanager;
 
-import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
-import webmanager.database.operations.IsUserExists;
-import webmanager.util.Checker;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 public class CookieManager {
+    private final static int MAX_AGE = 2000;
+
     Cookie username;
     Cookie password;
+    Cookie email;
+    Cookie id;
 
     public boolean getCookiesFromRequest(HttpServletRequest request) {
         try {
@@ -21,36 +21,39 @@ public class CookieManager {
                     username = c;
                 if (c.getName().equals("password"))
                     password = c;
+                if (c.getName().equals("email"))
+                    email = c;
+                if (c.getName().equals("id"))
+                    id = c;
             }
-            return username != null || password != null;
+            return username != null && password != null && email != null && id != null;
         } catch (NullPointerException e) {
             return false;
         }
     }
 
-    public void setCookiesToResponse(HttpServletResponse response, String username, String password) {
-        if (!Checker.isContainsWrong(username) && !Checker.isContainsWrong(password)) {
-            response.addCookie(new Cookie("username", username));
-            response.addCookie(new Cookie("password", password));
-        }
-    }
+    public void setCookiesToResponse(HttpServletResponse response, User user) {
+        username = new Cookie("username", user.getUsername());
+        password = new Cookie("password", user.getPassword());
+        email = new Cookie("email", user.getEmail());
+        id = new Cookie("id", String.valueOf(user.getId()));
 
-    public boolean checkUser(HttpSession session) {
-        if (username == null || password == null)
-            return false;
-        return (Boolean) DatabaseController.getDatabaseAccess(new IsUserExists(), new User.Builder()
-                .withUsername(username.getValue())
-                .withPassword(password.getValue())
-                .build()).execute();
+        username.setMaxAge(MAX_AGE);
+        password.setMaxAge(MAX_AGE);
+        email.setMaxAge(MAX_AGE);
+        id.setMaxAge(MAX_AGE);
+
+        response.addCookie(username);
+        response.addCookie(password);
+        response.addCookie(email);
+        response.addCookie(id);
     }
 
     public void deleteCookies(HttpServletResponse response) {
-        if (username != null || password != null) {
-            username.setValue("");
-            password.setValue("");
-        }
         response.addCookie(new Cookie("username", ""));
         response.addCookie(new Cookie("password", ""));
+        response.addCookie(new Cookie("email", ""));
+        response.addCookie(new Cookie("id", ""));
     }
 
     public void changeUsername(String username, HttpServletResponse response) {

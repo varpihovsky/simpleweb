@@ -15,6 +15,12 @@ public class PrepareFactory {
             case "profileSettings":
                 preparing = new ProfileSettingsPrepare(currentPage, request);
                 break;
+            case "rooms":
+                preparing = new RoomsPrepare(currentPage, request);
+                break;
+            case "users":
+                preparing = new UsersPrepare(currentPage, request);
+                break;
             default:
                 preparing = new DefaultPrepare(currentPage, request);
         }

@@ -12,6 +12,9 @@ public class RedirectSend implements InterfaceSend {
     public String executeSend(HttpServletRequest request, HttpServletResponse response) {
         String page = request.getParameter("page");
 
+        if (page == null)
+            return "main";
+
         Preparing preparing = new PrepareFactory().getPrepare(page, request);
         return preparing.prepare();
     }

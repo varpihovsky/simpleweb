@@ -2,7 +2,6 @@ package webmanager.sender;
 
 import webmanager.interfaces.InterfaceSend;
 import webmanager.sender.sends.*;
-import webmanager.util.Checker;
 
 public enum SendEnum {
     REDIRECT {
@@ -39,7 +38,7 @@ public enum SendEnum {
     InterfaceSend send;
 
     public static SendEnum getInstance(String s) {
-        if (Checker.isContainsWrong(s))
+        if (s == null || s.isEmpty())
             return SendEnum.REDIRECT;
         return SendEnum.valueOf(s.toUpperCase());
     }

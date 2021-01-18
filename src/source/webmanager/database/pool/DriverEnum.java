@@ -1,7 +1,5 @@
 package webmanager.database.pool;
 
-import webmanager.util.Checker;
-
 import java.sql.Driver;
 import java.sql.SQLException;
 
@@ -23,7 +21,7 @@ enum DriverEnum {
     Driver driver;
 
     static DriverEnum getInstance(String s) {
-        if (Checker.isContainsWrong(s))
+        if (s == null || s.isEmpty())
             return null;
         return DriverEnum.valueOf(s.toUpperCase());
     }

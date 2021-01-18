@@ -2,7 +2,6 @@ package webmanager.jstl;
 
 import webmanager.Controller;
 import webmanager.database.abstractions.User;
-import webmanager.renderer.RendererTemplates;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.SkipPageException;
@@ -25,7 +24,7 @@ public class NavbarTag extends SimpleTagSupport {
     public void doTag() throws JspException {
         try {
             getJspContext().getOut().write(
-                    RendererTemplates.renderNavbar(
+                    renderNavbar(
                             currentUser.getUsername(),
                             currentUser.getPassword(),
                             contextPath));
@@ -33,5 +32,22 @@ public class NavbarTag extends SimpleTagSupport {
             Controller.logger.severe(e.getMessage());
             throw new SkipPageException(e);
         }
+    }
+
+    private String renderNavbar(String username, String password, String contextPath) {
+        if (contextPath == null)
+            contextPath = "";
+        if (username != null && password != null)
+            return "<a href=\"" + contextPath + "/controller?page=users&send=redirect\">Users</a>\n" +
+                    "<a href=\"" + contextPath + "/controller?page=profile&send=redirect\">Profile</a>\n" +
+                    "<a href=\"#\">News</a>\n" +
+                    "<a href=\"" + contextPath + "/controller?page=rooms&send=redirect\">Rooms</a>\n" +
+                    "<a href=\"" + contextPath + "/controller?page=main&send=logout\">Logout</a>";
+        return "<a href=\"" + contextPath + "/controller?page=users&send=redirect\">Users</a>\n" +
+                "<a href=\"" + contextPath + "/controller?page=register&send=redirect\">Register</a>\n" +
+                "<a href=\"#\">News</a>\n" +
+                "<a href=\"" + contextPath + "/controller?page=rooms&send=redirect\">Rooms</a>\n" +
+                "<a href=\"" + contextPath + "/controller?page=login&send=redirect\">Login</a>";
+
     }
 }

@@ -3,7 +3,6 @@ package webmanager;
 import webmanager.database.DatabaseController;
 import webmanager.file.FileManager;
 import webmanager.properties.PropertyManager;
-import webmanager.renderer.RenderExecutor;
 import webmanager.sender.SendExecutor;
 
 import javax.servlet.RequestDispatcher;
@@ -44,7 +43,6 @@ public class Controller extends HttpServlet {
     private void process(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         String page = SendExecutor.execute(request, response);
-        RenderExecutor.execute(page, request);
 
         page = "/" + page + ".jsp";
 
