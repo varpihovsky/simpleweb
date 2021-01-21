@@ -2,6 +2,8 @@ package webmanager.database.abstractions;
 
 import webmanager.interfaces.DatabaseObject;
 
+import java.util.Objects;
+
 public class User extends WithDataAddition implements DatabaseObject {
     private int id;
     private String username;
@@ -75,5 +77,18 @@ public class User extends WithDataAddition implements DatabaseObject {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, email, password);
     }
 }
