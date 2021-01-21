@@ -1,5 +1,6 @@
 package webmanager.properties;
 
+import org.apache.log4j.Logger;
 import webmanager.Controller;
 
 import javax.servlet.ServletContext;
@@ -24,6 +25,8 @@ public class PropertyManager {
     private static PropertyManager propertyManager;
     private final String path;
 
+    private final Logger logger = Logger.getLogger(PropertyManager.class);
+
     private PropertyManager(ServletContext context) {
         path = context.getRealPath("/properties/");
         Controller.logger.info("PropertyManager initialization");
@@ -32,11 +35,9 @@ public class PropertyManager {
             properties.load(reader);
             Controller.logger.info("/db.properties loaded successfully");
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Controller.logger.warning("/db.properties not found!");
+            logger.error("/db.properties not found!");
         } catch (IOException e) {
-            e.printStackTrace();
-            Controller.logger.warning("IOException in PropertyManager");
+            logger.error("IOException in PropertyManager");
         }
     }
 
@@ -63,8 +64,7 @@ public class PropertyManager {
             try {
                 properties.store(new FileOutputStream(path + "/db.properties"), null);
             } catch (IOException e) {
-                e.printStackTrace();
-                Controller.logger.warning("IOEXCEPTION:\n\t" + e.getMessage() + "\n\t" +
+                logger.error("IOEXCEPTION:\n\t" + e.getMessage() + "\n\t" +
                         e.getCause() + "\n\t" + e.getLocalizedMessage() + "\n\tCant save db.properties");
             }
             return "yes";
@@ -80,10 +80,10 @@ public class PropertyManager {
             reader = new FileReader(path + "/" + name);
             properties.load(reader);
         } catch (FileNotFoundException e) {
-            Controller.logger.warning(name + " not found!");
+            logger.error(name + " not found!");
             e.printStackTrace();
         } catch (IOException e) {
-            Controller.logger.warning("IOException in PropertyManager.setPropertyFile()");
+            logger.error("IOException in PropertyManager.setPropertyFile()");
             e.printStackTrace();
         }
     }

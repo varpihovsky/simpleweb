@@ -2,6 +2,8 @@ package webmanager.database.abstractions;
 
 import webmanager.interfaces.DatabaseObject;
 
+import java.util.Objects;
+
 public class Room extends WithDataAddition implements DatabaseObject {
     private String description;
     private String name;
@@ -89,5 +91,18 @@ public class Room extends WithDataAddition implements DatabaseObject {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return id == room.id && Objects.equals(description, room.description) && Objects.equals(name, room.name) && Objects.equals(password, room.password) && Objects.equals(isPrivate, room.isPrivate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, name, password, isPrivate, id);
     }
 }

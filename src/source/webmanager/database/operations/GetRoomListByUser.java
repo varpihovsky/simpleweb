@@ -1,6 +1,5 @@
 package webmanager.database.operations;
 
-import webmanager.Controller;
 import webmanager.database.DatabaseOperation;
 import webmanager.database.abstractions.Room;
 import webmanager.database.abstractions.User;
@@ -16,21 +15,14 @@ public class GetRoomListByUser extends DatabaseOperation<ArrayList<Room>, User> 
     private User user;
 
     @Override
-    public ArrayList<Room> operate(User user) {
+    public ArrayList<Room> operate(User user) throws SQLException {
         this.user = user;
 
-        try {
-            ArrayList<Room> roomList = getRooms(getRoomTable());
+        ArrayList<Room> roomList = getRooms(getRoomTable());
 
-            statement.close();
+        statement.close();
 
-            return roomList;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            Controller.logger.severe("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
-                    e.getCause());
-        }
-        return null;
+        return roomList;
     }
 
     private ResultSet getRoomTable() throws SQLException {

@@ -1,6 +1,5 @@
 package webmanager.database.operations;
 
-import webmanager.Controller;
 import webmanager.database.DatabaseOperation;
 import webmanager.database.abstractions.User;
 import webmanager.database.operations.required.Constants;
@@ -15,23 +14,16 @@ public class FindUser extends DatabaseOperation<ArrayList<User>, User> {
     private User user;
 
     @Override
-    public ArrayList<User> operate(User user) {
+    public ArrayList<User> operate(User user) throws SQLException {
         this.user = user;
 
-        try {
-            ArrayList<User> userArr;
+        ArrayList<User> userArr;
 
-            userArr = getUserList(getUserTable());
+        userArr = getUserList(getUserTable());
 
-            statement.close();
+        statement.close();
 
-            return userArr;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            Controller.logger.severe("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
-                    e.getCause());
-        }
-        return null;
+        return userArr;
     }
 
     private ResultSet getUserTable() throws SQLException {

@@ -1,6 +1,5 @@
 package webmanager.database.operations;
 
-import webmanager.Controller;
 import webmanager.database.DatabaseOperation;
 import webmanager.database.abstractions.User;
 import webmanager.database.operations.required.Constants;
@@ -12,16 +11,11 @@ public class CreateUser extends DatabaseOperation<Void, User> {
     private User user;
 
     @Override
-    public Void operate(User user) {
+    public Void operate(User user) throws SQLException {
         this.user = user;
 
-        try {
-            createUser();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            Controller.logger.severe("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
-                    e.getCause());
-        }
+        createUser();
+
         return null;
     }
 

@@ -1,6 +1,6 @@
 package webmanager.sender;
 
-import webmanager.Controller;
+import org.apache.log4j.Logger;
 import webmanager.interfaces.InterfaceSend;
 import webmanager.sender.sends.RedirectSend;
 
@@ -17,7 +17,8 @@ public class SendExecutor {
             currentSend = sendEnum.getCurrentSend();
             return currentSend;
         } catch (IllegalArgumentException e) {
-            Controller.logger.warning("IllegalArgumentException:\n\t" + e.getMessage() + "\n\t" + e.getLocalizedMessage() + "\n\t" +
+            Logger logger = Logger.getLogger(SendExecutor.class);
+            logger.error("IllegalArgumentException:\n\t" + e.getMessage() + "\n\t" + e.getLocalizedMessage() + "\n\t" +
                     e.getCause());
             return currentSend;
         }

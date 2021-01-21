@@ -1,6 +1,6 @@
 package webmanager.file.operations;
 
-import webmanager.Controller;
+import org.apache.log4j.Logger;
 import webmanager.file.Extensions;
 import webmanager.file.abstractions.PartWriteOperator;
 import webmanager.interfaces.FileOperation;
@@ -27,9 +27,8 @@ public class UserAvatarLoad implements FileOperation<Void, PartWriteOperator> {
                     getFileExtension(getFileName(part)));
             part.write(s);
         } catch (IOException e) {
-            System.out.printf(e.getMessage());
-            Controller.logger.warning("IOException:\n\t" + e.getMessage() + "\n\t" + e.getLocalizedMessage() + "\n\t" +
-                    e.getCause());
+            Logger logger = Logger.getLogger(UserAvatarLoad.class);
+            logger.error("IOException:", e);
         }
         return null;
     }

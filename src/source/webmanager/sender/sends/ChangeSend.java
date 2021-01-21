@@ -1,6 +1,6 @@
 package webmanager.sender.sends;
 
-import webmanager.Controller;
+import org.apache.log4j.Logger;
 import webmanager.CookieManager;
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.User;
@@ -40,7 +40,8 @@ public class ChangeSend implements InterfaceSend {
                     new PartWriteOperator(filePart, getUserId(userWithOldUsername)))
                     .execute();
         } catch (Exception e) {
-            Controller.logger.severe(e.getMessage());
+            Logger logger = Logger.getLogger(ChangeSend.class);
+            logger.warn(e);
         }
 
         if (oldPassword.hashCode() == getUserPasswordHashCode(userWithOldUsername)) {

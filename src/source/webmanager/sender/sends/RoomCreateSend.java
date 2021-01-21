@@ -1,6 +1,6 @@
 package webmanager.sender.sends;
 
-import webmanager.Controller;
+import org.apache.log4j.Logger;
 import webmanager.SessionManager;
 import webmanager.database.DatabaseController;
 import webmanager.database.abstractions.Room;
@@ -19,6 +19,7 @@ import java.io.IOException;
 public class RoomCreateSend implements InterfaceSend {
     SessionManager sessionManager = new SessionManager();
     FileManager fileManager = FileManager.getInstance();
+    Logger logger = Logger.getLogger(RoomCreateSend.class);
 
     @Override
     public String executeSend(HttpServletRequest request, HttpServletResponse response) {
@@ -46,13 +47,8 @@ public class RoomCreateSend implements InterfaceSend {
             new DatabaseController<>(CreateRoom::new, room).execute();
 
             setImage(part, room);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            Controller.logger.warning("IOException:\n\t" + e.getMessage() + "\n\t" + e.getLocalizedMessage() + "\n\t" +
-                    e.getCause());
-        } catch (ServletException e) {
-            Controller.logger.warning("ServletException:\n\t" + e.getMessage() + "\n\t" + e.getLocalizedMessage() + "\n\t" +
-                    e.getCause());
+        } catch (IOException | ServletException e) {
+            logger.error("IOException: ", e);
         }
         return page;
     }

@@ -1,6 +1,5 @@
 package webmanager.database.operations;
 
-import webmanager.Controller;
 import webmanager.database.DatabaseOperation;
 import webmanager.database.abstractions.Room;
 import webmanager.database.operations.required.Constants;
@@ -15,23 +14,16 @@ public class FindRoom extends DatabaseOperation<ArrayList<Room>, Room> {
     private PreparedStatement statement;
 
     @Override
-    public ArrayList<Room> operate(Room room) {
+    public ArrayList<Room> operate(Room room) throws SQLException {
         this.room = room;
 
-        try {
-            ArrayList<Room> roomList;
+        ArrayList<Room> roomList;
 
-            roomList = getRoomList(getRoomTable());
+        roomList = getRoomList(getRoomTable());
 
-            statement.close();
+        statement.close();
 
-            return roomList;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            Controller.logger.severe("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
-                    e.getCause());
-        }
-        return null;
+        return roomList;
     }
 
     private ResultSet getRoomTable() throws SQLException {

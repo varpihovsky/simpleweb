@@ -1,6 +1,5 @@
 package webmanager.database.operations;
 
-import webmanager.Controller;
 import webmanager.database.DatabaseOperation;
 import webmanager.database.abstractions.User;
 import webmanager.database.operations.required.Constants;
@@ -14,19 +13,14 @@ public class GetUserData extends DatabaseOperation<User, User> {
     private PreparedStatement statement;
 
     @Override
-    public User operate(User user) {
+    public User operate(User user) throws SQLException {
         this.user = user;
 
-        try {
-            User returnUser = getUserData(getUserTable());
+        User returnUser = getUserData(getUserTable());
 
-            statement.close();
-            return returnUser;
-        } catch (SQLException e) {
-            Controller.logger.severe("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
-                    e.getCause());
-        }
-        return null;
+        statement.close();
+
+        return returnUser;
     }
 
     private ResultSet getUserTable() throws SQLException {

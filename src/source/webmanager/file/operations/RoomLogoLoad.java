@@ -1,6 +1,6 @@
 package webmanager.file.operations;
 
-import webmanager.Controller;
+import org.apache.log4j.Logger;
 import webmanager.file.Extensions;
 import webmanager.file.abstractions.PartWriteOperator;
 import webmanager.interfaces.FileOperation;
@@ -26,9 +26,8 @@ public class RoomLogoLoad implements FileOperation<Void, PartWriteOperator> {
                     getFileExtension(getFileName(part)));
             part.write(s);
         } catch (IOException e) {
-            System.out.printf(e.getMessage());
-            Controller.logger.warning("IOException:\n\t" + e.getMessage() + "\n\t" + e.getLocalizedMessage() + "\n\t" +
-                    e.getCause());
+            Logger logger = Logger.getLogger(RoomLogoLoad.class);
+            logger.error("IO Exception", e);
         }
         return null;
     }

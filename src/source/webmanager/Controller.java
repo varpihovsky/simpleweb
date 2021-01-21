@@ -1,5 +1,6 @@
 package webmanager;
 
+import org.apache.log4j.Logger;
 import webmanager.database.DatabaseController;
 import webmanager.file.FileManager;
 import webmanager.properties.PropertyManager;
@@ -13,12 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.logging.Logger;
+
 
 @WebServlet("/controller")
 @MultipartConfig
 public class Controller extends HttpServlet {
-    public static Logger logger = Logger.getLogger(Controller.class.getName());
+    public static Logger logger = Logger.getLogger(Controller.class);
 
     @Override
     public void init() {

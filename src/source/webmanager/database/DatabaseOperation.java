@@ -1,5 +1,6 @@
 package webmanager.database;
 
+import org.apache.log4j.Logger;
 import webmanager.database.abstractions.Room;
 import webmanager.database.pool.ConnectionPool;
 import webmanager.interfaces.DatabaseObject;
@@ -34,10 +35,16 @@ public abstract class DatabaseOperation<T, U extends DatabaseObject> {
     }
 
     T start(U type) {
-        T t = operate(type);
+        T t = null;
+        try {
+            t = operate(type);
+        } catch (SQLException e) {
+            Logger logger = Logger.getLogger(DatabaseOperation.class);
+            logger.error("SQL Exception: ", e);
+        }
         closeConnection();
         return t;
     }
 
-    protected abstract T operate(U type);
+    protected abstract T operate(U type) throws SQLException;
 }

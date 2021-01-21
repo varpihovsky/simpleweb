@@ -1,6 +1,5 @@
 package webmanager.database.operations;
 
-import webmanager.Controller;
 import webmanager.database.DatabaseOperation;
 import webmanager.database.abstractions.Room;
 import webmanager.database.operations.required.Constants;
@@ -13,25 +12,18 @@ public class CreateRoom extends DatabaseOperation<Void, Room> {
     private Room room;
 
     @Override
-    public synchronized Void operate(Room room) {
+    public synchronized Void operate(Room room) throws SQLException {
         this.room = room;
 
         if (this.room.isPrivate() == null)
             this.room.setPrivate("no");
 
-        try {
+        createRoom();
 
-            createRoom();
+        assignAdminToRoom();
 
-            assignAdminToRoom();
+        assignMemberToRoom();
 
-            assignMemberToRoom();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-            Controller.logger.severe("SQLException:\n\t" + e.getMessage() + "\n\t" + e.getSQLState() + "\n\t" +
-                    e.getCause());
-        }
         return null;
     }
 

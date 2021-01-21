@@ -1,6 +1,6 @@
 package webmanager.jstl;
 
-import webmanager.Controller;
+import org.apache.log4j.Logger;
 import webmanager.database.abstractions.User;
 
 import javax.servlet.jsp.JspException;
@@ -29,7 +29,8 @@ public class NavbarTag extends SimpleTagSupport {
                             currentUser.getPassword(),
                             contextPath));
         } catch (IOException e) {
-            Controller.logger.severe(e.getMessage());
+            Logger logger = Logger.getLogger(NavbarTag.class);
+            logger.error(e.getMessage());
             throw new SkipPageException(e);
         }
     }
